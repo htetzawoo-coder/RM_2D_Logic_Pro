@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RecordManager_2D_Logic_Pro v1.2.4</title>
+<title>RecordManager_2D_Logic_Pro v1.2.5</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
@@ -17,15 +17,29 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 .dark .tabs{background:#111827}
 .tabs button{border:0;border-radius:30px;padding:8px 12px;margin:2px;background:#fff;font-weight:700;box-shadow:0 2px 8px #0001}
 .tabs button.active{background:#2563eb;color:white}
-.keypad{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.keypad button{min-height:52px;font-weight:800;border-radius:12px}
-.enter{grid-column:span 4;min-height:64px!important;background:#10b981!important;color:#fff!important;font-size:22px}
+.entry-card{background:#eef1f4;padding:6px!important}
+.entry-fields{padding:8px 8px 2px}
+.keypad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.keypad button{min-height:62px;border:0;border-radius:14px;color:#fff;font-size:23px;font-weight:900;line-height:1.05;box-shadow:inset 0 2px 0 #ffffff59,0 6px 0 #0003;transition:transform .08s,box-shadow .08s}
+.keypad button:active{transform:translateY(4px);box-shadow:inset 0 2px 0 #ffffff35,0 2px 0 #0003}
+.key-dark{background:linear-gradient(#27364b,#172235)}
+.key-slate{background:linear-gradient(#5d708a,#34465f)}
+.key-blue{background:linear-gradient(#3169df,#2148a9)}
+.key-purple{background:linear-gradient(#7c35e7,#5220a8)}
+.key-orange{background:linear-gradient(#f6a000,#b65400)}
+.keypad small{font-size:12px;font-weight:700}
+.enter{grid-column:span 4;min-height:68px!important;background:linear-gradient(#19bf68,#078b49)!important;color:#fff!important;font-size:25px!important}
 .name-text{font-weight:900;color:#7c3aed}
 .nums{display:none;background:#eef5ff;border-radius:10px;padding:8px;margin-top:6px;font-size:12px}
-.limit-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;font-size:11px}
-.cell{background:#fff;border-radius:5px;text-align:center;padding:4px 1px}
-.dark .cell{background:#374151}
+.limit-board-wrap{overflow-x:auto;border:1px solid #777;background:#f4f4f4}
+.limit-grid{display:grid;grid-template-columns:repeat(10,minmax(92px,1fr));grid-template-rows:repeat(10,28px);grid-auto-flow:column;min-width:920px;font-size:15px}
+.cell{display:grid;grid-template-columns:42px 1fr;align-items:center;background:#f7f7f7;border-right:1px solid #888;border-bottom:1px solid #888;text-align:center;min-width:0}
+.cell-number{align-self:stretch;display:flex;align-items:center;justify-content:center;background:#8cff98;color:#000;font-size:20px;line-height:1;border-right:1px solid #888}
+.cell-amount{padding:0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111}
+.dark .cell{background:#374151}.dark .cell-amount{color:#fff}
+.dark .cell-number{color:#000}
 .hit{background:#dc2626!important;color:#fff!important;font-weight:900}
+.hit .cell-number,.hit .cell-amount{background:#dc2626!important;color:#fff!important}
 .neg{background:#fee2e2!important;color:#991b1b!important;font-weight:900}
 .pos{background:#dcfce7!important;color:#166534!important;font-weight:900}
 #imgBox{background:#fff;color:#111;max-width:560px;margin:auto;padding:18px;border:1px solid #ddd}
@@ -41,7 +55,7 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.2.4</span></span>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.2.5</span></span>
 <button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme</button>
 </div></nav>
 
@@ -74,16 +88,18 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 </div><div class="card p-3"><canvas id="chart"></canvas></div>
 </section>
 
-<section id="entry" class="page"><div class="card p-3">
+<section id="entry" class="page"><div class="card entry-card">
+<div class="entry-fields">
 <input id="rName" class="form-control mb-2" placeholder="Name">
 <input id="rCode" class="form-control mb-2" inputmode="none" placeholder="Number / Logic">
 <input id="rAmt" class="form-control mb-3" inputmode="none" placeholder="Amount">
+</div>
 <div class="keypad">
-<button onclick="key('1')">1</button><button onclick="key('2')">2</button><button onclick="key('3')">3</button><button onclick="del()">⌫</button>
-<button onclick="key('4')">4</button><button onclick="key('5')">5</button><button onclick="key('6')">6</button><button onclick="clr()">C</button>
-<button onclick="key('7')">7</button><button onclick="key('8')">8</button><button onclick="key('9')">9</button><button onclick="key('/')">/</button>
-<button onclick="key('*')">*</button><button onclick="key('0')">0</button><button onclick="key('+')">+<br><small>စုံ</small></button><button onclick="key('-')">-<br><small>မ</small></button>
-<button onclick="key('A')">A<br><small>ပါဝါ</small></button><button onclick="key('Z')">Z<br><small>နက္ခ</small></button><button onclick="key('B')">B<br><small>ညီကို</small></button><button onclick="key('//')">//<br><small>အပူး</small></button>
+<button class="key-dark" onclick="key('1')">1</button><button class="key-dark" onclick="key('2')">2</button><button class="key-dark" onclick="key('3')">3</button><button class="key-slate" onclick="del()">⌫</button>
+<button class="key-dark" onclick="key('4')">4</button><button class="key-dark" onclick="key('5')">5</button><button class="key-dark" onclick="key('6')">6</button><button class="key-slate" onclick="clr()">C</button>
+<button class="key-dark" onclick="key('7')">7</button><button class="key-dark" onclick="key('8')">8</button><button class="key-dark" onclick="key('9')">9</button><button class="key-blue" onclick="key('A')">A<br><small>ပါဝါ</small></button>
+<button class="key-purple" onclick="key('*')">*R</button><button class="key-dark" onclick="key('0')">0</button><button class="key-orange" onclick="key('+')">+<br><small>စုံ</small></button><button class="key-orange" onclick="key('-')">-<br><small>မ</small></button>
+<button class="key-blue" onclick="key('Z')">Z<br><small>နက္ခ</small></button><button class="key-blue" onclick="key('B')">B<br><small>ညီကို</small></button><button class="key-blue" onclick="key('//')">//<br><small>အပူး</small></button><button class="key-purple" onclick="key('*')">*အာ<br><small>အာပူး</small></button>
 <button class="enter btn" onclick="saveGroup()">ENTER ✓</button>
 </div></div></section>
 
@@ -96,7 +112,7 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 <input id="lim" class="form-control mb-2" inputmode="numeric" placeholder="Limit Amount">
 <button class="btn btn-primary w-100 mb-2" onclick="renderLimit(true)">Check</button>
 <div class="row g-2 mb-2"><div class="col-6"><div class="alert alert-primary">Total<br><b id="limTotal">0</b></div></div><div class="col-6"><div class="alert alert-danger">Over<br><b id="limCount">0</b></div></div></div>
-<div id="grid" class="limit-grid"></div>
+<div class="limit-board-wrap"><div id="grid" class="limit-grid"></div></div>
 <button class="btn btn-outline-danger w-100 mt-2" onclick="tab('over','tOver')">Limit ကျော် Table ကြည့်ရန်</button>
 <button class="btn btn-success w-100 mt-2" onclick="saveLimit()">Save Limit Table</button>
 <small>မူရင်းအရောင်းစာရင်း မပြောင်းပါ။ Limit အတွက် သီးသန့်နုတ်ထားသည့် စာရင်းသာ သိမ်းပါမည်။</small>
@@ -176,7 +192,7 @@ function tog(id){let e=document.getElementById(id);e.style.display=e.style.displ
 function sale(s=null){return records.filter(r=>!s||r.s===s).reduce((a,b)=>a+b.amt,0)}function renderDash(){dRec.innerText=records.length;dGrp.innerText=new Set(records.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
 function rawTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;records.forEach(r=>t[r.n]+=r.amt);return t}function expTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;exportsL.forEach(r=>t[r.n]+=r.amt);return t}function totals(){let r=rawTotals(),e=expTotals(),t={};Object.keys(r).forEach(n=>t[n]=Math.max(0,r[n]-e[n]));return t}
 function overItems(){let l=+lim.value,t=totals();return Object.keys(t).filter(n=>l>0&&t[n]>l).map(n=>({n,total:t[n],limit:l,over:t[n]-l}))}
-function renderLimit(alertIt){let t=totals(),l=+lim.value,total=Object.values(t).reduce((a,b)=>a+b,0),over=overItems();limTotal.innerText=total;limCount.innerText=over.length;grid.innerHTML='';for(let i=0;i<100;i++){let n=String(i).padStart(2,'0'),d=document.createElement('div');d.className='cell '+(l>0&&t[n]>l?'hit':'');d.innerHTML='<b>'+n+'</b><br>'+t[n];grid.appendChild(d)}if(alertIt&&over.length)alert('Over Limit')}
+function renderLimit(alertIt){let t=totals(),l=+lim.value,total=Object.values(t).reduce((a,b)=>a+b,0),over=overItems();limTotal.innerText=total;limCount.innerText=over.length;grid.innerHTML='';for(let col=0;col<10;col++)for(let row=0;row<10;row++){let n=String(col*10+row).padStart(2,'0'),d=document.createElement('div');d.className='cell '+(l>0&&t[n]>l?'hit':'');d.innerHTML='<span class="cell-number">'+n+'</span><span class="cell-amount">'+t[n]+'</span>';grid.appendChild(d)}if(alertIt&&over.length)alert('Over Limit')}
 function saveLimit(){let o=overItems();if(!o.length)return alert('No Over');if(!confirm('Limit စာရင်းအတွက်သာ သိမ်းမည်။ မူရင်းစာရင်း မပြောင်းပါ။'))return;o.forEach(x=>exportsL.push({n:x.n,amt:x.over,date:today(),s:sess()}));saveEx();renderLimit(false);renderOver()}
 function renderOver(){let o=overItems();overContent.innerHTML=o.length?'<table class="table table-sm"><tr><th>No</th><th>Total</th><th>Limit</th><th>Over</th></tr>'+o.map(x=>`<tr class="neg"><td>${x.n}</td><td>${x.total}</td><td>${x.limit}</td><td>${x.over}</td></tr>`).join('')+'</table>':'<div class="alert alert-success">No Over</div>'}
 function exportOver(){let o=overItems();if(!o.length)return alert('No Data');download('Number,Total,Limit,Over\n'+o.map(x=>`${x.n},${x.total},${x.limit},${x.over}`).join('\n'),'Limit_Over.csv','text/csv')}function saveOverImage(){drawText('Limit Over',overItems().map(x=>x.n+'='+x.over).join('\n'),'Limit_Over.png')}function shareOver(){share('Limit Over',overItems().map(x=>x.n+'='+x.over).join('\n'))}
@@ -194,7 +210,7 @@ function download(text,name,type){let b=new Blob([text],{type}),a=document.creat
 
 function applySettingsUI(){if(!setRate)return;setRate.value=rate();setCor.value=defCor();setAppName.value=settings.appName||'RecordManager_Pro';setOwner.value=settings.owner||'';setAmEnd.value=settings.amEnd||'12:00';setPmEnd.value=settings.pmEnd||'16:30';if(imgCor&&!imgCor.value)imgCor.value=defCor()}
 function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert('Settings သိမ်းပြီးပါပြီ');renderAll()}
-function backupJSON(){download(JSON.stringify({version:'1.2.4',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
+function backupJSON(){download(JSON.stringify({version:'1.2.5',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
 function restoreJSON(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);records=d.records||[];exportsL=d.exportsL||d.limitExports||[];settings=d.settings||settings;save();saveEx();saveSet();renderAll();applySettingsUI();alert('Restore ပြီးပါပြီ')}catch(err){alert('Backup file မမှန်ပါ')}};reader.readAsText(f)}
 function importOldData(){let keys=['RM_v123_records','RM_v122_records','RM_Pro_v122_records','RM_Pro_v121_records'];let imported=0;for(let k of keys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){records=old;imported=old.length;break}}let exKeys=['RM_v123_exports','RM_v122_exports','RM_Pro_v122_limit_exports'];for(let k of exKeys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){exportsL=old;break}}save();saveEx();renderAll();alert(imported?('Old data imported: '+imported):'Old data မတွေ့ပါ')}
 function clearTodayRecords(){if(!confirm('ဒီနေ့စာရင်းများကို ဖျက်မလား?'))return;let d=today();records=records.filter(r=>r.d!==d);save();renderAll()}
