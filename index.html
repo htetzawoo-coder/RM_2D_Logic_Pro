@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RecordManager_2D_Logic_Pro v1.2.5</title>
+<title>RecordManager_2D_Logic_Pro v1.2.6</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
@@ -28,7 +28,7 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 .key-purple{background:linear-gradient(#7c35e7,#5220a8)}
 .key-orange{background:linear-gradient(#f6a000,#b65400)}
 .keypad small{font-size:12px;font-weight:700}
-.enter{grid-column:span 4;min-height:68px!important;background:linear-gradient(#19bf68,#078b49)!important;color:#fff!important;font-size:25px!important}
+.enter{grid-column:span 3;min-height:68px!important;background:linear-gradient(#19bf68,#078b49)!important;color:#fff!important;font-size:25px!important}
 .name-text{font-weight:900;color:#7c3aed}
 .nums{display:none;background:#eef5ff;border-radius:10px;padding:8px;margin-top:6px;font-size:12px}
 .limit-board-wrap{overflow-x:auto;border:1px solid #777;background:#f4f4f4}
@@ -55,7 +55,7 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.2.5</span></span>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.2.6</span></span>
 <button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme</button>
 </div></nav>
 
@@ -100,6 +100,8 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 <button class="key-dark" onclick="key('7')">7</button><button class="key-dark" onclick="key('8')">8</button><button class="key-dark" onclick="key('9')">9</button><button class="key-blue" onclick="key('A')">A<br><small>ပါဝါ</small></button>
 <button class="key-purple" onclick="key('*')">*R</button><button class="key-dark" onclick="key('0')">0</button><button class="key-orange" onclick="key('+')">+<br><small>စုံ</small></button><button class="key-orange" onclick="key('-')">-<br><small>မ</small></button>
 <button class="key-blue" onclick="key('Z')">Z<br><small>နက္ခ</small></button><button class="key-blue" onclick="key('B')">B<br><small>ညီကို</small></button><button class="key-blue" onclick="key('//')">//<br><small>အပူး</small></button><button class="key-purple" onclick="key('*')">*အာ<br><small>အာပူး</small></button>
+<button class="key-purple" onclick="logicKey('apa')">*<br><small>အပါ</small></button><button class="key-purple" onclick="logicKey('reverse')">*<br><small>အပြန်</small></button><button class="key-purple" onclick="logicKey('khway')">*ခွေ<br><small>ခွေ</small></button><button class="key-orange" onclick="logicKey('rightSlash')">1/<br><small>နောက်ပိတ်</small></button>
+<button class="key-orange" onclick="logicKey('leftSlash')">/1<br><small>ရှေ့ပိတ်</small></button>
 <button class="enter btn" onclick="saveGroup()">ENTER ✓</button>
 </div></div></section>
 
@@ -179,6 +181,7 @@ const E=['0','2','4','6','8'],O=['1','3','5','7','9'];
 function login(){if(u.value==='admin'&&p.value==='1234'){loginPage.classList.remove('active');app.classList.add('active');renderAll()}else alert('Login Failed')}
 function tab(id,b){document.querySelectorAll('#app>section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(b).classList.add('active');renderAll();if(id==='limit')renderLimit(false);if(id==='over')renderOver();if(id==='img'){fillNames();renderImg()}if(id==='settings'){applySettingsUI()}}
 function key(v){rCode.value+=v;rCode.focus()}function del(){rCode.value=rCode.value.slice(0,-1)}function clr(){rCode.value=''}
+function logicKey(kind){let v=rCode.value.trim();if(kind==='apa'||kind==='reverse')rCode.value=v+'*';if(kind==='khway')rCode.value=v+'ခွေ';if(kind==='rightSlash')rCode.value=v+'/';if(kind==='leftSlash')rCode.value='/'+v;rCode.focus()}
 function today(){return new Date().toISOString().slice(0,10)}function time(){return new Date().toTimeString().slice(0,5)}function sess(){let h=new Date().getHours();return h<12?'AM':'PM'}
 function uniq(a){return [...new Set(a)]}function pair(a,b){let r=[];a.forEach(x=>b.forEach(y=>r.push(x+y)));return r}
 function apa(d){let r=[];for(let i=0;i<10;i++){r.push(d+i);r.push(i+d)}return uniq(r)}
@@ -210,7 +213,7 @@ function download(text,name,type){let b=new Blob([text],{type}),a=document.creat
 
 function applySettingsUI(){if(!setRate)return;setRate.value=rate();setCor.value=defCor();setAppName.value=settings.appName||'RecordManager_Pro';setOwner.value=settings.owner||'';setAmEnd.value=settings.amEnd||'12:00';setPmEnd.value=settings.pmEnd||'16:30';if(imgCor&&!imgCor.value)imgCor.value=defCor()}
 function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert('Settings သိမ်းပြီးပါပြီ');renderAll()}
-function backupJSON(){download(JSON.stringify({version:'1.2.5',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
+function backupJSON(){download(JSON.stringify({version:'1.2.6',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
 function restoreJSON(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);records=d.records||[];exportsL=d.exportsL||d.limitExports||[];settings=d.settings||settings;save();saveEx();saveSet();renderAll();applySettingsUI();alert('Restore ပြီးပါပြီ')}catch(err){alert('Backup file မမှန်ပါ')}};reader.readAsText(f)}
 function importOldData(){let keys=['RM_v123_records','RM_v122_records','RM_Pro_v122_records','RM_Pro_v121_records'];let imported=0;for(let k of keys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){records=old;imported=old.length;break}}let exKeys=['RM_v123_exports','RM_v122_exports','RM_Pro_v122_limit_exports'];for(let k of exKeys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){exportsL=old;break}}save();saveEx();renderAll();alert(imported?('Old data imported: '+imported):'Old data မတွေ့ပါ')}
 function clearTodayRecords(){if(!confirm('ဒီနေ့စာရင်းများကို ဖျက်မလား?'))return;let d=today();records=records.filter(r=>r.d!==d);save();renderAll()}
