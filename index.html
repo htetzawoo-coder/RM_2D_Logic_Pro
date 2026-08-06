@@ -3,9 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RM_2D_Logic_Pro v1.2.6</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>RM_2D_Logic_Pro v1.2.7</title>
+<meta name="theme-color" content="#2563eb">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link href="./vendor/bootstrap.min.css" rel="stylesheet">
+<script src="./vendor/chart.umd.js"></script>
 <style>
 body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans-serif}
 .dark{background:#111827;color:#f9fafb}
@@ -19,6 +23,7 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 .tabs button.active{background:#2563eb;color:white}
 .entry-card{background:#eef1f4;padding:6px!important}
 .entry-fields{padding:8px 8px 2px}
+.entry-target{border-color:#2563eb!important;box-shadow:0 0 0 .22rem #2563eb35!important}
 .keypad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
 .keypad button{min-height:62px;border:0;border-radius:14px;color:#fff;font-size:23px;font-weight:900;line-height:1.05;box-shadow:inset 0 2px 0 #ffffff59,0 6px 0 #0003;transition:transform .08s,box-shadow .08s}
 .keypad button:active{transform:translateY(4px);box-shadow:inset 0 2px 0 #ffffff35,0 2px 0 #0003}
@@ -55,7 +60,7 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.2.6</span></span>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.2.7</span></span>
 <button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme</button>
 </div></nav>
 
@@ -91,8 +96,8 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 <section id="entry" class="page"><div class="card entry-card">
 <div class="entry-fields">
 <input id="rName" class="form-control mb-2" placeholder="Name">
-<input id="rCode" class="form-control mb-2" inputmode="none" placeholder="Number / Logic">
-<input id="rAmt" class="form-control mb-3" inputmode="none" placeholder="Amount">
+<input id="rCode" class="form-control mb-2 entry-target" inputmode="none" placeholder="Number / Logic" onfocus="setEntryTarget('code')" onclick="setEntryTarget('code')">
+<input id="rAmt" class="form-control mb-3" inputmode="numeric" pattern="[0-9]*" placeholder="Amount" onfocus="setEntryTarget('amount')" onclick="setEntryTarget('amount')">
 </div>
 <div class="keypad">
 <button class="key-dark" onclick="key('1')">1</button><button class="key-dark" onclick="key('2')">2</button><button class="key-dark" onclick="key('3')">3</button><button class="key-slate" onclick="del()">⌫</button>
@@ -174,37 +179,41 @@ body{background:#f4f6fb;color:#111827;font-family:Arial,'Noto Sans Myanmar',sans
 <script>
 const DB='RM_v124_records', EX='RM_v124_exports', SET='RM_v124_settings';
 let settings=JSON.parse(localStorage.getItem(SET)||'{}');
-let records=JSON.parse(localStorage.getItem(DB)||'[]'), exportsL=JSON.parse(localStorage.getItem(EX)||'[]'), editId=null, chartObj=null;
+let records=JSON.parse(localStorage.getItem(DB)||'[]'), exportsL=JSON.parse(localStorage.getItem(EX)||'[]'), editId=null, chartObj=null, entryTarget='code';
 function rate(){return Number(settings.rate||80)}function defCor(){return Number(settings.cor||13)}function saveSet(){localStorage.setItem(SET,JSON.stringify(settings))}
 const MAP={A:['05','16','27','38','49','50','61','72','83','94'],Z:['07','18','24','35','69','70','81','42','53','96'],B:['12','23','34','45','56','21','32','43','54','65','67','78','89','90','01','76','87','98','09','10'],'//':['00','11','22','33','44','55','66','77','88','99']};
 const E=['0','2','4','6','8'],O=['1','3','5','7','9'];
 function login(){if(u.value==='admin'&&p.value==='1234'){loginPage.classList.remove('active');app.classList.add('active');renderAll()}else alert('Login Failed')}
 function tab(id,b){document.querySelectorAll('#app>section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(b).classList.add('active');renderAll();if(id==='limit')renderLimit(false);if(id==='over')renderOver();if(id==='img'){fillNames();renderImg()}if(id==='settings'){applySettingsUI()}}
-function key(v){rCode.value+=v;rCode.focus()}function del(){rCode.value=rCode.value.slice(0,-1)}function clr(){rCode.value=''}
-function logicKey(kind){let v=rCode.value.trim();if(kind==='apa'||kind==='reverse')rCode.value=v+'*';if(kind==='khway')rCode.value=v+'ခွေ';if(kind==='rightSlash')rCode.value=v+'/';if(kind==='leftSlash')rCode.value='/'+v;rCode.focus()}
+function setEntryTarget(target){entryTarget=target==='amount'?'amount':'code';rCode.classList.toggle('entry-target',entryTarget==='code');rAmt.classList.toggle('entry-target',entryTarget==='amount')}
+function activeEntry(){return entryTarget==='amount'?rAmt:rCode}
+function key(v){if(entryTarget==='amount'&&!/^\d$/.test(v))setEntryTarget('code');let el=activeEntry();el.value+=v;el.focus()}
+function del(){let el=activeEntry();el.value=el.value.slice(0,-1);el.focus()}
+function clr(){let el=activeEntry();el.value='';el.focus()}
+function logicKey(kind){setEntryTarget('code');let v=rCode.value.trim();if(kind==='apa'||kind==='reverse')rCode.value=v+'*';if(kind==='khway')rCode.value=v+'ခွေ';if(kind==='rightSlash')rCode.value=v+'/';if(kind==='leftSlash')rCode.value='/'+v;rCode.focus()}
 function today(){return new Date().toISOString().slice(0,10)}function time(){return new Date().toTimeString().slice(0,5)}function sess(){let h=new Date().getHours();return h<12?'AM':'PM'}
 function uniq(a){return [...new Set(a)]}function pair(a,b){let r=[];a.forEach(x=>b.forEach(y=>r.push(x+y)));return r}
 function apa(d){let r=[];for(let i=0;i<10;i++){r.push(d+i);r.push(i+d)}return uniq(r)}
 function khway(s){let r=[];for(let i=0;i<s.length;i++)for(let j=i+1;j<s.length;j++){r.push(s[i]+s[j]);r.push(s[j]+s[i])}return uniq(r)}
-function expand(c,amt){c=String(c).trim();if(MAP[c])return MAP[c].map(n=>({n,amt}));if(c==='ပါဝါ')return expand('A',amt);if(c==='နက္ခ')return expand('Z',amt);if(c==='ညီကို')return expand('B',amt);if(c==='အပူး')return expand('//',amt);if(c==='စုံ')c='+';if(c==='မ')c='-';if(c==='စုံစုံ')c='++';if(c==='မမ')c='--';if(c==='စုံမ')c='+-';if(c==='မစုံ')c='-+';if(c==='++')return pair(E,E).map(n=>({n,amt}));if(c==='--')return pair(O,O).map(n=>({n,amt}));if(c==='+-')return pair(E,O).map(n=>({n,amt}));if(c==='-+')return pair(O,E).map(n=>({n,amt}));let a=[];if(/^[1-9]\/$/.test(c)){for(let i=0;i<10;i++)a.push({n:c[0]+i,amt});return a}if(/^\/[1-9]$/.test(c)){for(let i=0;i<10;i++)a.push({n:i+c[1],amt});return a}if(/^[0-9]\*$/.test(c))return apa(c[0]).map(n=>({n,amt}));if(/^\d{2}\*$/.test(c)){let b=c.slice(0,2),rv=b[1]+b[0];return b===rv?[{n:b,amt:amt*2}]:[{n:b,amt},{n:rv,amt}]}if(/^\d{3,}\*$/.test(c))return khway(c.slice(0,-1)).map(n=>({n,amt}));if(/^\d{3,}ခွေ$/.test(c))return khway(c.replace('ခွေ','')).map(n=>({n,amt}));if(/^\*[0-9]{1,2}$/.test(c)){let t=+c.slice(1);for(let i=0;i<100;i++){let n=String(i).padStart(2,'0'),s=+n[0]+ +n[1];if(s===t||s===t-10)a.push({n,amt})}return a}if(/^\d{2}$/.test(c))return[{n:c,amt}];alert('Invalid Logic');return[]}
-function saveGroup(){let name=rName.value.trim(),c=rCode.value.trim(),amt=+rAmt.value;if(!name||!c||!amt){alert('Missing');return}let items=expand(c,amt);if(!items.length)return;if(editId)records=records.filter(x=>x.g!==editId);let g=editId||'G'+Date.now(),d=today(),tm=time(),s=sess();items.forEach(it=>records.push({id:Date.now()+Math.random(),g,d,tm,s,name,c,n:it.n,amt:it.amt}));editId=null;save();rCode.value='';rAmt.value='';rCode.focus();renderAll()}
+function expand(c,amt){c=String(c).trim();if(MAP[c])return MAP[c].map(n=>({n,amt}));if(c==='ပါဝါ')return expand('A',amt);if(c==='နက္ခ')return expand('Z',amt);if(c==='ညီကို')return expand('B',amt);if(c==='အပူး')return expand('//',amt);if(c==='စုံ')c='+';if(c==='မ')c='-';if(c==='စုံစုံ')c='++';if(c==='မမ')c='--';if(c==='စုံမ')c='+-';if(c==='မစုံ')c='-+';if(c==='++')return pair(E,E).map(n=>({n,amt}));if(c==='--')return pair(O,O).map(n=>({n,amt}));if(c==='+-')return pair(E,O).map(n=>({n,amt}));if(c==='-+')return pair(O,E).map(n=>({n,amt}));let a=[];if(/^[0-9]\/$/.test(c)){for(let i=0;i<10;i++)a.push({n:c[0]+i,amt});return a}if(/^\/[0-9]$/.test(c)){for(let i=0;i<10;i++)a.push({n:i+c[1],amt});return a}if(/^[0-9]\*$/.test(c))return apa(c[0]).map(n=>({n,amt}));if(/^\d{2}\*$/.test(c)){let b=c.slice(0,2),rv=b[1]+b[0];return b===rv?[{n:b,amt:amt*2}]:[{n:b,amt},{n:rv,amt}]}if(/^\d{3,}\*$/.test(c))return khway(c.slice(0,-1)).map(n=>({n,amt}));if(/^\d{3,}ခွေ$/.test(c))return khway(c.replace('ခွေ','')).map(n=>({n,amt}));if(/^\*[0-9]{1,2}$/.test(c)){let t=+c.slice(1);for(let i=0;i<100;i++){let n=String(i).padStart(2,'0'),s=+n[0]+ +n[1];if(s===t||s===t-10)a.push({n,amt})}return a}if(/^\d{2}$/.test(c))return[{n:c,amt}];alert('Invalid Logic');return[]}
+function saveGroup(){let name=rName.value.trim(),c=rCode.value.trim(),amt=+rAmt.value;if(!name){alert('Name ဖြည့်ပါ');rName.focus();return}if(!c){alert('Number / Logic ဖြည့်ပါ');setEntryTarget('code');rCode.focus();return}if(!Number.isFinite(amt)||amt<=0){alert('Amount ကို 0 ထက်ကြီးသော ဂဏန်းဖြည့်ပါ');setEntryTarget('amount');rAmt.focus();return}let items=expand(c,amt);if(!items.length)return;if(editId)records=records.filter(x=>x.g!==editId);let g=editId||'G'+Date.now(),d=today(),tm=time(),s=sess();items.forEach(it=>records.push({id:Date.now()+Math.random(),g,d,tm,s,name,c,n:it.n,amt:it.amt}));editId=null;save();rCode.value='';rAmt.value='';setEntryTarget('code');rCode.focus();renderAll()}
 function save(){localStorage.setItem(DB,JSON.stringify(records))}function saveEx(){localStorage.setItem(EX,JSON.stringify(exportsL))}
 function groups(){let m={};records.forEach(r=>{if(!m[r.g])m[r.g]={g:r.g,s:r.s,name:r.name,c:r.c,amt:r.amt,nums:[]};m[r.g].nums.push(r.n+'='+r.amt)});return Object.values(m)}
 function renderRecords(){let q=(search.value||'').toLowerCase();recBody.innerHTML='';groups().filter(g=>g.name.toLowerCase().includes(q)||g.c.toLowerCase().includes(q)||g.nums.join(' ').includes(q)).forEach(g=>{let id='n'+g.g;recBody.innerHTML+=`<tr><td>${g.s}</td><td class="name-text">${g.name}</td><td><b>${g.c}</b> <button class="btn btn-sm btn-outline-primary" onclick="tog('${id}')">ON/OFF</button><div id="${id}" class="nums">${g.nums.join(', ')}</div></td><td>${g.amt}</td><td><button class="btn btn-sm btn-warning" onclick="edit('${g.g}')">E</button> <button class="btn btn-sm btn-danger" onclick="delg('${g.g}')">D</button></td></tr>`})}
 function tog(id){let e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block'}function edit(g){let r=records.find(x=>x.g===g);editId=g;rName.value=r.name;rCode.value=r.c;rAmt.value=r.amt;tab('entry','tEntry')}function delg(g){if(confirm('Delete?')){records=records.filter(x=>x.g!==g);save();renderAll()}}
-function sale(s=null){return records.filter(r=>!s||r.s===s).reduce((a,b)=>a+b.amt,0)}function renderDash(){dRec.innerText=records.length;dGrp.innerText=new Set(records.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
+function sale(s=null){return records.filter(r=>!s||r.s===s).reduce((a,b)=>a+b.amt,0)}function renderDash(){dRec.innerText=records.length;dGrp.innerText=new Set(records.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(typeof Chart==='undefined')return;if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
 function rawTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;records.forEach(r=>t[r.n]+=r.amt);return t}function expTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;exportsL.forEach(r=>t[r.n]+=r.amt);return t}function totals(){let r=rawTotals(),e=expTotals(),t={};Object.keys(r).forEach(n=>t[n]=Math.max(0,r[n]-e[n]));return t}
 function overItems(){let l=+lim.value,t=totals();return Object.keys(t).filter(n=>l>0&&t[n]>l).map(n=>({n,total:t[n],limit:l,over:t[n]-l}))}
 function renderLimit(alertIt){let t=totals(),l=+lim.value,total=Object.values(t).reduce((a,b)=>a+b,0),over=overItems();limTotal.innerText=total;limCount.innerText=over.length;grid.innerHTML='';for(let col=0;col<10;col++)for(let row=0;row<10;row++){let n=String(col*10+row).padStart(2,'0'),d=document.createElement('div');d.className='cell '+(l>0&&t[n]>l?'hit':'');d.innerHTML='<span class="cell-number">'+n+'</span><span class="cell-amount">'+t[n]+'</span>';grid.appendChild(d)}if(alertIt&&over.length)alert('Over Limit')}
 function saveLimit(){let o=overItems();if(!o.length)return alert('No Over');if(!confirm('Limit စာရင်းအတွက်သာ သိမ်းမည်။ မူရင်းစာရင်း မပြောင်းပါ။'))return;o.forEach(x=>exportsL.push({n:x.n,amt:x.over,date:today(),s:sess()}));saveEx();renderLimit(false);renderOver()}
 function renderOver(){let o=overItems();overContent.innerHTML=o.length?'<table class="table table-sm"><tr><th>No</th><th>Total</th><th>Limit</th><th>Over</th></tr>'+o.map(x=>`<tr class="neg"><td>${x.n}</td><td>${x.total}</td><td>${x.limit}</td><td>${x.over}</td></tr>`).join('')+'</table>':'<div class="alert alert-success">No Over</div>'}
 function exportOver(){let o=overItems();if(!o.length)return alert('No Data');download('Number,Total,Limit,Over\n'+o.map(x=>`${x.n},${x.total},${x.limit},${x.over}`).join('\n'),'Limit_Over.csv','text/csv')}function saveOverImage(){drawText('Limit Over',overItems().map(x=>x.n+'='+x.over).join('\n'),'Limit_Over.png')}function shareOver(){share('Limit Over',overItems().map(x=>x.n+'='+x.over).join('\n'))}
-function settleData(s,pn){let m={};records.filter(r=>r.s===s).forEach(r=>{if(!m[r.name])m[r.name]={name:r.name,total:0,pAmt:0,pay:0,net:0};m[r.name].total+=r.amt;if(r.n===pn)m[r.name].pAmt+=r.amt});Object.values(m).forEach(x=>{x.pay=x.pAmt*80;x.net=x.total-x.pay});return Object.values(m)}
+function settleData(s,pn){let m={};records.filter(r=>r.s===s).forEach(r=>{if(!m[r.name])m[r.name]={name:r.name,total:0,pAmt:0,pay:0,net:0};m[r.name].total+=r.amt;if(r.n===pn)m[r.name].pAmt+=r.amt});Object.values(m).forEach(x=>{x.pay=x.pAmt*rate();x.net=x.total-x.pay});return Object.values(m)}
 function settle(s){let pn=s==='AM'?amP.value:pmP.value,out=s==='AM'?amOut:pmOut;if(!/^\d{2}$/.test(pn))return alert('P Number');let d=settleData(s,pn);out.innerHTML=tableReport(d)}
 function tableReport(d){return '<table class="table table-sm"><tr><th>Name</th><th>Bet</th><th>Payout</th><th>Net</th></tr>'+d.map(x=>`<tr class="${x.net<0?'neg':'pos'}"><td>${x.name}</td><td>${x.total}</td><td>${x.pay}</td><td>${x.net}</td></tr>`).join('')+'</table>'}
 function dailyReport(){let a=settleData('AM',dAmP.value),p=settleData('PM',dPmP.value),m={};[...a,...p].forEach(x=>{if(!m[x.name])m[x.name]={name:x.name,total:0,pay:0,net:0};m[x.name].total+=x.total;m[x.name].pay+=x.pay;m[x.name].net=m[x.name].total-m[x.name].pay});dailyOut.innerHTML=tableReport(Object.values(m))}
 function fillNames(){let names=[...new Set(records.map(r=>r.name))].sort(),cur=imgName.value;imgName.innerHTML=names.map(n=>`<option>${n}</option>`).join('')||'<option>No Name</option>';if(names.includes(cur))imgName.value=cur}
-function cust(name,s,pn,cor){let rs=records.filter(r=>r.name===name&&r.s===s),total=rs.reduce((a,b)=>a+b.amt,0),pAmt=/^\d{2}$/.test(pn)?rs.filter(r=>r.n===pn).reduce((a,b)=>a+b.amt,0):0,pay=pAmt*80,c=Math.round(total*cor/100),res=total-pay-c;return{total,pay,c,res}}
+function cust(name,s,pn,cor){let rs=records.filter(r=>r.name===name&&r.s===s),total=rs.reduce((a,b)=>a+b.amt,0),pAmt=/^\d{2}$/.test(pn)?rs.filter(r=>r.n===pn).reduce((a,b)=>a+b.amt,0):0,pay=pAmt*rate(),c=Math.round(total*cor/100),res=total-pay-c;return{total,pay,c,res}}
 function renderImg(){let name=imgName.value||'Name',cor=+imgCor.value||defCor(),am=cust(name,'AM',imgAM.value,cor),pm=cust(name,'PM',imgPM.value,cor);imgTitle.innerText=name;corBadge.innerText=cor;amTot.innerText=am.total;amPay.innerText=am.pay;amCor.innerText=am.c;amRes.innerText=am.res;pmTot.innerText=pm.total;pmPay.innerText=pm.pay;pmCor.innerText=pm.c;pmRes.innerText=pm.res;dt.innerText=am.total+pm.total;dp.innerText=am.pay+pm.pay;dc.innerText=am.c+pm.c;dr.innerText=am.res+pm.res}
 function saveCustomerImage(){renderImg();drawCustomer('Customer_'+(imgName.value||'Name')+'.png')}function shareCustomer(){renderImg();share('Customer Report',`${imgName.value}\nT=${dt.innerText}\nP=${dp.innerText}\nC=${dc.innerText}\nR=${dr.innerText}`)}
 function drawCustomer(fn){let c=document.createElement('canvas'),x=c.getContext('2d');c.width=720;c.height=1040;x.fillStyle='#fff';x.fillRect(0,0,720,1040);x.textAlign='center';x.fillStyle='#111';x.font='bold 58px Arial';x.fillText(imgTitle.innerText,360,80);x.strokeStyle='#22d3ee';x.lineWidth=4;x.strokeRect(570,42,100,60);x.fillStyle='#06b6d4';x.font='bold 34px Arial';x.fillText(corBadge.innerText+'%',620,82);x.fillStyle='#7c3aed';x.font='bold 44px Arial';x.fillText('Am',200,150);x.fillText('Pm',520,150);x.textAlign='left';let y=220;function lab(px,t,v){x.fillStyle='#ef4444';x.font='bold 24px Arial';x.fillText(t,px,y);x.fillStyle='#111';x.fillText(v,px,y+32)}lab(80,'Total Amount',amTot.innerText);lab(420,'Total Amount',pmTot.innerText);y+=100;lab(80,'P Total',amPay.innerText);lab(420,'P Total',pmPay.innerText);y+=100;lab(80,'Cor',amCor.innerText);lab(420,'Cor',pmCor.innerText);y+=100;lab(80,'Result',amRes.innerText);lab(420,'Result',pmRes.innerText);x.textAlign='center';x.fillStyle='#111';x.font='bold 46px Arial';x.fillText('Daily Total',360,620);x.strokeStyle='#67e8f9';x.strokeRect(130,650,460,250);x.textAlign='left';x.fillStyle='#65a30d';x.font='bold 42px Arial';x.fillText('T. '+dt.innerText,170,710);x.fillText('P. '+dp.innerText,170,765);x.fillText('C. '+dc.innerText,170,820);x.fillText('R. '+dr.innerText,170,875);let a=document.createElement('a');a.href=c.toDataURL('image/png');a.download=fn;a.click()}
@@ -213,14 +222,14 @@ function download(text,name,type){let b=new Blob([text],{type}),a=document.creat
 
 function applySettingsUI(){if(!setRate)return;setRate.value=rate();setCor.value=defCor();setAppName.value=settings.appName||'RecordManager_Pro';setOwner.value=settings.owner||'';setAmEnd.value=settings.amEnd||'12:00';setPmEnd.value=settings.pmEnd||'16:30';if(imgCor&&!imgCor.value)imgCor.value=defCor()}
 function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert('Settings သိမ်းပြီးပါပြီ');renderAll()}
-function backupJSON(){download(JSON.stringify({version:'1.2.6',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
+function backupJSON(){download(JSON.stringify({version:'1.2.7',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
 function restoreJSON(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);records=d.records||[];exportsL=d.exportsL||d.limitExports||[];settings=d.settings||settings;save();saveEx();saveSet();renderAll();applySettingsUI();alert('Restore ပြီးပါပြီ')}catch(err){alert('Backup file မမှန်ပါ')}};reader.readAsText(f)}
 function importOldData(){let keys=['RM_v123_records','RM_v122_records','RM_Pro_v122_records','RM_Pro_v121_records'];let imported=0;for(let k of keys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){records=old;imported=old.length;break}}let exKeys=['RM_v123_exports','RM_v122_exports','RM_Pro_v122_limit_exports'];for(let k of exKeys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){exportsL=old;break}}save();saveEx();renderAll();alert(imported?('Old data imported: '+imported):'Old data မတွေ့ပါ')}
 function clearTodayRecords(){if(!confirm('ဒီနေ့စာရင်းများကို ဖျက်မလား?'))return;let d=today();records=records.filter(r=>r.d!==d);save();renderAll()}
 function clearLimitExports(){if(!confirm('Limit Export Records ဖျက်မလား?'))return;exportsL=[];saveEx();renderAll();renderLimit(false);renderOver()}
 function clearAllRecords(){if(!confirm('စာရင်းအားလုံး ဖျက်မလား?'))return;records=[];exportsL=[];save();saveEx();renderAll()}
 function renderAll(){renderDash();renderRecords();fillNames()}
-document.addEventListener('DOMContentLoaded',()=>{applySettingsUI();renderAll();u.addEventListener('keydown',e=>{if(e.key==='Enter')p.focus()});p.addEventListener('keydown',e=>{if(e.key==='Enter')login()})});
+document.addEventListener('DOMContentLoaded',()=>{applySettingsUI();setEntryTarget('code');renderAll();u.addEventListener('keydown',e=>{if(e.key==='Enter')p.focus()});p.addEventListener('keydown',e=>{if(e.key==='Enter')login()});if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{})});
 </script>
 </body>
 </html>
