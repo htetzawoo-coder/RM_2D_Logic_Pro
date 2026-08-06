@@ -1,7 +1,7 @@
 {
-  "name": "RecordManager 2D Logic Pro",
+  "name": "RM 2D Logic Pro",
   "short_name": "RM 2D",
-  "description": "RecordManager 2D Logic Pro offline record, chart and report app",
+  "description": "RM 2D Logic Pro offline record, chart and report app",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
