@@ -1,13 +1,13 @@
 {
-  "name": "RM 2D Logic Pro",
+  "name": "RecordManager 2D Logic Pro",
   "short_name": "RM 2D",
-  "description": "RM 2D Logic Pro offline record, chart and report app",
+  "description": "RecordManager 2D Logic Pro offline record, chart and report app",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f4f6fb",
-  "theme_color": "#2563eb",
+  "background_color": "#f7f3ff",
+  "theme_color": "#5b21b6",
   "icons": [
     {
       "src": "icon-144x144.png",
