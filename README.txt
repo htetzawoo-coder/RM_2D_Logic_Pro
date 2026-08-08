@@ -1,6 +1,6 @@
-RM 2D Logic Pro v1.3.5 — Mobile One-Screen Entry PWA
+RM 2D Logic Pro v1.3.6 — Mobile Entry 50/50 Split PWA
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
 
-Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. After deployment, refresh once so the v1.3.5 service worker replaces older cached versions.
+Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. After deployment, refresh once so the v1.3.6 service worker replaces older cached versions.
