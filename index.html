@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RM_2D_Logic_Pro v1.3.3</title>
+<title>RM_2D_Logic_Pro v1.3.4</title>
 <meta name="theme-color" content="#5b21b6">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -41,6 +41,11 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 .key-delete{background:linear-gradient(#ef4444,#a70e18)}
 .key-clear{background:linear-gradient(#fbbf24,#d97706)}
 .keypad small{display:inline-block;margin-top:5px;font-size:16px;font-weight:900;line-height:1.25}
+.formula-title{margin:16px 8px 7px;color:var(--purple-800);font-size:15px;font-weight:900}.dark .formula-title{color:var(--gold-400)}
+.formula-pad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;padding:0 7px}
+.formula-pad button{min-height:48px;border:1px solid #d8c4ff;border-radius:11px;background:linear-gradient(145deg,#fff,#eee7ff);color:var(--purple-950);font-size:16px;font-weight:900;box-shadow:0 3px 8px #4c1d9515}
+.formula-pad button:active{transform:translateY(2px)}.formula-pad small{display:block;margin-top:2px;font-size:12px;font-weight:900}
+.dark .formula-pad button{background:linear-gradient(145deg,#3c2168,#25113f);color:#fff8dc;border-color:#6d28d9}
 .enter{grid-column:span 3;min-height:68px!important;background:linear-gradient(135deg,#22c55e,#07883f)!important;color:#fff!important;font-size:25px!important;border:2px solid #86efac!important}
 .last-entry-card{margin:14px 7px 7px;padding:12px 14px;border:2px solid var(--gold-400);border-radius:13px;background:linear-gradient(135deg,#fffdf5,#f1eaff);box-shadow:0 5px 14px #4c1d9515}
 .dark .last-entry-card{background:linear-gradient(135deg,#24123e,#3a205d)}
@@ -85,7 +90,7 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.3.3</span></span>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.3.4</span></span>
 <button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme</button>
 </div></nav>
 
@@ -129,10 +134,16 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 <button class="key-dark" onclick="key('4')">4</button><button class="key-dark" onclick="key('5')">5</button><button class="key-dark" onclick="key('6')">6</button><button class="key-clear" onclick="clr()">C</button>
 <button class="key-dark" onclick="key('7')">7</button><button class="key-dark" onclick="key('8')">8</button><button class="key-dark" onclick="key('9')">9</button><button class="key-blue" onclick="key('A')">A<br><small>ပါဝါ</small></button>
 <button class="key-purple" onclick="key('*')">*R</button><button class="key-dark" onclick="key('0')">0</button><button class="key-orange" onclick="key('+')">+<br><small>စုံ</small></button><button class="key-orange" onclick="key('-')">-<br><small>မ</small></button>
-<button class="key-blue" onclick="key('Z')">Z<br><small>နက္ခ</small></button><button class="key-blue" onclick="key('B')">B<br><small>ညီကို</small></button><button class="key-blue" onclick="key('//')">//<br><small>အပူး</small></button><button class="key-purple" onclick="key('*')">BREAK<br><small>ဘရိတ်</small></button>
+<button class="key-blue" onclick="key('Z')">Z<br><small>နက္ခ</small></button><button class="key-blue" onclick="key('B')">B<br><small>ညီကို</small></button><button class="key-blue" onclick="key('//')">//<br><small>အပူး</small></button><button class="key-purple" onclick="logicKey('break')">BREAK<br><small>ဘရိတ်</small></button>
 <button class="key-purple" onclick="logicKey('apa')">*<br><small>အပါ</small></button><button class="key-purple" onclick="logicKey('reverse')">*<br><small>အပြန်</small></button><button class="key-purple" onclick="logicKey('khway')">*ခွေ<br><small>ခွေ</small></button><button class="key-orange" onclick="logicKey('rightSlash')">1/<br><small>ထိပ်</small></button>
 <button class="key-orange" onclick="logicKey('leftSlash')">/1<br><small>နောက်</small></button>
 <button class="enter btn" onclick="saveGroup()">ENTER ✓</button>
+</div>
+<div class="formula-title">FORMULA SHORTCUTS</div>
+<div class="formula-pad">
+<button onclick="formulaKey('++')">++<small>စုံစုံ</small></button><button onclick="formulaKey('--')">--<small>မမ</small></button><button onclick="formulaKey('+-')">+-<small>စုံမ</small></button><button onclick="formulaKey('-+')">-+<small>မစုံ</small></button>
+<button onclick="formulaKey('+/')">+/<small>စုံထိပ်</small></button><button onclick="formulaKey('-/')">-/<small>မထိပ်</small></button><button onclick="formulaKey('/+')">/+<small>စုံနောက်</small></button><button onclick="formulaKey('/-')">/-<small>မနောက်</small></button>
+<button onclick="formulaKey('matrix')">**<small>အာပူး</small></button><button onclick="formulaKey('//---')">//---<small>စုံပူး</small></button><button onclick="formulaKey('//-++')">//-++<small>မပူး</small></button><button onclick="formulaKey('//-')">//-<small>ပူးဖယ်</small></button>
 </div>
 <div id="lastEntry" class="last-entry-card" hidden></div>
 </div></section>
@@ -222,12 +233,28 @@ function activeEntry(){return entryTarget==='amount'?rAmt:rCode}
 function key(v){if(entryTarget==='amount'&&!/^\d$/.test(v))setEntryTarget('code');let el=activeEntry();el.value+=v;el.focus()}
 function del(){let el=activeEntry();el.value=el.value.slice(0,-1);el.focus()}
 function clr(){let el=activeEntry();el.value='';el.focus()}
-function logicKey(kind){setEntryTarget('code');let v=rCode.value.trim();if(kind==='apa'||kind==='reverse')rCode.value=v+'*';if(kind==='khway')rCode.value=v+'ခွေ';if(kind==='rightSlash')rCode.value=v+'/';if(kind==='leftSlash')rCode.value='/'+v;rCode.focus()}
+function logicKey(kind){setEntryTarget('code');let v=rCode.value.trim();if(kind==='break')rCode.value='*'+v.replace(/^\*/, '');if(kind==='apa'||kind==='reverse')rCode.value=v.replace(/\*+$/,'')+'*';if(kind==='khway')rCode.value=v.replace(/ခွေ$/,'')+'ခွေ';if(kind==='rightSlash')rCode.value=v.replace(/\/$/,'')+'/';if(kind==='leftSlash')rCode.value='/'+v.replace(/^\//,'');rCode.focus()}
+function formulaKey(code){setEntryTarget('code');if(code==='matrix')rCode.value=rCode.value.trim().replace(/\*+$/,'')+'**';else rCode.value=code;rCode.focus()}
 function today(){return new Date().toISOString().slice(0,10)}function time(){return new Date().toTimeString().slice(0,5)}function sess(){let h=new Date().getHours();return h<12?'AM':'PM'}
 function uniq(a){return [...new Set(a)]}function pair(a,b){let r=[];a.forEach(x=>b.forEach(y=>r.push(x+y)));return r}
 function apa(d){let r=[];for(let i=0;i<10;i++){r.push(d+i);r.push(i+d)}return uniq(r)}
 function khway(s){let r=[];for(let i=0;i<s.length;i++)for(let j=i+1;j<s.length;j++){r.push(s[i]+s[j]);r.push(s[j]+s[i])}return uniq(r)}
-function expand(c,amt){c=String(c).trim();if(MAP[c])return MAP[c].map(n=>({n,amt}));if(c==='ပါဝါ')return expand('A',amt);if(c==='နက္ခ')return expand('Z',amt);if(c==='ညီကို')return expand('B',amt);if(c==='အပူး')return expand('//',amt);if(c==='စုံ')c='+';if(c==='မ')c='-';if(c==='စုံစုံ')c='++';if(c==='မမ')c='--';if(c==='စုံမ')c='+-';if(c==='မစုံ')c='-+';if(c==='++')return pair(E,E).map(n=>({n,amt}));if(c==='--')return pair(O,O).map(n=>({n,amt}));if(c==='+-')return pair(E,O).map(n=>({n,amt}));if(c==='-+')return pair(O,E).map(n=>({n,amt}));let a=[];if(/^[0-9]\/$/.test(c)){for(let i=0;i<10;i++)a.push({n:c[0]+i,amt});return a}if(/^\/[0-9]$/.test(c)){for(let i=0;i<10;i++)a.push({n:i+c[1],amt});return a}if(/^[0-9]\*$/.test(c))return apa(c[0]).map(n=>({n,amt}));if(/^\d{2}\*$/.test(c)){let b=c.slice(0,2),rv=b[1]+b[0];return b===rv?[{n:b,amt:amt*2}]:[{n:b,amt},{n:rv,amt}]}if(/^\d{3,}\*$/.test(c))return khway(c.slice(0,-1)).map(n=>({n,amt}));if(/^\d{3,}ခွေ$/.test(c))return khway(c.replace('ခွေ','')).map(n=>({n,amt}));if(/^\*[0-9]{1,2}$/.test(c)){let t=+c.slice(1);for(let i=0;i<100;i++){let n=String(i).padStart(2,'0'),s=+n[0]+ +n[1];if(s===t||s===t-10)a.push({n,amt})}return a}if(/^\d{2}$/.test(c))return[{n:c,amt}];alert('Invalid Logic');return[]}
+function expand(c,amt){
+c=String(c).trim();if(MAP[c])return MAP[c].map(n=>({n,amt}));
+if(c==='ပါဝါ')return expand('A',amt);if(c==='နက္ခ')return expand('Z',amt);if(c==='ညီကို')return expand('B',amt);if(c==='အပူး')return expand('//',amt);
+if(c==='စုံစုံ')c='++';if(c==='မမ')c='--';if(c==='စုံမ')c='+-';if(c==='မစုံ')c='-+';
+if(c==='++')return pair(E,E).map(n=>({n,amt}));if(c==='--')return pair(O,O).map(n=>({n,amt}));if(c==='+-')return pair(E,O).map(n=>({n,amt}));if(c==='-+')return pair(O,E).map(n=>({n,amt}));
+if(c==='//---')return E.map(d=>({n:d+d,amt}));if(c==='//-++')return O.map(d=>({n:d+d,amt}));
+if(c==='-/')return pair(O,['0','1','2','3','4','5','6','7','8','9']).map(n=>({n,amt}));if(c==='+/')return pair(E,['0','1','2','3','4','5','6','7','8','9']).map(n=>({n,amt}));
+if(c==='/-')return pair(['0','1','2','3','4','5','6','7','8','9'],O).map(n=>({n,amt}));if(c==='/+')return pair(['0','1','2','3','4','5','6','7','8','9'],E).map(n=>({n,amt}));
+let fixed=c.match(/^([+-])([0-9])$/);if(fixed){let ds=fixed[1]==='+'?E:O;return ds.map(d=>({n:d+fixed[2],amt}))}fixed=c.match(/^([0-9])([+-])$/);if(fixed){let ds=fixed[2]==='+'?E:O;return ds.map(d=>({n:fixed[1]+d,amt}))}
+let matrix=c.match(/^([0-9]{2,})\*\*$/);if(matrix)return uniq(pair([...matrix[1]],[...matrix[1]])).map(n=>({n,amt}));
+let exclude=c.match(/^\/\/-([0-9]{2,})$/);if(exclude&&exclude[1].length%2===0){let removed=new Set(exclude[1].match(/.{2}/g)||[]);return MAP['//'].filter(n=>!removed.has(n)).map(n=>({n,amt}))}
+let a=[];if(/^[0-9]\/$/.test(c)){for(let i=0;i<10;i++)a.push({n:c[0]+i,amt});return a}if(/^\/[0-9]$/.test(c)){for(let i=0;i<10;i++)a.push({n:i+c[1],amt});return a}
+if(/^[0-9]\*$/.test(c))return apa(c[0]).map(n=>({n,amt}));if(/^\d{2}\*$/.test(c)){let b=c.slice(0,2),rv=b[1]+b[0];return b===rv?[{n:b,amt:amt*2}]:[{n:b,amt},{n:rv,amt}]}
+if(/^\d{3,}\*$/.test(c))return khway(c.slice(0,-1)).map(n=>({n,amt}));if(/^\d{3,}ခွေ$/.test(c))return khway(c.replace('ခွေ','')).map(n=>({n,amt}));
+if(/^\*[0-9]{1,2}$/.test(c)){let t=+c.slice(1);for(let i=0;i<100;i++){let n=String(i).padStart(2,'0'),s=+n[0]+ +n[1];if(s===t||s===t-10)a.push({n,amt})}return a}
+if(/^\d{2}$/.test(c))return[{n:c,amt}];alert('Invalid Logic');return[]}
 function saveGroup(){let name=rName.value.trim(),c=rCode.value.trim(),amt=+rAmt.value;if(!name){rName.focus();return}if(!c){setEntryTarget('code');rCode.focus();return}if(!Number.isFinite(amt)||amt<=0){alert('Amount ကို ဖြည့်ပြီးမှ ENTER နှိပ်ပါ');setEntryTarget('amount');rAmt.focus();return}let items=expand(c,amt);if(!items.length)return;if(editId)records=records.filter(x=>x.g!==editId);let g=editId||'G'+Date.now(),d=today(),tm=time(),s=sess();items.forEach(it=>records.push({id:Date.now()+Math.random(),g,d,tm,s,name,c,n:it.n,amt:it.amt,inputAmt:amt}));editId=null;save();rCode.value='';rAmt.value='';setEntryTarget('code');rCode.focus();renderAll()}
 function save(){localStorage.setItem(DB,JSON.stringify(records))}function saveEx(){localStorage.setItem(EX,JSON.stringify(exportsL))}
 function groups(){let m={};records.forEach(r=>{if(!m[r.g])m[r.g]={g:r.g,s:r.s,name:r.name,c:r.c,amt:r.inputAmt??r.amt,tm:r.tm,d:r.d,nums:[]};m[r.g].nums.push(r.n+'='+r.amt)});return Object.values(m)}
@@ -257,7 +284,7 @@ function download(text,name,type){let b=new Blob([text],{type}),a=document.creat
 
 function applySettingsUI(){if(!setRate)return;setRate.value=rate();setCor.value=defCor();setAppName.value=settings.appName||'RecordManager_Pro';setOwner.value=settings.owner||'';setAmEnd.value=settings.amEnd||'12:00';setPmEnd.value=settings.pmEnd||'16:30';if(imgCor&&!imgCor.value)imgCor.value=defCor()}
 function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert('Settings သိမ်းပြီးပါပြီ');renderAll()}
-function backupJSON(){download(JSON.stringify({version:'1.3.3',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
+function backupJSON(){download(JSON.stringify({version:'1.3.4',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
 function restoreJSON(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);records=d.records||[];exportsL=d.exportsL||d.limitExports||[];settings=d.settings||settings;save();saveEx();saveSet();renderAll();applySettingsUI();alert('Restore ပြီးပါပြီ')}catch(err){alert('Backup file မမှန်ပါ')}};reader.readAsText(f)}
 function importOldData(){let keys=['RM_v123_records','RM_v122_records','RM_Pro_v122_records','RM_Pro_v121_records'];let imported=0;for(let k of keys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){records=old;imported=old.length;break}}let exKeys=['RM_v123_exports','RM_v122_exports','RM_Pro_v122_limit_exports'];for(let k of exKeys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){exportsL=old;break}}save();saveEx();renderAll();alert(imported?('Old data imported: '+imported):'Old data မတွေ့ပါ')}
 function clearTodayRecords(){if(!confirm('ဒီနေ့စာရင်းများကို ဖျက်မလား?'))return;let d=today();records=records.filter(r=>r.d!==d);save();renderAll()}
