@@ -1,15 +1,17 @@
-RM 2D Logic Pro v1.4.0 — Pair R + Risk Limit + Buy Back PWA
+RM 2D Logic Pro v1.4.1 — Bilingual UI + Deduction Board + Corrected Risk Formula PWA
 
-Changes in v1.4.0:
-- Number Entry R = original numbers + reverse numbers. Double/palindrome numbers count twice (example 11 at 500 => 11 = 1000).
-- Number Entry direct = original numbers only. If R/direct is selected at Number Entry, Amount Entry does not ask for R/direct again.
-- Records detail aggregates the same number into one line (example 11 = 1000).
-- Limit Page adds two-way Maximum Loss <-> Limit Amount auto formula plus Session Total, Highest Number Amount, Current Balance and Projected Balance.
-- Balance formula: Session Total - (Highest Number Amount x Payout Rate).
-- Over Page displays only Number and Over Amount.
-- Over Manual Buy Back Entry: Name + Number + Amount; saved amount is SUBTRACTED from the Limit Board.
+Changes in v1.4.1:
+- Page tabs and key labels/tags use English + Myanmar together.
+- Limit Board shows deductions in brackets. Example: net 394 with 300 deducted displays 394 and (-300).
+- Manual Buy Back can deduct past zero; negative net values display in accounting-style brackets instead of being blocked/clamped to zero.
+- Over Manual Buy Back Entry remains Name + Number + Amount and subtracts from the selected Date/Session Limit Board.
+- Projected Balance formula corrected to: Session Total - (Limit Amount x Payout Rate) - Over Numbers Amount Total.
+- Limit risk panel now shows Over Amount Total.
+- Maximum Loss <-> Limit Amount auto calculation was adjusted to include Over Amount Total.
 
-Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
-Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
+Retained from v1.4.0:
+- Number Entry R = original + reverse; palindrome/double counts twice (11 at 500 => 11 = 1000).
+- Number Entry direct = original only; Amount Entry does not repeat R/direct after Number Entry choice.
+- Records detail aggregates same-number rows into one displayed amount.
 
-Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. After deployment, refresh once so the v1.4.0 service worker replaces older cached versions.
+Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. After deployment, hard refresh once so the v1.4.1 service worker replaces older cached versions.

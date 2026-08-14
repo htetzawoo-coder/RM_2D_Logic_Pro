@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RM_2D_Logic_Pro v1.4.0</title>
+<title>RM_2D_Logic_Pro v1.4.1</title>
 <meta name="theme-color" content="#5b21b6">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -59,10 +59,10 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 .name-text{font-weight:900;color:#7c3aed}
 .nums{display:none;background:#f1eaff;border-radius:10px;padding:8px;margin-top:6px;font-size:12px}
 .limit-board-wrap{overflow-x:auto;border:2px solid var(--purple-700);background:#f7f3ff;border-radius:10px}
-.limit-grid{display:grid;grid-template-columns:repeat(10,minmax(92px,1fr));grid-template-rows:repeat(10,28px);grid-auto-flow:column;min-width:920px;font-size:15px}
+.limit-grid{display:grid;grid-template-columns:repeat(10,minmax(96px,1fr));grid-template-rows:repeat(10,36px);grid-auto-flow:column;min-width:960px;font-size:15px}
 .cell{display:grid;grid-template-columns:42px 1fr;align-items:center;background:#f7f7f7;border-right:1px solid #888;border-bottom:1px solid #888;text-align:center;min-width:0}
 .cell-number{align-self:stretch;display:flex;align-items:center;justify-content:center;background:#e2d4ff;color:var(--purple-950);font-size:20px;font-weight:900;line-height:1;border-right:1px solid #8b5cf6}
-.cell-amount{padding:0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111}
+.cell-amount{padding:0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;line-height:1.05;font-weight:800}.cell-deduction{display:block;margin-top:2px;font-size:10px;font-weight:900;color:#b91c1c}.cell-negative{color:#b91c1c!important}.dark .cell-deduction,.dark .cell-negative{color:#fca5a5!important}
 .dark .cell{background:#374151}.dark .cell-amount{color:#fff}
 .dark .cell-number{background:#6d28d9;color:#fff8dc}
 .hit{background:#dc2626!important;color:#fff!important;font-weight:900}
@@ -112,33 +112,33 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.0</span></span>
-<button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme</button>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.1</span></span>
+<button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme / အပြင်အဆင်</button>
 </div></nav>
 
 <div class="container mt-3">
 <div id="loginPage" class="page active"><div class="card p-4">
-<h3>Login</h3><input id="u" class="form-control mb-2" placeholder="Username">
-<input id="p" type="password" class="form-control mb-3" placeholder="Password">
-<button class="btn btn-primary w-100" onclick="login()">SIGN IN</button><small>admin / 1234</small>
+<h3>Login / အကောင့်ဝင်ရန်</h3><input id="u" class="form-control mb-2" placeholder="Username / အသုံးပြုသူအမည်">
+<input id="p" type="password" class="form-control mb-3" placeholder="Password / စကားဝှက်">
+<button class="btn btn-primary w-100" onclick="login()">SIGN IN / ဝင်မည်</button><small>admin / 1234</small>
 </div></div>
 
 <div id="app" class="page">
 <div class="tabs">
-<button id="tDash" class="active" onclick="tab('dash','tDash')">📊 Dashboard</button>
-<button id="tEntry" onclick="tab('entry','tEntry')">📝 Record</button>
-<button id="tRecords" onclick="tab('records','tRecords')">📋 Records</button>
-<button id="tLimit" onclick="tab('limit','tLimit')">📉 Limit</button>
-<button id="tOver" onclick="tab('over','tOver')">🚨 Over</button>
-<button id="tAM" onclick="tab('am','tAM')">☀️ AM</button>
-<button id="tPM" onclick="tab('pm','tPM')">🌙 PM</button>
-<button id="tDaily" onclick="tab('daily','tDaily')">📅 Daily</button>
-<button id="tImg" onclick="tab('img','tImg')">🖼️ Image</button><button id="tSettings" onclick="tab('settings','tSettings')">⚙️ Settings</button>
+<button id="tDash" class="active" onclick="tab('dash','tDash')">📊 Dashboard / ပင်မ</button>
+<button id="tEntry" onclick="tab('entry','tEntry')">📝 Record / စာရင်းသွင်း</button>
+<button id="tRecords" onclick="tab('records','tRecords')">📋 Records / မှတ်တမ်း</button>
+<button id="tLimit" onclick="tab('limit','tLimit')">📉 Limit / ကန့်သတ်</button>
+<button id="tOver" onclick="tab('over','tOver')">🚨 Over / ကျော်</button>
+<button id="tAM" onclick="tab('am','tAM')">☀️ AM / နံနက်</button>
+<button id="tPM" onclick="tab('pm','tPM')">🌙 PM / ညနေ</button>
+<button id="tDaily" onclick="tab('daily','tDaily')">📅 Daily / နေ့စဉ်</button>
+<button id="tImg" onclick="tab('img','tImg')">🖼️ Image / ပုံ</button><button id="tSettings" onclick="tab('settings','tSettings')">⚙️ Settings / ဆက်တင်</button>
 </div>
 
 <div class="global-filter">
-<div><label for="gDate">စာရင်း Date</label><input id="gDate" type="date" class="form-control" onchange="applyGlobalFilter()"></div>
-<div><label for="gSession">Session</label><select id="gSession" class="form-select" onchange="applyGlobalFilter()"><option value="ALL">All</option><option value="AM">AM</option><option value="PM">PM</option></select></div>
+<div><label for="gDate">Date / ရက်စွဲ</label><input id="gDate" type="date" class="form-control" onchange="applyGlobalFilter()"></div>
+<div><label for="gSession">Session / အချိန်ပိုင်း</label><select id="gSession" class="form-select" onchange="applyGlobalFilter()"><option value="ALL">All / အားလုံး</option><option value="AM">AM</option><option value="PM">PM</option></select></div>
 </div>
 
 <section id="dash" class="page active">
@@ -182,48 +182,48 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 
 <section id="records" class="page"><div class="card p-3">
 <div class="record-filter">
-<input id="search" class="form-control mb-2" inputmode="text" placeholder="Name / Number ရှာရန်" oninput="renderRecords()">
-<div class="row g-2 mt-1"><div class="col-6"><button class="btn btn-sm btn-primary w-100" onclick="setRecordDate('today')">Today</button></div><div class="col-6"><button class="btn btn-sm btn-outline-secondary w-100" onclick="setRecordDate('all')">All Dates</button></div></div>
+<input id="search" class="form-control mb-2" inputmode="text" placeholder="Search Name / Number / အမည်၊ နံပါတ် ရှာရန်" oninput="renderRecords()">
+<div class="row g-2 mt-1"><div class="col-6"><button class="btn btn-sm btn-primary w-100" onclick="setRecordDate('today')">Today / ယနေ့</button></div><div class="col-6"><button class="btn btn-sm btn-outline-secondary w-100" onclick="setRecordDate('all')">All Dates / ရက်အားလုံး</button></div></div>
 </div>
-<div class="record-summary"><div class="record-summary-item">Records<br><span id="recCount">0</span></div><div class="record-summary-item">Entry Amount<br><span id="recTotal">0</span></div></div>
-<div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Date</th><th>Time</th><th>Session</th><th>Name</th><th>Code/Numbers</th><th>Amt</th><th>Act</th></tr></thead><tbody id="recBody"></tbody></table></div>
+<div class="record-summary"><div class="record-summary-item">Records / မှတ်တမ်း<br><span id="recCount">0</span></div><div class="record-summary-item">Entry Amount / စာရင်းငွေ<br><span id="recTotal">0</span></div></div>
+<div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Date / ရက်</th><th>Time / အချိန်</th><th>Session / ပိုင်း</th><th>Name / အမည်</th><th>Code/Numbers / နံပါတ်</th><th>Amt / ငွေ</th><th>Act / လုပ်ဆောင်</th></tr></thead><tbody id="recBody"></tbody></table></div>
 </div></section>
 
 <section id="limit" class="page"><div class="card p-3">
 <div class="limit-risk-panel">
-<div class="limit-risk-title">Session Risk / Limit Auto Formula</div>
-<div class="row g-2"><div class="col-6"><label class="small fw-bold">အများဆုံး ရှုံးမည့် Amount</label><input id="maxLoss" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Maximum Loss" oninput="riskFromMaxLoss()"></div><div class="col-6"><label class="small fw-bold">Limit Amount</label><input id="lim" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Limit Amount" oninput="riskFromLimit()"></div></div>
-<div class="risk-grid"><div class="risk-stat"><small>Session Total</small><b id="riskTotal">0</b></div><div class="risk-stat"><small>Highest Number Amount</small><b id="riskHighest">0</b></div><div id="riskBalanceBox" class="risk-stat"><small>Current Balance</small><b id="riskBalance">0</b></div><div id="riskProjectedBox" class="risk-stat"><small>Projected Balance</small><b id="riskProjected">0</b></div></div>
-<div class="small mt-2">Formula: Total − (Highest Number Amount × Payout Rate <b id="riskRate">80</b>) = Balance</div>
+<div class="limit-risk-title">Session Risk / Limit Auto Formula / Session အန္တရာယ်နှင့် Limit အလိုအလျောက်တွက်ချက်မှု</div>
+<div class="row g-2"><div class="col-6"><label class="small fw-bold">Maximum Loss / အများဆုံး ရှုံးမည့် Amount</label><input id="maxLoss" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Maximum Loss" oninput="riskFromMaxLoss()"></div><div class="col-6"><label class="small fw-bold">Limit Amount / ကန့်သတ်ငွေ</label><input id="lim" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Limit Amount" oninput="riskFromLimit()"></div></div>
+<div class="risk-grid"><div class="risk-stat"><small>Session Total / စုစုပေါင်း</small><b id="riskTotal">0</b></div><div class="risk-stat"><small>Highest Number / အများဆုံးနံပါတ်</small><b id="riskHighest">0</b></div><div class="risk-stat"><small>Over Amount Total / Over စုစုပေါင်း</small><b id="riskOverTotal">0</b></div><div id="riskBalanceBox" class="risk-stat"><small>Current Balance / လက်ရှိလက်ကျန်</small><b id="riskBalance">0</b></div><div id="riskProjectedBox" class="risk-stat"><small>Projected Balance / ခန့်မှန်းလက်ကျန်</small><b id="riskProjected">0</b></div></div>
+<div class="small mt-2"><b>Current:</b> Total − (Highest Number Amount × Payout Rate <b id="riskRate">80</b>) = Balance<br><b>Projected:</b> Session Total − (Limit Amount × Payout Rate) − Over Amount Total</div>
 </div>
-<button class="btn btn-primary w-100 mb-2" onclick="renderLimit(true)">Check</button>
-<div class="row g-2 mb-2"><div class="col-6"><div class="alert alert-primary">Total<br><b id="limTotal">0</b></div></div><div class="col-6"><div class="alert alert-danger">Over<br><b id="limCount">0</b></div></div></div>
+<button class="btn btn-primary w-100 mb-2" onclick="renderLimit(true)">Check / စစ်မည်</button>
+<div class="row g-2 mb-2"><div class="col-6"><div class="alert alert-primary">Total / စုစုပေါင်း<br><b id="limTotal">0</b></div></div><div class="col-6"><div class="alert alert-danger">Over / ကျော်နံပါတ်<br><b id="limCount">0</b></div></div></div>
 <div class="limit-board-wrap"><div id="grid" class="limit-grid"></div></div>
-<button class="btn btn-outline-danger w-100 mt-2" onclick="tab('over','tOver')">Limit ကျော် Table ကြည့်ရန်</button>
-<button class="btn btn-success w-100 mt-2" onclick="saveLimit()">Save Limit Table</button>
+<button class="btn btn-outline-danger w-100 mt-2" onclick="tab('over','tOver')">View Over Table / Limit ကျော်စာရင်း</button>
+<button class="btn btn-success w-100 mt-2" onclick="saveLimit()">Save Limit Table / Limit စာရင်းသိမ်းမည်</button>
 <small>မူရင်းအရောင်းစာရင်း မပြောင်းပါ။ Limit အတွက် သီးသန့်နုတ်ထားသည့် စာရင်းသာ သိမ်းပါမည်။</small>
 </div></section>
 
 <section id="over" class="page"><div class="card p-3">
-<h5>Limit Over Table</h5><div id="overContent"></div>
+<h5>Limit Over Table / Limit ကျော်စာရင်း</h5><div id="overContent"></div>
 <div class="buyback-box">
 <div class="buyback-title">Manual Buy Back Entry / Number ပြန်ဝယ်စာရင်း</div>
-<input id="overName" class="form-control mb-2" list="overNameList" placeholder="Name"><datalist id="overNameList"></datalist>
-<div class="row g-2"><div class="col-6"><input id="overNumber" class="form-control" inputmode="numeric" maxlength="2" placeholder="Number"></div><div class="col-6"><input id="overAmount" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Amount"></div></div>
-<button class="btn btn-danger w-100 mt-2" onclick="saveBuyBack()">BUY BACK / LIMIT BOARD မှ နုတ်မည်</button>
-<small class="d-block mt-2">Selected Date / Session အတိုင်း Limit Board မှ Amount ကို နုတ်ပေးပါမည်။</small>
+<input id="overName" class="form-control mb-2" list="overNameList" placeholder="Name / အမည်"><datalist id="overNameList"></datalist>
+<div class="row g-2"><div class="col-6"><input id="overNumber" class="form-control" inputmode="numeric" maxlength="2" placeholder="Number / နံပါတ်"></div><div class="col-6"><input id="overAmount" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Amount / ပမာဏ"></div></div>
+<button class="btn btn-danger w-100 mt-2" onclick="saveBuyBack()">BUY BACK / ပြန်ဝယ်ပြီး LIMIT BOARD မှ နုတ်မည်</button>
+<small class="d-block mt-2">Selected Date / Session အတိုင်း Buy Back Amount ကို Limit Board မှ နုတ်ပြီး <b>(-Amount)</b> ကွင်းဖြင့် ဖော်ပြပါမည်။</small>
 </div>
-<button class="btn btn-primary w-100 mt-2" onclick="saveOverImage()">Save Image</button>
-<button class="btn btn-success w-100 mt-2" onclick="shareOver()">Share</button>
-<button class="btn btn-warning w-100 mt-2" onclick="exportOver()">Export CSV</button>
+<button class="btn btn-primary w-100 mt-2" onclick="saveOverImage()">Save Image / ပုံသိမ်းမည်</button>
+<button class="btn btn-success w-100 mt-2" onclick="shareOver()">Share / မျှဝေမည်</button>
+<button class="btn btn-warning w-100 mt-2" onclick="exportOver()">Export CSV / CSV ထုတ်မည်</button>
 </div></section>
 
-<section id="am" class="page"><div class="card p-3"><h5>AM Report</h5><input id="amP" class="form-control mb-2" inputmode="numeric" placeholder="P Number"><button class="btn btn-primary" onclick="settle('AM')">Show</button><div id="amOut"></div></div></section>
-<section id="pm" class="page"><div class="card p-3"><h5>PM Report</h5><input id="pmP" class="form-control mb-2" inputmode="numeric" placeholder="P Number"><button class="btn btn-primary" onclick="settle('PM')">Show</button><div id="pmOut"></div></div></section>
-<section id="daily" class="page"><div class="card p-3"><h5>Daily Report</h5><input id="dAmP" class="form-control mb-2" inputmode="numeric" placeholder="AM P"><input id="dPmP" class="form-control mb-2" inputmode="numeric" placeholder="PM P"><button class="btn btn-primary" onclick="dailyReport()">Show</button><div id="dailyOut"></div></div></section>
+<section id="am" class="page"><div class="card p-3"><h5>AM Report / AM အစီရင်ခံစာ</h5><input id="amP" class="form-control mb-2" inputmode="numeric" placeholder="P Number"><button class="btn btn-primary" onclick="settle('AM')">Show / ပြမည်</button><div id="amOut"></div></div></section>
+<section id="pm" class="page"><div class="card p-3"><h5>PM Report / PM အစီရင်ခံစာ</h5><input id="pmP" class="form-control mb-2" inputmode="numeric" placeholder="P Number"><button class="btn btn-primary" onclick="settle('PM')">Show / ပြမည်</button><div id="pmOut"></div></div></section>
+<section id="daily" class="page"><div class="card p-3"><h5>Daily Report / နေ့စဉ်အစီရင်ခံစာ</h5><input id="dAmP" class="form-control mb-2" inputmode="numeric" placeholder="AM P"><input id="dPmP" class="form-control mb-2" inputmode="numeric" placeholder="PM P"><button class="btn btn-primary" onclick="dailyReport()">Show / ပြမည်</button><div id="dailyOut"></div></div></section>
 
 <section id="img" class="page"><div class="card p-3">
-<h5>Customer Daily Image Report</h5>
+<h5>Customer Daily Image Report / နေ့စဉ်ပုံအစီရင်ခံစာ</h5>
 <select id="imgName" class="form-select mb-2" onchange="renderImg()"></select>
 <div class="row g-2 mb-2"><div class="col-4"><input id="imgAM" class="form-control" inputmode="numeric" placeholder="AM P" oninput="renderImg()"></div><div class="col-4"><input id="imgPM" class="form-control" inputmode="numeric" placeholder="PM P" oninput="renderImg()"></div><div class="col-4"><input id="imgCor" value="13" class="form-control" inputmode="numeric" oninput="renderImg()"></div></div>
 <div id="imgBox">
@@ -233,22 +233,22 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 <div class="daily-title">Daily Total</div><div class="daily-box"><div class="daily-row">T. <span id="dt">0</span></div><div class="daily-row">P. <span id="dp">0</span></div><div class="daily-row">C. <span id="dc">0</span></div><div class="daily-row">R. <span id="dr">0</span></div></div>
 <div class="text-center fw-bold text-danger fs-3">Save Image</div><div class="text-center fw-bold text-danger fs-5">Image Share</div>
 </div>
-<button class="btn btn-primary w-100 mt-2" onclick="saveCustomerImage()">Save Image</button>
+<button class="btn btn-primary w-100 mt-2" onclick="saveCustomerImage()">Save Image / ပုံသိမ်းမည်</button>
 <button class="btn btn-success w-100 mt-2" onclick="shareCustomer()">Image Share</button>
 </div></section>
 
 <section id="settings" class="page"><div class="card p-3">
-<h5 class="settings-title">⚙️ Settings & Data Safety</h5>
+<h5 class="settings-title">⚙️ Settings / ဆက်တင် & Data Safety</h5>
 <div class="logo-tile mb-3">RM<br><small style="font-size:14px">2D</small></div>
 <div class="row g-2">
-<div class="col-6"><label class="small fw-bold">Payout Rate</label><input id="setRate" class="form-control" inputmode="numeric" placeholder="80"></div>
-<div class="col-6"><label class="small fw-bold">Default Cor %</label><input id="setCor" class="form-control" inputmode="numeric" placeholder="13"></div>
-<div class="col-12"><label class="small fw-bold">App Name</label><input id="setAppName" class="form-control" placeholder="RecordManager_Pro"></div>
-<div class="col-12"><label class="small fw-bold">Owner / Shop Name</label><input id="setOwner" class="form-control" placeholder="Owner Name"></div>
+<div class="col-6"><label class="small fw-bold">Payout Rate / ပေါက်ကြေး</label><input id="setRate" class="form-control" inputmode="numeric" placeholder="80"></div>
+<div class="col-6"><label class="small fw-bold">Default Cor % / ကော်မရှင် %</label><input id="setCor" class="form-control" inputmode="numeric" placeholder="13"></div>
+<div class="col-12"><label class="small fw-bold">App Name / App အမည်</label><input id="setAppName" class="form-control" placeholder="RecordManager_Pro"></div>
+<div class="col-12"><label class="small fw-bold">Owner / Shop Name / ပိုင်ရှင်အမည်</label><input id="setOwner" class="form-control" placeholder="Owner Name"></div>
 <div class="col-6"><label class="small fw-bold">AM End</label><input id="setAmEnd" class="form-control" placeholder="12:00"></div>
 <div class="col-6"><label class="small fw-bold">PM End</label><input id="setPmEnd" class="form-control" placeholder="16:30"></div>
 </div>
-<button class="btn btn-primary w-100 mt-3 rounded-pill fw-bold" onclick="saveSettings()">Save Settings</button>
+<button class="btn btn-primary w-100 mt-3 rounded-pill fw-bold" onclick="saveSettings()">Save Settings / ဆက်တင်သိမ်းမည်</button>
 <hr><h6 class="fw-bold">Backup / Restore</h6>
 <button class="btn btn-success w-100 mb-2 rounded-pill fw-bold" onclick="backupJSON()">Backup JSON</button>
 <input type="file" id="restoreFile" class="form-control mb-2" accept=".json" onchange="restoreJSON(event)">
@@ -319,18 +319,25 @@ function filteredGroups(){let q=(search.value||'').toLowerCase();return groups(f
 function renderRecords(){let list=filteredGroups();recBody.innerHTML='';recCount.innerText=list.length;recTotal.innerText=list.reduce((sum,g)=>sum+(Number(g.inputTotal)||0),0);if(!list.length){recBody.innerHTML='<tr><td colspan="7" class="text-center text-muted py-3">စာရင်းမရှိပါ</td></tr>';return}list.forEach(g=>{let id='n'+g.g,sc=g.s==='AM'?'session-am':'session-pm';recBody.innerHTML+=`<tr><td>${g.d||'-'}</td><td>${g.tm||'-'}</td><td><span class="session-badge ${sc}">${g.s||'-'}</span></td><td class="name-text">${g.name}</td><td><b>${g.c}</b> <button class="btn btn-sm btn-outline-primary" onclick="tog('${id}')">ON/OFF</button><div id="${id}" class="nums">${g.nums.join('<br>')}</div></td><td>${g.amt}</td><td><button class="btn btn-sm btn-warning" onclick="edit('${g.g}')">E</button> <button class="btn btn-sm btn-danger" onclick="delg('${g.g}')">D</button></td></tr>`})}
 function tog(id){let e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block'}function edit(g){let r=records.find(x=>x.g===g);editId=g;rName.value=r.name;rCode.value=r.c;if(r.pairMode){pairChoice=r.pairChoice;pairChoiceAt=r.pairChoice==='mixed'?'amount':'number';pairPhase='number';rAmt.value=r.pairChoice==='reverse'?(r.directAmt||r.reverseAmt):r.directAmt;rRevAmt.value=r.pairChoice==='mixed'?r.reverseAmt:'';updatePairUI()}else{resetPairState();rAmt.value=r.inputAmt??r.amt}tab('entry','tEntry')}function delg(g){if(confirm('Delete?')){records=records.filter(x=>x.g!==g);save();renderAll()}}
 function sale(s=null){return filterRecords().filter(r=>!s||r.s===s).reduce((a,b)=>a+b.amt,0)}function renderDash(){let rs=filterRecords();dRec.innerText=rs.length;dGrp.innerText=new Set(rs.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(typeof Chart==='undefined')return;if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
-function rawTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterRecords().forEach(r=>t[r.n]+=r.amt);return t}function expTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterExports().forEach(r=>t[r.n]+=r.amt);return t}function totals(){let r=rawTotals(),e=expTotals(),t={};Object.keys(r).forEach(n=>t[n]=Math.max(0,r[n]-e[n]));return t}
+function rawTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterRecords().forEach(r=>t[r.n]+=Number(r.amt||0));return t}
+function expTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterExports().forEach(r=>t[r.n]+=Number(r.amt||0));return t}
+function totals(){let r=rawTotals(),e=expTotals(),t={};Object.keys(r).forEach(n=>t[n]=Number(r[n]||0)-Number(e[n]||0));return t}
+function overItemsForLimit(limitValue,t=totals()){let l=Number(limitValue||0);return Object.keys(t).filter(n=>l>0&&Number(t[n])>l).map(n=>({n,total:Number(t[n]),limit:l,over:Number(t[n])-l}))}
+function overAmountTotalForLimit(limitValue,t=totals()){return overItemsForLimit(limitValue,t).reduce((sum,x)=>sum+Number(x.over||0),0)}
+function projectedAtLimit(limitValue,b=riskBase()){let l=Math.max(0,Number(limitValue)||0),overTotal=overAmountTotalForLimit(l,b.t),projected=b.total-(l*b.payout)-overTotal;return{limit:l,overTotal,projected}}
 function riskBase(){let t=totals(),total=Object.values(t).reduce((a,b)=>a+Number(b||0),0),highestNumber='00',highestAmount=0;Object.entries(t).forEach(([n,a])=>{if(Number(a)>highestAmount){highestAmount=Number(a);highestNumber=n}});let payout=rate(),balance=total-(highestAmount*payout);return{t,total,highestNumber,highestAmount,payout,balance}}
 function setRiskClass(el,value){if(!el)return;el.classList.remove('balance-positive','balance-negative');el.classList.add(Number(value)<0?'balance-negative':'balance-positive')}
-function syncRiskFields(){let b=riskBase();if(riskInputSource==='loss'&&maxLoss.value!==''){let loss=Math.max(0,Number(maxLoss.value)||0);lim.value=b.payout>0?Math.max(0,Math.floor((b.total+loss)/b.payout)):0}else if(riskInputSource==='limit'&&lim.value!==''){let projected=b.total-((Number(lim.value)||0)*b.payout);maxLoss.value=Math.max(0,Math.round(-projected))}let projected=lim.value!==''?b.total-((Number(lim.value)||0)*b.payout):b.balance;riskTotal.innerText=b.total;riskHighest.innerText=b.highestNumber+' = '+b.highestAmount;riskRate.innerText=b.payout;riskBalance.innerText=b.balance;riskProjected.innerText=projected;setRiskClass(riskBalanceBox,b.balance);setRiskClass(riskProjectedBox,projected)}
+function limitFromMaxLoss(loss,b){if(!(b.payout>0))return 0;let target=-Math.max(0,Number(loss)||0),guess=Math.max(0,(b.total-target)/b.payout);for(let i=0;i<16;i++){let overTotal=overAmountTotalForLimit(guess,b.t),next=Math.max(0,(b.total-target-overTotal)/b.payout);if(Math.abs(next-guess)<0.5){guess=next;break}guess=next}return Math.max(0,Math.floor(guess))}
+function syncRiskFields(){let b=riskBase();if(riskInputSource==='loss'&&maxLoss.value!==''){let loss=Math.max(0,Number(maxLoss.value)||0);lim.value=limitFromMaxLoss(loss,b)}let calc=lim.value!==''?projectedAtLimit(Number(lim.value)||0,b):{overTotal:0,projected:b.balance};if(riskInputSource==='limit'&&lim.value!=='')maxLoss.value=Math.max(0,Math.round(-calc.projected));riskTotal.innerText=b.total;riskHighest.innerText=b.highestNumber+' = '+b.highestAmount;if(window.riskOverTotal)riskOverTotal.innerText=calc.overTotal;riskRate.innerText=b.payout;riskBalance.innerText=b.balance;riskProjected.innerText=calc.projected;setRiskClass(riskBalanceBox,b.balance);setRiskClass(riskProjectedBox,calc.projected)}
 function riskFromLimit(){riskInputSource='limit';syncRiskFields();renderLimit(false,false)}function riskFromMaxLoss(){riskInputSource='loss';syncRiskFields();renderLimit(false,false)}
-function overItems(){let l=+lim.value,t=totals();return Object.keys(t).filter(n=>l>0&&t[n]>l).map(n=>({n,total:t[n],limit:l,over:t[n]-l}))}
-function renderLimit(alertIt,sync=true){if(sync)syncRiskFields();let t=totals(),l=+lim.value,total=Object.values(t).reduce((a,b)=>a+b,0),over=overItems();limTotal.innerText=total;limCount.innerText=over.length;grid.innerHTML='';for(let col=0;col<10;col++)for(let row=0;row<10;row++){let n=String(col*10+row).padStart(2,'0'),d=document.createElement('div');d.className='cell '+(l>0&&t[n]>l?'hit':'');d.innerHTML='<span class="cell-number">'+n+'</span><span class="cell-amount">'+t[n]+'</span>';grid.appendChild(d)}if(alertIt&&over.length)alert('Over Limit')}
-function saveLimit(){let o=overItems();if(!o.length)return alert('No Over');if(!confirm('Limit စာရင်းအတွက်သာ သိမ်းမည်။ မူရင်းစာရင်း မပြောင်းပါ။'))return;let d=gDate.value||today(),s=gSession.value==='ALL'?sess():gSession.value;o.forEach(x=>exportsL.push({id:'L'+Date.now()+Math.random(),name:'AUTO OVER',n:x.n,amt:x.over,date:d,s,source:'limit-save'}));saveEx();syncRiskFields();renderLimit(false,false);renderOver()}
+function overItems(){return overItemsForLimit(Number(lim.value)||0,totals())}
+function boardAmountHtml(net,deducted){net=Number(net||0);deducted=Number(deducted||0);let main=net<0?'('+Math.abs(net)+')':String(net),cls=net<0?' cell-negative':'';let sub=deducted>0?'<small class="cell-deduction">(-'+deducted+')</small>':'';return '<span class="cell-amount'+cls+'">'+main+sub+'</span>'}
+function renderLimit(alertIt,sync=true){if(sync)syncRiskFields();let t=totals(),ded=expTotals(),l=+lim.value,total=Object.values(t).reduce((a,b)=>a+Number(b||0),0),over=overItems();limTotal.innerText=total;limCount.innerText=over.length;grid.innerHTML='';for(let col=0;col<10;col++)for(let row=0;row<10;row++){let n=String(col*10+row).padStart(2,'0'),d=document.createElement('div');d.className='cell '+(l>0&&t[n]>l?'hit':'');d.innerHTML='<span class="cell-number">'+n+'</span>'+boardAmountHtml(t[n],ded[n]);grid.appendChild(d)}if(alertIt&&over.length)alert('Over Limit / Limit ကျော်နေပါသည်')}
+function saveLimit(){let o=overItems();if(!o.length)return alert('No Over / Limit ကျော်မရှိပါ');if(!confirm('Save Limit deductions only / Limit နုတ်စာရင်းကိုသာ သိမ်းမည်။ မူရင်းအရောင်းစာရင်း မပြောင်းပါ။'))return;let d=gDate.value||today(),s=gSession.value==='ALL'?sess():gSession.value;o.forEach(x=>exportsL.push({id:'L'+Date.now()+Math.random(),name:'AUTO OVER',n:x.n,amt:x.over,date:d,s,source:'limit-save'}));saveEx();syncRiskFields();renderLimit(false,false);renderOver()}
 function fillOverNames(){if(!overNameList)return;let names=[...new Set(filterRecords().map(r=>r.name).filter(Boolean))].sort();overNameList.innerHTML=names.map(n=>'<option value="'+String(n).replace(/"/g,'&quot;')+'"></option>').join('')}
-function saveBuyBack(){let name=(overName.value||'').trim(),n=(overNumber.value||'').trim(),amt=Number(overAmount.value||0);if(!name){overName.focus();return alert('Name ဖြည့်ပါ')}if(!/^\d{2}$/.test(n)){overNumber.focus();return alert('Number ကို 00 မှ 99 အထိ 2 လုံး ဖြည့်ပါ')}if(!Number.isFinite(amt)||amt<=0){overAmount.focus();return alert('Amount ဖြည့်ပါ')}let available=Number(totals()[n]||0);if(amt>available)return alert('Limit Board ရှိ Amount '+available+' ထက် ပိုနုတ်လို့မရပါ');let d=gDate.value||today(),s=gSession.value==='ALL'?sess():gSession.value;exportsL.push({id:'B'+Date.now()+Math.random(),name,n,amt,date:d,s,source:'manual-buyback'});saveEx();overNumber.value='';overAmount.value='';riskInputSource=riskInputSource||'limit';syncRiskFields();renderLimit(false,false);renderOver();overNumber.focus()}
-function renderOver(){fillOverNames();let o=overItems();overContent.innerHTML=o.length?'<table class="table table-sm over-simple-table"><tr><th>Number</th><th>Over Amount</th></tr>'+o.map(x=>`<tr class="neg"><td>${x.n}</td><td>${x.over}</td></tr>`).join('')+'</table>':'<div class="alert alert-success">No Over</div>'}
-function exportOver(){let o=overItems();if(!o.length)return alert('No Data');download('Number,Over Amount\n'+o.map(x=>`${x.n},${x.over}`).join('\n'),'Limit_Over.csv','text/csv')}function saveOverImage(){drawText('Limit Over',overItems().map(x=>x.n+' = '+x.over).join('\n'),'Limit_Over.png')}function shareOver(){share('Limit Over',overItems().map(x=>x.n+' = '+x.over).join('\n'))}
+function saveBuyBack(){let name=(overName.value||'').trim(),n=(overNumber.value||'').trim(),amt=Number(overAmount.value||0);if(!name){overName.focus();return alert('Enter Name / အမည် ဖြည့်ပါ')}if(!/^\d{2}$/.test(n)){overNumber.focus();return alert('Enter 2-digit Number 00-99 / Number ၂ လုံး ဖြည့်ပါ')}if(!Number.isFinite(amt)||amt<=0){overAmount.focus();return alert('Enter Amount / Amount ဖြည့်ပါ')}let d=gDate.value||today(),s=gSession.value==='ALL'?sess():gSession.value;exportsL.push({id:'B'+Date.now()+Math.random(),name,n,amt,date:d,s,source:'manual-buyback'});saveEx();overNumber.value='';overAmount.value='';riskInputSource=riskInputSource||'limit';syncRiskFields();renderLimit(false,false);renderOver();overNumber.focus()}
+function renderOver(){fillOverNames();let o=overItems();overContent.innerHTML=o.length?'<table class="table table-sm over-simple-table"><tr><th>Number / နံပါတ်</th><th>Over Amount / ကျော်ငွေ</th></tr>'+o.map(x=>`<tr class="neg"><td>${x.n}</td><td>${x.over}</td></tr>`).join('')+'</table>':'<div class="alert alert-success">No Over / Limit ကျော်မရှိပါ</div>'}
+function exportOver(){let o=overItems();if(!o.length)return alert('No Data');download('Number / နံပါတ်,Over Amount / ကျော်ငွေ\n'+o.map(x=>`${x.n},${x.over}`).join('\n'),'Limit_Over.csv','text/csv')}function saveOverImage(){drawText('Limit Over / Limit ကျော်',overItems().map(x=>x.n+' = '+x.over).join('\n'),'Limit_Over.png')}function shareOver(){share('Limit Over / Limit ကျော်',overItems().map(x=>x.n+' = '+x.over).join('\n'))}
 function settleData(s,pn){let m={};filterRecords().filter(r=>r.s===s).forEach(r=>{if(!m[r.name])m[r.name]={name:r.name,total:0,pAmt:0,pay:0,net:0};m[r.name].total+=r.amt;if(r.n===pn)m[r.name].pAmt+=r.amt});Object.values(m).forEach(x=>{x.pay=x.pAmt*rate();x.net=x.total-x.pay});return Object.values(m)}
 function settle(s){let pn=s==='AM'?amP.value:pmP.value,out=s==='AM'?amOut:pmOut;if(!/^\d{2}$/.test(pn))return alert('P Number');let d=settleData(s,pn);out.innerHTML=tableReport(d)}
 function tableReport(d){return '<table class="table table-sm"><tr><th>Name</th><th>Bet</th><th>Payout</th><th>Net</th></tr>'+d.map(x=>`<tr class="${x.net<0?'neg':'pos'}"><td>${x.name}</td><td>${x.total}</td><td>${x.pay}</td><td>${x.net}</td></tr>`).join('')+'</table>'}
