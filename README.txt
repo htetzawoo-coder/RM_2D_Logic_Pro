@@ -15,3 +15,10 @@ Retained from v1.4.0:
 - Records detail aggregates same-number rows into one displayed amount.
 
 Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. After deployment, hard refresh once so the v1.4.1 service worker replaces older cached versions.
+
+
+v1.4.2 Language Mode
+- English and Myanmar UI are separate modes (not shown together).
+- Language mode is saved locally and affects presentation only, never records/data.
+- Myanmar mode uses heavier, clearer Myanmar typography for page buttons, labels, tags, headings and controls.
+- Language switch is in the top app bar.
