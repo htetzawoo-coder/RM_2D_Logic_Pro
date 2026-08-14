@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RM_2D_Logic_Pro v1.4.2</title>
+<title>RM_2D_Logic_Pro v1.4.3</title>
 <meta name="theme-color" content="#5b21b6">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -115,7 +115,7 @@ body.lang-my{font-family:'Myanmar Text','Pyidaungsu','Noto Sans Myanmar',Arial,s
 body.lang-my .tabs button,body.lang-my label,body.lang-my th,body.lang-my h3,body.lang-my h4,body.lang-my h5,body.lang-my h6,body.lang-my summary,body.lang-my .btn,body.lang-my .limit-risk-title,body.lang-my .buyback-title,body.lang-my .record-summary-item,body.lang-my .last-entry-title,body.lang-my .last-entry-label{font-weight:900}
 body.lang-my .tabs button{font-size:14px;letter-spacing:.05px;padding-top:7px;padding-bottom:7px}
 body.lang-my label,body.lang-my th,body.lang-my .small,body.lang-my small{font-size:13px;line-height:1.55}
-body.lang-my .btn{letter-spacing:.05px}
+body.lang-my .btn{letter-spacing:.05px} body.lang-my .tabs button,body.lang-my .limit-risk-panel,body.lang-my .global-filter,body.lang-my .card{font-synthesis-weight:auto} body.lang-my .tabs button{font-weight:900!important;text-shadow:0 .2px 0 currentColor}
 body.lang-my .form-control::placeholder{font-weight:700;opacity:.78}
 body.lang-en{font-family:Arial,'Noto Sans',sans-serif}
 @media(max-width:600px){.app-controls{gap:3px!important}.lang-switch-btn{padding:3px 6px;font-size:10px}#themeBtn{padding:3px 5px;font-size:10px}body.lang-my .tabs button{font-size:13px}}
@@ -124,7 +124,7 @@ body.lang-en{font-family:Arial,'Noto Sans',sans-serif}
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.2</span></span>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.3</span></span>
 <div class="app-controls d-flex align-items-center gap-1">
 <div class="lang-switch" role="group" aria-label="Language mode">
 <button id="langEnBtn" type="button" class="lang-switch-btn" onclick="setLanguage('en')">English</button>
@@ -143,15 +143,15 @@ body.lang-en{font-family:Arial,'Noto Sans',sans-serif}
 
 <div id="app" class="page">
 <div class="tabs">
-<button id="tDash" class="active" onclick="tab('dash','tDash')">📊 Dashboard / ပင်မ</button>
-<button id="tEntry" onclick="tab('entry','tEntry')">📝 Record / စာရင်းသွင်း</button>
-<button id="tRecords" onclick="tab('records','tRecords')">📋 Records / မှတ်တမ်း</button>
-<button id="tLimit" onclick="tab('limit','tLimit')">📉 Limit / ကန့်သတ်</button>
-<button id="tOver" onclick="tab('over','tOver')">🚨 Over / ကျော်</button>
-<button id="tAM" onclick="tab('am','tAM')">☀️ AM / နံနက်</button>
-<button id="tPM" onclick="tab('pm','tPM')">🌙 PM / ညနေ</button>
-<button id="tDaily" onclick="tab('daily','tDaily')">📅 Daily / နေ့စဉ်</button>
-<button id="tImg" onclick="tab('img','tImg')">🖼️ Image / ပုံ</button><button id="tSettings" onclick="tab('settings','tSettings')">⚙️ Settings / ဆက်တင်</button>
+<button id="tDash" class="active" data-en="📊 Dashboard" data-my="📊 ပင်မ" onclick="tab('dash','tDash')">📊 Dashboard</button>
+<button id="tEntry" data-en="📝 Record" data-my="📝 စာရင်းသွင်း" onclick="tab('entry','tEntry')">📝 Record</button>
+<button id="tRecords" data-en="📋 Records" data-my="📋 မှတ်တမ်း" onclick="tab('records','tRecords')">📋 Records</button>
+<button id="tLimit" data-en="📉 Limit" data-my="📉 ကန့်သတ်" onclick="tab('limit','tLimit')">📉 Limit</button>
+<button id="tOver" data-en="🚨 Over" data-my="🚨 ကျော်" onclick="tab('over','tOver')">🚨 Over</button>
+<button id="tAM" data-en="☀️ AM" data-my="☀️ နံနက်" onclick="tab('am','tAM')">☀️ AM</button>
+<button id="tPM" data-en="🌙 PM" data-my="🌙 ညနေ" onclick="tab('pm','tPM')">🌙 PM</button>
+<button id="tDaily" data-en="📅 Daily" data-my="📅 နေ့စဉ်" onclick="tab('daily','tDaily')">📅 Daily</button>
+<button id="tImg" data-en="🖼️ Image" data-my="🖼️ ပုံ" onclick="tab('img','tImg')">🖼️ Image</button><button id="tSettings" data-en="⚙️ Settings" data-my="⚙️ ဆက်တင်" onclick="tab('settings','tSettings')">⚙️ Settings</button>
 </div>
 
 <div class="global-filter">
@@ -311,6 +311,7 @@ function applyLanguageToUI(root=document){
  document.documentElement.lang=currentLang==='my'?'my':'en';document.body.classList.toggle('lang-my',currentLang==='my');document.body.classList.toggle('lang-en',currentLang==='en');
  let walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(n=>{let parent=n.parentElement;if(!parent||['SCRIPT','STYLE'].includes(parent.tagName))return;let raw=I18N_TEXT_ORIGINAL.get(n);if(raw==null){raw=n.nodeValue;I18N_TEXT_ORIGINAL.set(n,raw)}n.nodeValue=localizedRaw(raw)});
  root.querySelectorAll?.('[placeholder]').forEach(el=>{let raw=I18N_PLACEHOLDER_ORIGINAL.get(el);if(raw==null){raw=el.getAttribute('placeholder')||'';I18N_PLACEHOLDER_ORIGINAL.set(el,raw)}let p=i18nParts(raw),exact=I18N_LOOKUP.get(raw.trim());let pair=p||exact;if(pair)el.setAttribute('placeholder',currentLang==='my'?pair.my:pair.en)});
+ root.querySelectorAll?.('[data-en][data-my]').forEach(el=>{el.textContent=currentLang==='my'?el.getAttribute('data-my'):el.getAttribute('data-en')});
  let en=document.getElementById('langEnBtn'),my=document.getElementById('langMyBtn');if(en)en.classList.toggle('active',currentLang==='en');if(my)my.classList.toggle('active',currentLang==='my');
 }
 function setLanguage(lang){currentLang=lang==='en'?'en':'my';settings.lang=currentLang;saveSet();applyLanguageToUI(document);renderAll();if(document.getElementById('limit')?.classList.contains('active'))renderLimit(false);if(document.getElementById('over')?.classList.contains('active'))renderOver();applyLanguageToUI(document)}
@@ -360,7 +361,15 @@ function save(){localStorage.setItem(DB,JSON.stringify(records))}function saveEx
 function filterRecords(list=records){let d=gDate.value||'',s=gSession.value||'ALL';return list.filter(r=>(!d||r.d===d)&&(s==='ALL'||r.s===s))}
 function filterExports(){let d=gDate.value||'',s=gSession.value||'ALL';return exportsL.filter(r=>(!d||(r.date||r.d)===d)&&(s==='ALL'||r.s===s))}
 function groups(list=records){let m={};list.forEach(r=>{if(!m[r.g])m[r.g]={g:r.g,s:r.s,name:r.name,c:r.c,amt:r.inputAmt??r.amt,inputTotal:r.inputTotal??r.inputAmt??r.amt,tm:r.tm,d:r.d,numMap:new Map(),nums:[]};let n=String(r.n||'').padStart(2,'0');m[r.g].numMap.set(n,(m[r.g].numMap.get(n)||0)+Number(r.amt||0))});return Object.values(m).map(g=>{g.nums=[...g.numMap.entries()].map(([n,a])=>n+' = '+a);delete g.numMap;return g})}
-function renderLastEntry(){let gs=groups(filterRecords()),g=gs[gs.length-1];if(!g){lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">'+L('Latest RECORD','နောက်ဆုံး RECORD')+'</div><div class="last-entry-item"><span class="last-entry-label">'+L('Records','စာရင်း')+'</span><span class="last-entry-value">'+L('No data yet','မရှိသေးပါ')+'</span></div>';applyLanguageToUI(lastEntry);return}lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">'+L('Latest RECORD','နောက်ဆုံး RECORD')+' <small class="float-end">'+(g.d||'')+' · '+(g.s||'')+' '+(g.tm||'')+'</small></div><div class="last-entry-grid"><div class="last-entry-item"><span class="last-entry-label">'+L('Name','အမည်')+'</span><span class="last-entry-value">'+g.name+'</span></div><div class="last-entry-item"><span class="last-entry-label">'+L('Number','နံပါတ်')+'</span><span class="last-entry-value">'+g.c+'</span></div><div class="last-entry-item"><span class="last-entry-label">'+L('Amount','ငွေပမာဏ')+'</span><span class="last-entry-value">'+g.amt+'</span></div></div>';applyLanguageToUI(lastEntry)}function renderDash(){let rs=filterRecords();dRec.innerText=rs.length;dGrp.innerText=new Set(rs.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(typeof Chart==='undefined')return;if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
+function renderLastEntry(){let gs=groups(filterRecords()),g=gs[gs.length-1];if(!g){lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">'+L('Latest RECORD','နောက်ဆုံး RECORD')+'</div><div class="last-entry-item"><span class="last-entry-label">'+L('Records','စာရင်း')+'</span><span class="last-entry-value">'+L('No data yet','မရှိသေးပါ')+'</span></div>';applyLanguageToUI(lastEntry);return}lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">'+L('Latest RECORD','နောက်ဆုံး RECORD')+' <small class="float-end">'+(g.d||'')+' · '+(g.s||'')+' '+(g.tm||'')+'</small></div><div class="last-entry-grid"><div class="last-entry-item"><span class="last-entry-label">'+L('Name','အမည်')+'</span><span class="last-entry-value">'+g.name+'</span></div><div class="last-entry-item"><span class="last-entry-label">'+L('Number','နံပါတ်')+'</span><span class="last-entry-value">'+g.c+'</span></div><div class="last-entry-item"><span class="last-entry-label">'+L('Amount','ငွေပမာဏ')+'</span><span class="last-entry-value">'+g.amt+'</span></div></div>';applyLanguageToUI(lastEntry)}
+function setRecordDate(mode){gDate.value=mode==='today'?today():'';applyGlobalFilter()}
+function filteredGroups(){let q=(search.value||'').toLowerCase();return groups(filterRecords()).filter(g=>String(g.name||'').toLowerCase().includes(q)||String(g.c||'').toLowerCase().includes(q)||g.nums.join(' ').toLowerCase().includes(q)).sort((a,b)=>((b.d||'')+' '+(b.tm||'')).localeCompare((a.d||'')+' '+(a.tm||'')))}
+function renderRecords(){let list=filteredGroups();recBody.innerHTML='';recCount.innerText=list.length;recTotal.innerText=list.reduce((sum,g)=>sum+(Number(g.inputTotal)||0),0);if(!list.length){recBody.innerHTML='<tr><td colspan="7" class="text-center text-muted py-3">'+L('No records yet','စာရင်းမရှိသေးပါ')+'</td></tr>';return}list.forEach(g=>{let id='n'+g.g,sc=g.s==='AM'?'session-am':'session-pm';recBody.innerHTML+=`<tr><td>${g.d||'-'}</td><td>${g.tm||'-'}</td><td><span class="session-badge ${sc}">${g.s||'-'}</span></td><td class="name-text">${g.name}</td><td><b>${g.c}</b> <button class="btn btn-sm btn-outline-primary" onclick="tog('${id}')">ON/OFF</button><div id="${id}" class="nums">${g.nums.join('<br>')}</div></td><td>${g.amt}</td><td><button class="btn btn-sm btn-warning" onclick="edit('${g.g}')">E</button> <button class="btn btn-sm btn-danger" onclick="delg('${g.g}')">D</button></td></tr>`});applyLanguageToUI(recBody)}
+function tog(id){let e=document.getElementById(id);if(e)e.style.display=e.style.display==='block'?'none':'block'}
+function edit(g){let r=records.find(x=>x.g===g);if(!r)return;editId=g;rName.value=r.name;rCode.value=r.c;if(r.pairMode){pairChoice=r.pairChoice;pairChoiceAt=r.pairChoice==='mixed'?'amount':'number';pairPhase='number';rAmt.value=r.pairChoice==='reverse'?(r.directAmt||r.reverseAmt):r.directAmt;rRevAmt.value=r.pairChoice==='mixed'?r.reverseAmt:'';updatePairUI()}else{resetPairState();rAmt.value=r.inputAmt??r.amt}tab('entry','tEntry')}
+function delg(g){if(confirm(L('Delete this record?','ဒီစာရင်းကို ဖျက်မလား?'))){records=records.filter(x=>x.g!==g);save();renderAll()}}
+function sale(s=null){return filterRecords().filter(r=>!s||r.s===s).reduce((a,b)=>a+Number(b.amt||0),0)}
+function renderDash(){let rs=filterRecords();dRec.innerText=rs.length;dGrp.innerText=new Set(rs.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(typeof Chart==='undefined')return;if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
 function rawTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterRecords().forEach(r=>t[r.n]+=Number(r.amt||0));return t}
 function expTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterExports().forEach(r=>t[r.n]+=Number(r.amt||0));return t}
 function totals(){let r=rawTotals(),e=expTotals(),t={};Object.keys(r).forEach(n=>t[n]=Number(r[n]||0)-Number(e[n]||0));return t}
@@ -394,7 +403,7 @@ function download(text,name,type){let b=new Blob([text],{type}),a=document.creat
 
 function applySettingsUI(){if(!setRate)return;setRate.value=rate();setCor.value=defCor();setAppName.value=settings.appName||'RecordManager_Pro';setOwner.value=settings.owner||'';setAmEnd.value=settings.amEnd||'12:00';setPmEnd.value=settings.pmEnd||'16:30';if(imgCor&&!imgCor.value)imgCor.value=defCor()}
 function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert(L('Settings saved','ဆက်တင်သိမ်းပြီးပါပြီ'));renderAll();applyLanguageToUI(document)}
-function backupJSON(){download(JSON.stringify({version:'1.4.2',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
+function backupJSON(){download(JSON.stringify({version:'1.4.3',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
 function restoreJSON(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);records=d.records||[];exportsL=d.exportsL||d.limitExports||[];settings=d.settings||settings;save();saveEx();saveSet();renderAll();applySettingsUI();alert('Restore ပြီးပါပြီ')}catch(err){alert('Backup file မမှန်ပါ')}};reader.readAsText(f)}
 function importOldData(){let keys=['RM_v123_records','RM_v122_records','RM_Pro_v122_records','RM_Pro_v121_records'];let imported=0;for(let k of keys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){records=old;imported=old.length;break}}let exKeys=['RM_v123_exports','RM_v122_exports','RM_Pro_v122_limit_exports'];for(let k of exKeys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){exportsL=old;break}}save();saveEx();renderAll();alert(imported?('Old data imported: '+imported):'Old data မတွေ့ပါ')}
 function clearTodayRecords(){if(!confirm('ဒီနေ့စာရင်းများကို ဖျက်မလား?'))return;let d=today();records=records.filter(r=>r.d!==d);save();renderAll()}
