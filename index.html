@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RM_2D_Logic_Pro v1.3.7</title>
+<title>RM_2D_Logic_Pro v1.3.8</title>
 <meta name="theme-color" content="#5b21b6">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -105,7 +105,7 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.3.7</span></span>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.3.8</span></span>
 <button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme</button>
 </div></nav>
 
@@ -160,7 +160,7 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 <button class="key-blue" onclick="key('Z')">Z<br><small>နက္ခ</small></button><button class="key-blue" onclick="key('B')">B<br><small>ညီကို</small></button><button class="key-blue" onclick="key('//')">//<br><small>အပူး</small></button><button class="key-purple" onclick="logicKey('break')">BREAK<br><small>ဘရိတ်</small></button>
 <button class="key-purple" onclick="logicKey('apa')">*<br><small>အပါ</small></button><button class="key-purple" onclick="logicKey('reverse')">*<br><small>အပြန်</small></button><button class="key-purple" onclick="logicKey('khway')">*ခွေ<br><small>ခွေ</small></button><button class="key-orange" onclick="logicKey('rightSlash')">1/<br><small>ထိပ်</small></button>
 <button class="key-orange" onclick="logicKey('leftSlash')">/1<br><small>နောက်</small></button>
-<button class="enter btn" onclick="saveGroup()">ENTER ✓</button>
+<button class="enter btn" onclick="entryEnter()">ENTER ✓</button>
 </div>
 <details id="formulaDetails" class="formula-details" open>
 <summary class="formula-title">FORMULA SHORTCUTS</summary>
@@ -258,6 +258,7 @@ function del(){let el=activeEntry();el.value=el.value.slice(0,-1);el.focus()}
 function clr(){let el=activeEntry();el.value='';el.focus()}
 function logicKey(kind){setEntryTarget('code');let v=rCode.value.trim();if(kind==='break')rCode.value='*'+v.replace(/^\*/, '');if(kind==='apa'||kind==='reverse')rCode.value=v.replace(/\*+$/,'')+'*';if(kind==='khway')rCode.value=v.replace(/ခွေ$/,'')+'ခွေ';if(kind==='rightSlash')rCode.value=v.replace(/\/$/,'')+'/';if(kind==='leftSlash')rCode.value='/'+v.replace(/^\//,'');rCode.focus()}
 function formulaKey(code){setEntryTarget('code');if(code==='matrix')rCode.value=rCode.value.trim().replace(/\*+$/,'')+'**';else rCode.value=code;rCode.focus()}
+function entryEnter(){if(entryTarget==='code'){if(!rCode.value.trim()){rCode.focus();return}setEntryTarget('amount');rAmt.focus();return}saveGroup()}
 function today(){return new Date().toISOString().slice(0,10)}function time(){return new Date().toTimeString().slice(0,5)}function sess(){let h=new Date().getHours();return h<12?'AM':'PM'}
 function uniq(a){return [...new Set(a)]}function pair(a,b){let r=[];a.forEach(x=>b.forEach(y=>r.push(x+y)));return r}
 function apa(d){let r=[];for(let i=0;i<10;i++){r.push(d+i);r.push(i+d)}return uniq(r)}
@@ -309,7 +310,7 @@ function download(text,name,type){let b=new Blob([text],{type}),a=document.creat
 
 function applySettingsUI(){if(!setRate)return;setRate.value=rate();setCor.value=defCor();setAppName.value=settings.appName||'RecordManager_Pro';setOwner.value=settings.owner||'';setAmEnd.value=settings.amEnd||'12:00';setPmEnd.value=settings.pmEnd||'16:30';if(imgCor&&!imgCor.value)imgCor.value=defCor()}
 function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert('Settings သိမ်းပြီးပါပြီ');renderAll()}
-function backupJSON(){download(JSON.stringify({version:'1.3.7',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
+function backupJSON(){download(JSON.stringify({version:'1.3.8',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
 function restoreJSON(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);records=d.records||[];exportsL=d.exportsL||d.limitExports||[];settings=d.settings||settings;save();saveEx();saveSet();renderAll();applySettingsUI();alert('Restore ပြီးပါပြီ')}catch(err){alert('Backup file မမှန်ပါ')}};reader.readAsText(f)}
 function importOldData(){let keys=['RM_v123_records','RM_v122_records','RM_Pro_v122_records','RM_Pro_v121_records'];let imported=0;for(let k of keys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){records=old;imported=old.length;break}}let exKeys=['RM_v123_exports','RM_v122_exports','RM_Pro_v122_limit_exports'];for(let k of exKeys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){exportsL=old;break}}save();saveEx();renderAll();alert(imported?('Old data imported: '+imported):'Old data မတွေ့ပါ')}
 function clearTodayRecords(){if(!confirm('ဒီနေ့စာရင်းများကို ဖျက်မလား?'))return;let d=today();records=records.filter(r=>r.d!==d);save();renderAll()}
@@ -317,7 +318,7 @@ function clearLimitExports(){if(!confirm('Limit Export Records ဖျက်မ�
 function clearAllRecords(){if(!confirm('စာရင်းအားလုံး ဖျက်မလား?'))return;records=[];exportsL=[];save();saveEx();renderAll()}
 function renderAll(){renderDash();renderRecords();renderLastEntry();fillNames()}
 function applyGlobalFilter(){renderAll();renderLimit(false);renderOver();renderImg();if(/^\d{2}$/.test(amP.value))settle('AM');if(/^\d{2}$/.test(pmP.value))settle('PM');if(/^\d{2}$/.test(dAmP.value)&&/^\d{2}$/.test(dPmP.value))dailyReport()}
-document.addEventListener('DOMContentLoaded',()=>{applySettingsUI();setEntryTarget('code');gDate.value=today();gSession.value='ALL';let fd=document.getElementById('formulaDetails');if(fd&&matchMedia('(max-width:600px)').matches)fd.removeAttribute('open');renderAll();u.addEventListener('keydown',e=>{if(e.key==='Enter')p.focus()});p.addEventListener('keydown',e=>{if(e.key==='Enter')login()});rName.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();setEntryTarget('code');rCode.focus()}});rCode.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();setEntryTarget('amount');rAmt.focus()}});rAmt.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();saveGroup()}});if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{})});
+document.addEventListener('DOMContentLoaded',()=>{applySettingsUI();setEntryTarget('code');gDate.value=today();gSession.value='ALL';let fd=document.getElementById('formulaDetails');if(fd&&matchMedia('(max-width:600px)').matches)fd.removeAttribute('open');renderAll();u.addEventListener('keydown',e=>{if(e.key==='Enter')p.focus()});p.addEventListener('keydown',e=>{if(e.key==='Enter')login()});rName.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();setEntryTarget('code');rCode.focus()}});rCode.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});rAmt.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{})});
 </script>
 </body>
 </html>
