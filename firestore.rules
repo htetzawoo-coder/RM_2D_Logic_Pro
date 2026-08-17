@@ -1,0 +1,57 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/owners/$(request.auth.uid));
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function accountActive(uid) {
+      return exists(/databases/$(database)/documents/accounts/$(uid))
+        && get(/databases/$(database)/documents/accounts/$(uid)).data.status == "active";
+    }
+
+    match /owners/{uid} {
+      allow read: if isSelf(uid) || isOwner();
+      allow write: if false;
+    }
+
+    match /accounts/{uid} {
+      allow create: if isSelf(uid)
+        && request.resource.data.role == "user"
+        && request.resource.data.status == "active";
+
+      allow read: if isSelf(uid) || isOwner();
+
+      allow update: if isOwner()
+        || (isSelf(uid)
+          && request.resource.data.diff(resource.data).affectedKeys()
+            .hasOnly(["displayName", "phone", "photoURL", "lastLoginAt"]));
+
+      allow delete: if isOwner();
+    }
+
+    match /userData/{uid} {
+      allow read, write: if isOwner()
+        || (isSelf(uid) && accountActive(uid));
+
+      match /{document=**} {
+        allow read, write: if isOwner()
+          || (isSelf(uid) && accountActive(uid));
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
