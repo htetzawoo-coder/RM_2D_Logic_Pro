@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RM_2D_Logic_Pro v1.4.1</title>
+<title>RM_2D_Logic_Pro v1.4.4</title>
 <meta name="theme-color" content="#5b21b6">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -59,10 +59,10 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 .name-text{font-weight:900;color:#7c3aed}
 .nums{display:none;background:#f1eaff;border-radius:10px;padding:8px;margin-top:6px;font-size:12px}
 .limit-board-wrap{overflow-x:auto;border:2px solid var(--purple-700);background:#f7f3ff;border-radius:10px}
-.limit-grid{display:grid;grid-template-columns:repeat(10,minmax(92px,1fr));grid-template-rows:repeat(10,28px);grid-auto-flow:column;min-width:920px;font-size:15px}
+.limit-grid{display:grid;grid-template-columns:repeat(10,minmax(96px,1fr));grid-template-rows:repeat(10,36px);grid-auto-flow:column;min-width:960px;font-size:15px}
 .cell{display:grid;grid-template-columns:42px 1fr;align-items:center;background:#f7f7f7;border-right:1px solid #888;border-bottom:1px solid #888;text-align:center;min-width:0}
 .cell-number{align-self:stretch;display:flex;align-items:center;justify-content:center;background:#e2d4ff;color:var(--purple-950);font-size:20px;font-weight:900;line-height:1;border-right:1px solid #8b5cf6}
-.cell-amount{padding:0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111}
+.cell-amount{padding:0 3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#111;line-height:1.05;font-weight:800}.cell-deduction{display:block;margin-top:2px;font-size:10px;font-weight:900;color:#b91c1c}.cell-negative{color:#b91c1c!important}.dark .cell-deduction,.dark .cell-negative{color:#fca5a5!important}
 .dark .cell{background:#374151}.dark .cell-amount{color:#fff}
 .dark .cell-number{background:#6d28d9;color:#fff8dc}
 .hit{background:#dc2626!important;color:#fff!important;font-weight:900}
@@ -88,8 +88,13 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 .global-filter{display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,.55fr);gap:7px;align-items:end;margin:7px 0 9px;padding:7px 9px;border:2px solid var(--gold-400);border-radius:12px;background:linear-gradient(135deg,#fffdf5,#f1eaff);box-shadow:0 4px 12px #4c1d9514}.dark .global-filter{background:linear-gradient(135deg,#24123e,#3a205d)}.global-filter label{display:block;margin-bottom:2px;color:var(--purple-800);font-size:11px;font-weight:900}.dark .global-filter label{color:var(--gold-400)}
 .record-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:9px 0}
 .record-summary-item{padding:9px;border-radius:10px;background:#eee7ff;color:var(--purple-950);text-align:center;font-weight:900;border:1px solid #d1bbff}.dark .record-summary-item{background:#3c2168;color:#fff8dc;border-color:#7c3aed}
+.limit-risk-panel{padding:11px;border:2px solid var(--gold-400);border-radius:14px;background:linear-gradient(135deg,#fffdf5,#f1eaff);margin-bottom:10px}.dark .limit-risk-panel{background:linear-gradient(135deg,#24123e,#3a205d)}
+.limit-risk-title{font-weight:900;color:var(--purple-800);margin-bottom:8px}.dark .limit-risk-title{color:var(--gold-400)}
+.risk-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-top:8px}.risk-stat{padding:8px;border:1px solid #d9c7f5;border-radius:10px;background:#fff;text-align:center}.dark .risk-stat{background:#2d1750;border-color:#6d28d9}.risk-stat small{display:block;color:#6b5b7d;font-weight:800}.dark .risk-stat small{color:#d8c9ee}.risk-stat b{display:block;font-size:17px;color:var(--purple-950)}.dark .risk-stat b{color:#fff8dc}.risk-stat.balance-negative b{color:#dc2626!important}.risk-stat.balance-positive b{color:#15803d!important}
+.buyback-box{margin-top:12px;padding:11px;border:2px solid #7c3aed;border-radius:13px;background:#faf7ff}.dark .buyback-box{background:#24123e;border-color:#a78bfa}.buyback-title{font-weight:900;color:var(--purple-800);margin-bottom:8px}.dark .buyback-title{color:var(--gold-400)}
+.over-simple-table th,.over-simple-table td{text-align:center;font-weight:900}.over-simple-table th{color:var(--purple-800)}.dark .over-simple-table th{color:var(--gold-400)}
 .session-badge{display:inline-block;min-width:38px;padding:3px 7px;border-radius:20px;text-align:center;font-size:12px;font-weight:900}.session-am{background:#fef3c7;color:#92400e}.session-pm{background:#ddd6fe;color:#4c1d95}
-.auth-card{max-width:480px;margin:24px auto}.auth-logo{width:66px;height:66px;margin:0 auto 12px;display:grid;place-items:center;border-radius:20px;background:linear-gradient(135deg,var(--purple-800),var(--gold-500));color:#fff;font-size:24px;font-weight:900}.auth-divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:#7c6d8e;font-size:12px}.auth-divider:before,.auth-divider:after{content:'';height:1px;flex:1;background:#d8c4ff}.google-btn{border:1px solid #d5c6ef;background:#fff;color:#2e1065;font-weight:900}.phone-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}.auth-status{min-height:22px;margin-top:8px;font-size:12px;font-weight:800}.account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.account-box{padding:10px;border:1px solid #d8c4ff;border-radius:10px;background:#faf7ff;overflow:hidden}.dark .account-box{background:#2d1750;border-color:#6d28d9}.account-box small{display:block;color:#756482;font-weight:800}.account-box b{display:block;overflow:hidden;text-overflow:ellipsis}.owner-table td,.owner-table th{font-size:12px;vertical-align:middle}.status-active{color:#15803d;font-weight:900}.status-blocked{color:#dc2626;font-weight:900}
+.auth-card{max-width:480px;margin:24px auto}.auth-logo{width:66px;height:66px;margin:0 auto 12px;display:grid;place-items:center;border-radius:20px;background:linear-gradient(135deg,var(--purple-800),var(--gold-500));color:#fff;font-size:24px;font-weight:900}.auth-divider{display:flex;align-items:center;gap:10px;margin:14px 0;color:#7c6d8e;font-size:12px}.auth-divider:before,.auth-divider:after{content:'';height:1px;flex:1;background:#d8c4ff}.google-btn{border:1px solid #d5c6ef;background:#fff;color:#2e1065;font-weight:900}.phone-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px}.auth-status{min-height:22px;margin-top:8px;font-size:12px;font-weight:800}.account-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.account-box{padding:10px;border:1px solid #d8c4ff;border-radius:10px;background:#faf7ff;overflow:hidden}.dark .account-box{background:#2d1750;border-color:#6d28d9}.account-box small{display:block;color:#756482;font-weight:800}.account-box b{display:block;overflow:hidden;text-overflow:ellipsis}.owner-table td,.owner-table th{font-size:12px;vertical-align:middle}.status-active{color:#15803d;font-weight:900}.status-trial{color:#7c3aed;font-weight:900}.status-expired,.status-blocked{color:#dc2626;font-weight:900}.access-card{max-width:520px;margin:28px auto;text-align:center;border:2px solid var(--gold-400)}.access-phone{display:block;margin:14px 0;padding:11px;border-radius:12px;background:var(--purple-800);color:#fff;text-decoration:none;font-size:22px;font-weight:900}.owner-config{padding:10px;margin-bottom:12px;border:1px solid #d8c4ff;border-radius:12px;background:#faf7ff}.dark .owner-config{background:#2d1750;border-color:#6d28d9}
 .formula-details>summary{list-style:none;cursor:pointer}.formula-details>summary::-webkit-details-marker{display:none}.formula-details>summary:after{content:' ▼';float:right}.formula-details[open]>summary:after{content:' ▲'}
 @media(max-width:600px){
 .appbar{min-height:43px}.appbar .container-fluid{padding:3px 7px}.navbar-brand{font-size:14px}.appbar .btn{padding:3px 7px;font-size:11px}
@@ -104,13 +109,31 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 .entry-choice{top:3px;right:3px}.entry-choice button{min-width:34px;height:26px;padding:1px 4px;font-size:11px}.entry-input-wrap.has-choice .form-control{padding-right:76px}
 }
 @media(max-width:600px) and (max-height:700px){.keypad button{min-height:39px}.enter{min-height:41px!important}.entry-fields .form-control{min-height:30px}.last-entry-card{margin-top:4px}}
+
+/* v1.4.2 — separate Language Mode. Language changes presentation only; data is untouched. */
+.app-controls{margin-left:auto}.lang-switch{display:flex;gap:2px;padding:2px;border:1px solid #fbbf24;border-radius:10px;background:#2e1065}.lang-switch-btn{border:0;border-radius:7px;padding:4px 8px;background:transparent;color:#fff8dc;font-size:11px;font-weight:900;line-height:1.2}.lang-switch-btn.active{background:linear-gradient(135deg,var(--gold-400),var(--gold-500));color:var(--purple-950);box-shadow:0 2px 7px #0003}
+body.lang-my{font-family:'Myanmar Text','Pyidaungsu','Noto Sans Myanmar',Arial,sans-serif;font-weight:700}
+body.lang-my .tabs button,body.lang-my label,body.lang-my th,body.lang-my h3,body.lang-my h4,body.lang-my h5,body.lang-my h6,body.lang-my summary,body.lang-my .btn,body.lang-my .limit-risk-title,body.lang-my .buyback-title,body.lang-my .record-summary-item,body.lang-my .last-entry-title,body.lang-my .last-entry-label{font-weight:900}
+body.lang-my .tabs button{font-size:14px;letter-spacing:.05px;padding-top:7px;padding-bottom:7px}
+body.lang-my label,body.lang-my th,body.lang-my .small,body.lang-my small{font-size:13px;line-height:1.55}
+body.lang-my .btn{letter-spacing:.05px} body.lang-my .tabs button,body.lang-my .limit-risk-panel,body.lang-my .global-filter,body.lang-my .card{font-synthesis-weight:auto} body.lang-my .tabs button{font-weight:900!important;text-shadow:0 .2px 0 currentColor}
+body.lang-my .form-control::placeholder{font-weight:700;opacity:.78}
+body.lang-en{font-family:Arial,'Noto Sans',sans-serif}
 @media(max-width:600px){.auth-card{margin:8px auto}.account-grid{grid-template-columns:1fr}.owner-table td,.owner-table th{font-size:10px}.owner-table .btn{padding:3px 5px;font-size:10px}}
+@media(max-width:600px){.app-controls{gap:3px!important}.lang-switch-btn{padding:3px 6px;font-size:10px}#themeBtn{padding:3px 5px;font-size:10px}body.lang-my .tabs button{font-size:13px}}
+
 </style>
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.1</span></span>
-<div><button id="userChip" class="btn btn-warning btn-sm me-1" hidden onclick="tab('account','tAccount')">Account</button><button class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme</button></div>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.4</span></span>
+<div class="app-controls d-flex align-items-center gap-1"><button id="userChip" class="btn btn-warning btn-sm" hidden onclick="tab('account','tAccount')">Account</button>
+<div class="lang-switch" role="group" aria-label="Language mode">
+<button id="langEnBtn" type="button" class="lang-switch-btn" onclick="setLanguage('en')">English</button>
+<button id="langMyBtn" type="button" class="lang-switch-btn" onclick="setLanguage('my')">မြန်မာ</button>
+</div>
+<button id="themeBtn" class="btn btn-light btn-sm" onclick="document.body.classList.toggle('dark')">Theme / အပြင်အဆင်</button>
+</div>
 </div></nav>
 
 <div class="container mt-3">
@@ -123,29 +146,35 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 <div id="recaptcha-container"></div><div id="authStatus" class="auth-status text-center"></div>
 </div></div>
 
+<div id="accessPage" class="page"><div class="card p-4 access-card">
+<div class="auth-logo">14</div><h4 id="accessTitle" class="fw-bold">အသုံးပြုခွင့် သက်တမ်းကုန်ပါပြီ</h4><p id="accessNotice" class="fw-bold"></p>
+<a id="accessPhone" class="access-phone" href="#">Contact</a>
+<button class="btn btn-success w-100 mb-2" onclick="retryAccess()">ပြန်လည်စစ်ဆေးရန်</button><button class="btn btn-outline-danger w-100" onclick="logout()">LOG OUT</button>
+</div></div>
+
 <div id="app" class="page">
 <div class="tabs">
-<button id="tDash" class="active" onclick="tab('dash','tDash')">📊 Dashboard</button>
-<button id="tEntry" onclick="tab('entry','tEntry')">📝 Record</button>
-<button id="tRecords" onclick="tab('records','tRecords')">📋 Records</button>
-<button id="tLimit" onclick="tab('limit','tLimit')">📉 Limit</button>
-<button id="tOver" onclick="tab('over','tOver')">🚨 Over</button>
-<button id="tAM" onclick="tab('am','tAM')">☀️ AM</button>
-<button id="tPM" onclick="tab('pm','tPM')">🌙 PM</button>
-<button id="tDaily" onclick="tab('daily','tDaily')">📅 Daily</button>
-<button id="tImg" onclick="tab('img','tImg')">🖼️ Image</button><button id="tSettings" onclick="tab('settings','tSettings')">⚙️ Settings</button>
-<button id="tAccount" onclick="tab('account','tAccount')">👤 Account</button><button id="tOwner" hidden onclick="tab('owner','tOwner')">🛡️ Owner</button>
+<button id="tDash" class="active" data-en="📊 Dashboard" data-my="📊 ပင်မ" onclick="tab('dash','tDash')">📊 Dashboard</button>
+<button id="tEntry" data-en="📝 Record" data-my="📝 စာရင်းသွင်း" onclick="tab('entry','tEntry')">📝 Record</button>
+<button id="tRecords" data-en="📋 Records" data-my="📋 မှတ်တမ်း" onclick="tab('records','tRecords')">📋 Records</button>
+<button id="tLimit" data-en="📉 Limit" data-my="📉 ကန့်သတ်" onclick="tab('limit','tLimit')">📉 Limit</button>
+<button id="tOver" data-en="🚨 Over" data-my="🚨 ကျော်" onclick="tab('over','tOver')">🚨 Over</button>
+<button id="tAM" data-en="☀️ AM" data-my="☀️ နံနက်" onclick="tab('am','tAM')">☀️ AM</button>
+<button id="tPM" data-en="🌙 PM" data-my="🌙 ညနေ" onclick="tab('pm','tPM')">🌙 PM</button>
+<button id="tDaily" data-en="📅 Daily" data-my="📅 နေ့စဉ်" onclick="tab('daily','tDaily')">📅 Daily</button>
+<button id="tImg" data-en="🖼️ Image" data-my="🖼️ ပုံ" onclick="tab('img','tImg')">🖼️ Image</button><button id="tSettings" data-en="⚙️ Settings" data-my="⚙️ ဆက်တင်" onclick="tab('settings','tSettings')">⚙️ Settings</button>
+<button id="tAccount" data-en="👤 Account" data-my="👤 အကောင့်" onclick="tab('account','tAccount')">👤 Account</button><button id="tOwner" hidden data-en="🛡️ Owner" data-my="🛡️ ပိုင်ရှင်" onclick="tab('owner','tOwner')">🛡️ Owner</button>
 </div>
 
 <div class="global-filter">
-<div><label for="gDate">စာရင်း Date</label><input id="gDate" type="date" class="form-control" onchange="applyGlobalFilter()"></div>
-<div><label for="gSession">Session</label><select id="gSession" class="form-select" onchange="applyGlobalFilter()"><option value="ALL">All</option><option value="AM">AM</option><option value="PM">PM</option></select></div>
+<div><label for="gDate">Date / ရက်စွဲ</label><input id="gDate" type="date" class="form-control" onchange="applyGlobalFilter()"></div>
+<div><label for="gSession">Session / အချိန်ပိုင်း</label><select id="gSession" class="form-select" onchange="applyGlobalFilter()"><option value="ALL">All / အားလုံး</option><option value="AM">AM</option><option value="PM">PM</option></select></div>
 </div>
 
 <section id="dash" class="page active">
 <div class="row g-2">
-<div class="col-6"><div class="card p-3 text-center">Records<h3 id="dRec">0</h3></div></div>
-<div class="col-6"><div class="card p-3 text-center">Groups<h3 id="dGrp">0</h3></div></div>
+<div class="col-6"><div class="card p-3 text-center">Records / မှတ်တမ်း<h3 id="dRec">0</h3></div></div>
+<div class="col-6"><div class="card p-3 text-center">Groups / အုပ်စုများ<h3 id="dGrp">0</h3></div></div>
 <div class="col-6"><div class="card p-3 text-center">AM<h3 id="dAM">0</h3></div></div>
 <div class="col-6"><div class="card p-3 text-center">PM<h3 id="dPM">0</h3></div></div>
 </div><div class="card p-3"><canvas id="chart"></canvas></div>
@@ -154,25 +183,25 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 <section id="entry" class="page"><div class="card entry-card">
 <div class="entry-top">
 <div class="entry-fields">
-<input id="rName" class="form-control mb-2" placeholder="Name">
-<div id="codeWrap" class="entry-input-wrap"><input id="rCode" class="form-control mb-2 entry-target" inputmode="none" placeholder="Number / Logic" onfocus="setEntryTarget('code')" onclick="setEntryTarget('code')"><div id="pairNumberActions" class="entry-choice" hidden><button id="numR" type="button" class="choice-r" onclick="setPairChoice('reverse','number')">R</button><button id="numDirect" type="button" class="choice-direct" onclick="setPairChoice('direct','number')">ဒဲ့</button></div></div>
-<div id="amtWrap" class="entry-input-wrap"><input id="rAmt" class="form-control mb-2" inputmode="numeric" pattern="[0-9]*" placeholder="Amount" onfocus="setEntryTarget('amount')" onclick="setEntryTarget('amount')"><div id="pairAmountActions" class="entry-choice" hidden><button id="amtR" type="button" class="choice-r" onclick="setPairChoice('mixed','amount')">R</button><button id="amtDirect" type="button" class="choice-direct" onclick="setPairChoice('direct','amount')">ဒဲ့</button></div></div>
-<div id="reverseAmountWrap" class="reverse-amount" hidden><input id="rRevAmt" class="form-control mb-2" inputmode="numeric" pattern="[0-9]*" placeholder="Reverse Amount" onfocus="setEntryTarget('reverse')" onclick="setEntryTarget('reverse')"></div>
+<input id="rName" class="form-control mb-2" placeholder="Name / အမည်">
+<div id="codeWrap" class="entry-input-wrap"><input id="rCode" class="form-control mb-2 entry-target" inputmode="none" placeholder="Number / Logic / နံပါတ် / Logic" onfocus="setEntryTarget('code')" onclick="setEntryTarget('code')"><div id="pairNumberActions" class="entry-choice" hidden><button id="numR" type="button" class="choice-r" onclick="setPairChoice('reverse','number')">R</button><button id="numDirect" type="button" class="choice-direct" onclick="setPairChoice('direct','number')">Direct / ဒဲ့</button></div></div>
+<div id="amtWrap" class="entry-input-wrap"><input id="rAmt" class="form-control mb-2" inputmode="numeric" pattern="[0-9]*" placeholder="Amount / ငွေပမာဏ" onfocus="setEntryTarget('amount')" onclick="setEntryTarget('amount')"><div id="pairAmountActions" class="entry-choice" hidden><button id="amtR" type="button" class="choice-r" onclick="setPairChoice('mixed','amount')">R</button><button id="amtDirect" type="button" class="choice-direct" onclick="setPairChoice('direct','amount')">Direct / ဒဲ့</button></div></div>
+<div id="reverseAmountWrap" class="reverse-amount" hidden><input id="rRevAmt" class="form-control mb-2" inputmode="numeric" pattern="[0-9]*" placeholder="Reverse Amount / အပြန်ငွေ" onfocus="setEntryTarget('reverse')" onclick="setEntryTarget('reverse')"></div>
 </div>
 <div id="lastEntry" class="last-entry-card"></div>
 </div>
 <div class="keypad">
 <button class="key-dark" onclick="key('1')">1</button><button class="key-dark" onclick="key('2')">2</button><button class="key-dark" onclick="key('3')">3</button><button class="key-delete" onclick="del()">⌫</button>
 <button class="key-dark" onclick="key('4')">4</button><button class="key-dark" onclick="key('5')">5</button><button class="key-dark" onclick="key('6')">6</button><button class="key-clear" onclick="clr()">C</button>
-<button class="key-dark" onclick="key('7')">7</button><button class="key-dark" onclick="key('8')">8</button><button class="key-dark" onclick="key('9')">9</button><button class="key-blue" onclick="key('A')">A<br><small>ပါဝါ</small></button>
-<button class="key-purple" onclick="key('*')">*R</button><button class="key-dark" onclick="key('0')">0</button><button class="key-orange" onclick="key('+')">+<br><small>စုံ</small></button><button class="key-orange" onclick="key('-')">-<br><small>မ</small></button>
-<button class="key-blue" onclick="key('Z')">Z<br><small>နက္ခ</small></button><button class="key-blue" onclick="key('B')">B<br><small>ညီကို</small></button><button class="key-blue" onclick="key('//')">//<br><small>အပူး</small></button><button class="key-purple" onclick="logicKey('break')">BREAK<br><small>ဘရိတ်</small></button>
-<button class="key-purple" onclick="logicKey('apa')">*<br><small>အပါ</small></button><button class="key-purple" onclick="logicKey('reverse')">*<br><small>အပြန်</small></button><button class="key-purple" onclick="logicKey('khway')">*ခွေ<br><small>ခွေ</small></button><button class="key-orange" onclick="logicKey('rightSlash')">1/<br><small>ထိပ်</small></button>
-<button class="key-orange" onclick="logicKey('leftSlash')">/1<br><small>နောက်</small></button>
+<button class="key-dark" onclick="key('7')">7</button><button class="key-dark" onclick="key('8')">8</button><button class="key-dark" onclick="key('9')">9</button><button class="key-blue" onclick="key('A')">A<br><small>Power / ပါဝါ</small></button>
+<button class="key-purple" onclick="key('*')">*R</button><button class="key-dark" onclick="key('0')">0</button><button class="key-orange" onclick="key('+')">+<br><small>Even / စုံ</small></button><button class="key-orange" onclick="key('-')">-<br><small>Odd / မ</small></button>
+<button class="key-blue" onclick="key('Z')">Z<br><small>NatKha / နက္ခ</small></button><button class="key-blue" onclick="key('B')">B<br><small>Pair / ညီကို</small></button><button class="key-blue" onclick="key('//')">//<br><small>Double / အပူး</small></button><button class="key-purple" onclick="logicKey('break')">BREAK<br><small>Break / ဘရိတ်</small></button>
+<button class="key-purple" onclick="logicKey('apa')">*<br><small>Include / အပါ</small></button><button class="key-purple" onclick="logicKey('reverse')">*<br><small>Reverse / အပြန်</small></button><button class="key-purple" onclick="logicKey('khway')">*ခွေ<br><small>Khway / ခွေ</small></button><button class="key-orange" onclick="logicKey('rightSlash')">1/<br><small>Front / ထိပ်</small></button>
+<button class="key-orange" onclick="logicKey('leftSlash')" >/1<br><small>Back / နောက်</small></button>
 <button class="enter btn" onclick="entryEnter()">ENTER ✓</button>
 </div>
 <details id="formulaDetails" class="formula-details" open>
-<summary class="formula-title">FORMULA SHORTCUTS</summary>
+<summary class="formula-title">FORMULA SHORTCUTS / FORMULA အမြန်ခလုတ်များ</summary>
 <div class="formula-pad">
 <button onclick="formulaKey('++')">++<small>စုံစုံ</small></button><button onclick="formulaKey('--')">--<small>မမ</small></button><button onclick="formulaKey('+-')">+-<small>စုံမ</small></button><button onclick="formulaKey('-+')">-+<small>မစုံ</small></button>
 <button onclick="formulaKey('+/')">+/<small>စုံထိပ်</small></button><button onclick="formulaKey('-/')">-/<small>မထိပ်</small></button><button onclick="formulaKey('/+')">/+<small>စုံနောက်</small></button><button onclick="formulaKey('/-')">/-<small>မနောက်</small></button>
@@ -183,36 +212,48 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 
 <section id="records" class="page"><div class="card p-3">
 <div class="record-filter">
-<input id="search" class="form-control mb-2" inputmode="text" placeholder="Name / Number ရှာရန်" oninput="renderRecords()">
-<div class="row g-2 mt-1"><div class="col-6"><button class="btn btn-sm btn-primary w-100" onclick="setRecordDate('today')">Today</button></div><div class="col-6"><button class="btn btn-sm btn-outline-secondary w-100" onclick="setRecordDate('all')">All Dates</button></div></div>
+<input id="search" class="form-control mb-2" inputmode="text" placeholder="Search Name / Number / အမည်၊ နံပါတ် ရှာရန်" oninput="renderRecords()">
+<div class="row g-2 mt-1"><div class="col-6"><button class="btn btn-sm btn-primary w-100" onclick="setRecordDate('today')">Today / ယနေ့</button></div><div class="col-6"><button class="btn btn-sm btn-outline-secondary w-100" onclick="setRecordDate('all')">All Dates / ရက်အားလုံး</button></div></div>
 </div>
-<div class="record-summary"><div class="record-summary-item">Records<br><span id="recCount">0</span></div><div class="record-summary-item">Entry Amount<br><span id="recTotal">0</span></div></div>
-<div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Date</th><th>Time</th><th>Session</th><th>Name</th><th>Code/Numbers</th><th>Amt</th><th>Act</th></tr></thead><tbody id="recBody"></tbody></table></div>
+<div class="record-summary"><div class="record-summary-item">Records / မှတ်တမ်း<br><span id="recCount">0</span></div><div class="record-summary-item">Entry Amount / စာရင်းငွေ<br><span id="recTotal">0</span></div></div>
+<div class="table-responsive"><table class="table table-sm align-middle"><thead><tr><th>Date / ရက်</th><th>Time / အချိန်</th><th>Session / ပိုင်း</th><th>Name / အမည်</th><th>Code/Numbers / နံပါတ်</th><th>Amt / ငွေ</th><th>Act / လုပ်ဆောင်</th></tr></thead><tbody id="recBody"></tbody></table></div>
 </div></section>
 
 <section id="limit" class="page"><div class="card p-3">
-<input id="lim" class="form-control mb-2" inputmode="numeric" placeholder="Limit Amount">
-<button class="btn btn-primary w-100 mb-2" onclick="renderLimit(true)">Check</button>
-<div class="row g-2 mb-2"><div class="col-6"><div class="alert alert-primary">Total<br><b id="limTotal">0</b></div></div><div class="col-6"><div class="alert alert-danger">Over<br><b id="limCount">0</b></div></div></div>
+<div class="limit-risk-panel">
+<div class="limit-risk-title">Session Risk & Auto Limit Formula / Session အန္တရာယ်နှင့် Limit အလိုအလျောက်တွက်ချက်မှု</div>
+<div class="row g-2"><div class="col-6"><label class="small fw-bold">Maximum Loss / အများဆုံး ရှုံးနိုင်သည့်ငွေ</label><input id="maxLoss" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Maximum Loss" oninput="riskFromMaxLoss()"></div><div class="col-6"><label class="small fw-bold">Limit Amount / ကန့်သတ်ငွေ</label><input id="lim" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Limit Amount" oninput="riskFromLimit()"></div></div>
+<div class="risk-grid"><div class="risk-stat"><small>Session Total / စုစုပေါင်း</small><b id="riskTotal">0</b></div><div class="risk-stat"><small>Highest Number / ငွေအများဆုံးနံပါတ်</small><b id="riskHighest">0</b></div><div class="risk-stat"><small>Over Amount Total / Over စုစုပေါင်းငွေ</small><b id="riskOverTotal">0</b></div><div id="riskBalanceBox" class="risk-stat"><small>Current Balance / လက်ရှိလက်ကျန်</small><b id="riskBalance">0</b></div><div id="riskProjectedBox" class="risk-stat"><small>Projected Balance / ခန့်မှန်းလက်ကျန်</small><b id="riskProjected">0</b></div></div>
+<div class="small mt-2"><b>Current:</b> Total − (Highest Number Amount × Payout Rate <b id="riskRate">80</b>) = Balance<br><b>Projected:</b> Session Total − (Limit Amount × Payout Rate) − Over Amount Total</div>
+</div>
+<button class="btn btn-primary w-100 mb-2" onclick="renderLimit(true)">Check / စစ်မည်</button>
+<div class="row g-2 mb-2"><div class="col-6"><div class="alert alert-primary">Total / စုစုပေါင်း<br><b id="limTotal">0</b></div></div><div class="col-6"><div class="alert alert-danger">Over / ကျော်နံပါတ်<br><b id="limCount">0</b></div></div></div>
 <div class="limit-board-wrap"><div id="grid" class="limit-grid"></div></div>
-<button class="btn btn-outline-danger w-100 mt-2" onclick="tab('over','tOver')">Limit ကျော် Table ကြည့်ရန်</button>
-<button class="btn btn-success w-100 mt-2" onclick="saveLimit()">Save Limit Table</button>
+<button class="btn btn-outline-danger w-100 mt-2" onclick="tab('over','tOver')">View Over Table / Limit ကျော်စာရင်း</button>
+<button class="btn btn-success w-100 mt-2" onclick="saveLimit()">Save Limit Table / Limit စာရင်းသိမ်းမည်</button>
 <small>မူရင်းအရောင်းစာရင်း မပြောင်းပါ။ Limit အတွက် သီးသန့်နုတ်ထားသည့် စာရင်းသာ သိမ်းပါမည်။</small>
 </div></section>
 
 <section id="over" class="page"><div class="card p-3">
-<h5>Limit Over Table</h5><div id="overContent"></div>
-<button class="btn btn-primary w-100 mt-2" onclick="saveOverImage()">Save Image</button>
-<button class="btn btn-success w-100 mt-2" onclick="shareOver()">Share</button>
-<button class="btn btn-warning w-100 mt-2" onclick="exportOver()">Export CSV</button>
+<h5>Limit Over Table / Limit ကျော်စာရင်း</h5><div id="overContent"></div>
+<div class="buyback-box">
+<div class="buyback-title">Manual Buy Back Entry / နံပါတ်ပြန်ဝယ်စာရင်း</div>
+<input id="overName" class="form-control mb-2" list="overNameList" placeholder="Name / အမည်"><datalist id="overNameList"></datalist>
+<div class="row g-2"><div class="col-6"><input id="overNumber" class="form-control" inputmode="numeric" maxlength="2" placeholder="Number / နံပါတ်"></div><div class="col-6"><input id="overAmount" class="form-control" inputmode="numeric" pattern="[0-9]*" placeholder="Amount / ပမာဏ"></div></div>
+<button class="btn btn-danger w-100 mt-2" onclick="saveBuyBack()">BUY BACK / ပြန်ဝယ်ပြီး Limit Board မှ နုတ်မည်</button>
+<small class="d-block mt-2">Selected Date / Session / ရွေးထားသည့် ရက်စွဲနှင့်အချိန်ပိုင်းအတိုင်း Buy Back ငွေကို Limit Board မှ နုတ်ပြီး <b>(-Amount)</b> ကွင်းဖြင့် ဖော်ပြပါမည်။</small>
+</div>
+<button class="btn btn-primary w-100 mt-2" onclick="saveOverImage()">Save Image / ပုံသိမ်းမည်</button>
+<button class="btn btn-success w-100 mt-2" onclick="shareOver()">Share / မျှဝေမည်</button>
+<button class="btn btn-warning w-100 mt-2" onclick="exportOver()">Export CSV / CSV ထုတ်မည်</button>
 </div></section>
 
-<section id="am" class="page"><div class="card p-3"><h5>AM Report</h5><input id="amP" class="form-control mb-2" inputmode="numeric" placeholder="P Number"><button class="btn btn-primary" onclick="settle('AM')">Show</button><div id="amOut"></div></div></section>
-<section id="pm" class="page"><div class="card p-3"><h5>PM Report</h5><input id="pmP" class="form-control mb-2" inputmode="numeric" placeholder="P Number"><button class="btn btn-primary" onclick="settle('PM')">Show</button><div id="pmOut"></div></div></section>
-<section id="daily" class="page"><div class="card p-3"><h5>Daily Report</h5><input id="dAmP" class="form-control mb-2" inputmode="numeric" placeholder="AM P"><input id="dPmP" class="form-control mb-2" inputmode="numeric" placeholder="PM P"><button class="btn btn-primary" onclick="dailyReport()">Show</button><div id="dailyOut"></div></div></section>
+<section id="am" class="page"><div class="card p-3"><h5>AM Report / AM အစီရင်ခံစာ</h5><input id="amP" class="form-control mb-2" inputmode="numeric" placeholder="P Number / P နံပါတ်"><button class="btn btn-primary" onclick="settle('AM')">Show / ပြမည်</button><div id="amOut"></div></div></section>
+<section id="pm" class="page"><div class="card p-3"><h5>PM Report / PM အစီရင်ခံစာ</h5><input id="pmP" class="form-control mb-2" inputmode="numeric" placeholder="P Number / P နံပါတ်"><button class="btn btn-primary" onclick="settle('PM')">Show / ပြမည်</button><div id="pmOut"></div></div></section>
+<section id="daily" class="page"><div class="card p-3"><h5>Daily Report / နေ့စဉ်အစီရင်ခံစာ</h5><input id="dAmP" class="form-control mb-2" inputmode="numeric" placeholder="AM P"><input id="dPmP" class="form-control mb-2" inputmode="numeric" placeholder="PM P"><button class="btn btn-primary" onclick="dailyReport()">Show / ပြမည်</button><div id="dailyOut"></div></div></section>
 
 <section id="img" class="page"><div class="card p-3">
-<h5>Customer Daily Image Report</h5>
+<h5>Customer Daily Image Report / ဖောက်သည်နေ့စဉ်ပုံအစီရင်ခံစာ</h5>
 <select id="imgName" class="form-select mb-2" onchange="renderImg()"></select>
 <div class="row g-2 mb-2"><div class="col-4"><input id="imgAM" class="form-control" inputmode="numeric" placeholder="AM P" oninput="renderImg()"></div><div class="col-4"><input id="imgPM" class="form-control" inputmode="numeric" placeholder="PM P" oninput="renderImg()"></div><div class="col-4"><input id="imgCor" value="13" class="form-control" inputmode="numeric" oninput="renderImg()"></div></div>
 <div id="imgBox">
@@ -220,46 +261,49 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 <div class="row mt-4"><div class="col-6"><div class="ap">Am</div><div class="redlbl">Total Amount</div><div id="amTot" class="val">0</div><div class="redlbl">P Total</div><div id="amPay" class="val">0</div><div class="redlbl">Cor</div><div id="amCor" class="val">0</div><div class="redlbl">Result</div><div id="amRes" class="val">0</div></div>
 <div class="col-6"><div class="ap">Pm</div><div class="redlbl">Total Amount</div><div id="pmTot" class="val">0</div><div class="redlbl">P Total</div><div id="pmPay" class="val">0</div><div class="redlbl">Cor</div><div id="pmCor" class="val">0</div><div class="redlbl">Result</div><div id="pmRes" class="val">0</div></div></div>
 <div class="daily-title">Daily Total</div><div class="daily-box"><div class="daily-row">T. <span id="dt">0</span></div><div class="daily-row">P. <span id="dp">0</span></div><div class="daily-row">C. <span id="dc">0</span></div><div class="daily-row">R. <span id="dr">0</span></div></div>
-<div class="text-center fw-bold text-danger fs-3">Save Image</div><div class="text-center fw-bold text-danger fs-5">Image Share</div>
+<div class="text-center fw-bold text-danger fs-3">Save Image / ပုံသိမ်းမည်</div><div class="text-center fw-bold text-danger fs-5">Image Share / ပုံမျှဝေမည်</div>
 </div>
-<button class="btn btn-primary w-100 mt-2" onclick="saveCustomerImage()">Save Image</button>
-<button class="btn btn-success w-100 mt-2" onclick="shareCustomer()">Image Share</button>
+<button class="btn btn-primary w-100 mt-2" onclick="saveCustomerImage()">Save Image / ပုံသိမ်းမည်</button>
+<button class="btn btn-success w-100 mt-2" onclick="shareCustomer()">Image Share / ပုံမျှဝေမည်</button>
 </div></section>
 
 <section id="settings" class="page"><div class="card p-3">
-<h5 class="settings-title">⚙️ Settings & Data Safety</h5>
+<h5 class="settings-title">⚙️ Settings & Data Safety / ဆက်တင်နှင့် ဒေတာလုံခြုံရေး</h5>
 <div class="logo-tile mb-3">RM<br><small style="font-size:14px">2D</small></div>
 <div class="row g-2">
-<div class="col-6"><label class="small fw-bold">Payout Rate</label><input id="setRate" class="form-control" inputmode="numeric" placeholder="80"></div>
-<div class="col-6"><label class="small fw-bold">Default Cor %</label><input id="setCor" class="form-control" inputmode="numeric" placeholder="13"></div>
-<div class="col-12"><label class="small fw-bold">App Name</label><input id="setAppName" class="form-control" placeholder="RecordManager_Pro"></div>
-<div class="col-12"><label class="small fw-bold">Owner / Shop Name</label><input id="setOwner" class="form-control" placeholder="Owner Name"></div>
+<div class="col-6"><label class="small fw-bold">Payout Rate / ပေါက်ကြေး</label><input id="setRate" class="form-control" inputmode="numeric" placeholder="80"></div>
+<div class="col-6"><label class="small fw-bold">Default Cor % / ကော်မရှင် %</label><input id="setCor" class="form-control" inputmode="numeric" placeholder="13"></div>
+<div class="col-12"><label class="small fw-bold">App Name / App အမည်</label><input id="setAppName" class="form-control" placeholder="RecordManager_Pro"></div>
+<div class="col-12"><label class="small fw-bold">Owner / Shop Name / ပိုင်ရှင်၊ ဆိုင်အမည်</label><input id="setOwner" class="form-control" placeholder="Owner Name"></div>
 <div class="col-6"><label class="small fw-bold">AM End</label><input id="setAmEnd" class="form-control" placeholder="12:00"></div>
 <div class="col-6"><label class="small fw-bold">PM End</label><input id="setPmEnd" class="form-control" placeholder="16:30"></div>
 </div>
-<button class="btn btn-primary w-100 mt-3 rounded-pill fw-bold" onclick="saveSettings()">Save Settings</button>
-<hr><h6 class="fw-bold">Backup / Restore</h6>
-<button class="btn btn-success w-100 mb-2 rounded-pill fw-bold" onclick="backupJSON()">Backup JSON</button>
+<button class="btn btn-primary w-100 mt-3 rounded-pill fw-bold" onclick="saveSettings()">Save Settings / ဆက်တင်သိမ်းမည်</button>
+<hr><h6 class="fw-bold">Backup / Restore / Backup နှင့် Restore</h6>
+<button class="btn btn-success w-100 mb-2 rounded-pill fw-bold" onclick="backupJSON()">Backup JSON / Backup သိမ်းမည်</button>
 <input type="file" id="restoreFile" class="form-control mb-2" accept=".json" onchange="restoreJSON(event)">
-<button class="btn btn-outline-primary w-100 mb-2 rounded-pill fw-bold" onclick="importOldData()">Import Old Version Data</button>
-<hr><h6 class="fw-bold text-danger">Danger Zone</h6>
-<button class="btn btn-warning w-100 mb-2 rounded-pill fw-bold" onclick="clearTodayRecords()">Clear Today Records</button>
-<button class="btn btn-outline-danger w-100 mb-2 rounded-pill fw-bold" onclick="clearLimitExports()">Clear Limit Export Records</button>
-<button class="btn btn-danger w-100 rounded-pill fw-bold" onclick="clearAllRecords()">Clear All Records</button>
+<button class="btn btn-outline-primary w-100 mb-2 rounded-pill fw-bold" onclick="importOldData()">Import Old Version Data / Version အဟောင်း Data ထည့်မည်</button>
+<hr><h6 class="fw-bold text-danger">Danger Zone / သတိပြုရန်</h6>
+<button class="btn btn-warning w-100 mb-2 rounded-pill fw-bold" onclick="clearTodayRecords()">Clear Today Records / ယနေ့စာရင်းဖျက်မည်</button>
+<button class="btn btn-outline-danger w-100 mb-2 rounded-pill fw-bold" onclick="clearLimitExports()">Clear Limit Export Records / Limit Export စာရင်းဖျက်မည်</button>
+<button class="btn btn-danger w-100 rounded-pill fw-bold" onclick="clearAllRecords()">Clear All Records / စာရင်းအားလုံးဖျက်မည်</button>
 <div class="small text-muted mt-3">PWA preparation: Settings, backup/restore, logo placeholder, and data migration are ready.</div>
 </div></section>
 
 <section id="account" class="page"><div class="card p-3">
 <h5 class="fw-bold">👤 Account</h5><div class="account-grid">
 <div class="account-box"><small>Name</small><b id="accName">-</b></div><div class="account-box"><small>Email / Phone</small><b id="accContact">-</b></div>
-<div class="account-box"><small>Role</small><b id="accRole">USER</b></div><div class="account-box"><small>User UID</small><b id="accUid">-</b></div>
+<div class="account-box"><small>Role</small><b id="accRole">USER</b></div><div class="account-box"><small>Trial / Access</small><b id="accTrial">-</b></div>
+<div class="account-box"><small>User UID</small><b id="accUid">-</b></div>
 </div><button class="btn btn-outline-primary w-100 mt-2" onclick="copyUid()">UID Copy</button><button class="btn btn-danger w-100 mt-2" onclick="logout()">LOG OUT</button>
 </div></section>
 
 <section id="owner" class="page"><div class="card p-3">
 <h5 class="fw-bold">🛡️ Owner Control</h5><p class="small text-muted">User account များကို Active / Blocked ပြောင်းနိုင်ပါသည်။</p>
-<button class="btn btn-primary btn-sm w-100 mb-2" onclick="loadOwnerUsers()">Refresh Users</button><div class="table-responsive"><table class="table table-sm owner-table"><thead><tr><th>User</th><th>Contact</th><th>Status</th><th>Control</th></tr></thead><tbody id="ownerUsersBody"></tbody></table></div>
+<div class="owner-config"><label class="form-label fw-bold">ဆက်သွယ်ရန် Phone</label><input id="ownerContactPhone" class="form-control mb-2" inputmode="tel" placeholder="09xxxxxxxxx"><label class="form-label fw-bold">Trial ကုန် Notice စာသား</label><textarea id="ownerNoticeText" class="form-control mb-2" rows="3" placeholder="ဆက်လက်အသုံးပြုရန် ဆက်သွယ်ပါ"></textarea><button class="btn btn-warning w-100 fw-bold" onclick="saveOwnerConfig()">NOTICE SETTING သိမ်းမည်</button></div>
+<button class="btn btn-primary btn-sm w-100 mb-2" onclick="loadOwnerUsers()">Refresh Users</button><div class="table-responsive"><table class="table table-sm owner-table"><thead><tr><th>User</th><th>Contact</th><th>Access</th><th>Control</th></tr></thead><tbody id="ownerUsersBody"></tbody></table></div>
 </div></section>
+
 
 </div></div>
 
@@ -270,29 +314,70 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 const DB='RM_v124_records', EX='RM_v124_exports', SET='RM_v124_settings';
 const firebaseConfig={apiKey:'AIzaSyCxjV1O936hdmy_kwX2F0tDzVdh7lyWceM',authDomain:'rm-2d-logic-pro.firebaseapp.com',projectId:'rm-2d-logic-pro',storageBucket:'rm-2d-logic-pro.firebasestorage.app',messagingSenderId:'466585109108',appId:'1:466585109108:web:acc820eaecbb0ccef28721'};
 let settings=JSON.parse(localStorage.getItem(SET)||'{}');
-let records=JSON.parse(localStorage.getItem(DB)||'[]'), exportsL=JSON.parse(localStorage.getItem(EX)||'[]'), editId=null, chartObj=null, entryTarget='code',pairChoice='',pairChoiceAt='',pairPhase='number';
-let fbAuth=null,fbDb=null,currentUser=null,isOwnerAccount=false,phoneConfirmation=null,recaptchaVerifier=null,cloudTimer=null;
+let records=JSON.parse(localStorage.getItem(DB)||'[]'), exportsL=JSON.parse(localStorage.getItem(EX)||'[]'), editId=null, chartObj=null, entryTarget='code',pairChoice='',pairChoiceAt='',pairPhase='number',riskInputSource='limit';
+let fbAuth=null,fbDb=null,currentUser=null,isOwnerAccount=false,phoneConfirmation=null,recaptchaVerifier=null,cloudTimer=null,currentAccount=null;
+const TRIAL_DAYS=14,DAY_MS=86400000,DEFAULT_APP_CONFIG={contactPhone:'',noticeText:'ဆက်လက်အသုံးပြုရန် App Owner ကို ဆက်သွယ်ပါ။'};
+let appConfig={...DEFAULT_APP_CONFIG};
 function rate(){return Number(settings.rate||80)}function defCor(){return Number(settings.cor||13)}function scopedKey(k){return currentUser?k+'_'+currentUser.uid:k}function saveSet(){localStorage.setItem(scopedKey(SET),JSON.stringify(settings));queueCloudSave()}
-const MAP={A:['05','16','27','38','49','50','61','72','83','94'],Z:['07','18','24','35','69','70','81','42','53','96'],B:['12','23','34','45','56','21','32','43','54','65','67','78','89','90','01','76','87','98','09','10'],'//':['00','11','22','33','44','55','66','77','88','99']};
-const E=['0','2','4','6','8'],O=['1','3','5','7','9'];
 function authMessage(msg,bad=false){authStatus.innerText=msg;authStatus.className='auth-status text-center '+(bad?'text-danger':'text-success')}
 function initFirebase(){try{if(typeof firebase==='undefined')throw new Error('Firebase SDK မဖွင့်နိုင်ပါ');firebase.initializeApp(firebaseConfig);fbAuth=firebase.auth();fbDb=firebase.firestore();fbAuth.useDeviceLanguage();fbAuth.onAuthStateChanged(user=>{if(user)openUserSession(user);else showLogin()})}catch(e){authMessage('Firebase ချိတ်ဆက်မှု မအောင်မြင်ပါ — Internet စစ်ပါ',true)}}
-function showLogin(){currentUser=null;isOwnerAccount=false;app.classList.remove('active');loginPage.classList.add('active');userChip.hidden=true;tOwner.hidden=true;otpRow.hidden=true;authMessage('')}
+function showLogin(){currentUser=null;currentAccount=null;isOwnerAccount=false;app.classList.remove('active');accessPage.classList.remove('active');loginPage.classList.add('active');userChip.hidden=true;tOwner.hidden=true;otpRow.hidden=true;authMessage('')}
 async function googleLogin(){try{authMessage('Google Account ဖွင့်နေပါသည်…');googleLoginBtn.disabled=true;let provider=new firebase.auth.GoogleAuthProvider();await fbAuth.signInWithPopup(provider)}catch(e){authMessage(authErrorText(e),true)}finally{googleLoginBtn.disabled=false}}
 function normalizePhone(v){v=String(v||'').replace(/[\s-]/g,'');if(v.startsWith('09'))return '+95'+v.slice(1);if(v.startsWith('959'))return '+'+v;if(v.startsWith('+'))return v;return v}
 async function sendPhoneOtp(){try{let phone=normalizePhone(phoneInput.value);if(!/^\+[1-9]\d{7,14}$/.test(phone))return authMessage('ဖုန်းနံပါတ်ကို 09xxxxxxxxx ပုံစံဖြည့်ပါ',true);sendOtpBtn.disabled=true;authMessage('reCAPTCHA အတည်ပြုပြီး OTP ပို့နေပါသည်…');if(recaptchaVerifier){recaptchaVerifier.clear();recaptchaVerifier=null}recaptchaVerifier=new firebase.auth.RecaptchaVerifier('recaptcha-container',{});phoneConfirmation=await fbAuth.signInWithPhoneNumber(phone,recaptchaVerifier);otpRow.hidden=false;otpInput.focus();authMessage('OTP ပို့ပြီးပါပြီ')}catch(e){authMessage(authErrorText(e),true);if(recaptchaVerifier){recaptchaVerifier.clear();recaptchaVerifier=null}}finally{sendOtpBtn.disabled=false}}
 async function verifyPhoneOtp(){try{let code=otpInput.value.trim();if(!/^\d{6}$/.test(code))return authMessage('OTP ၆ လုံးဖြည့်ပါ',true);authMessage('Account စစ်ဆေးနေပါသည်…');await phoneConfirmation.confirm(code)}catch(e){authMessage(authErrorText(e),true)}}
 function authErrorText(e){let c=e&&e.code||'';if(c.includes('popup-closed'))return'Google Login ကို ပိတ်လိုက်ပါသည်';if(c.includes('invalid-verification-code'))return'OTP မမှန်ပါ';if(c.includes('too-many-requests'))return'အကြိမ်များလွန်းပါသည် — ခဏစောင့်ပါ';if(c.includes('quota-exceeded'))return'SMS quota ပြည့်သွားပါပြီ';if(c.includes('unauthorized-domain'))return'Domain ကို Firebase တွင်ခွင့်မပြုရသေးပါ';return(e&&e.message)||'Login မအောင်မြင်ပါ'}
-async function openUserSession(user){try{currentUser=user;authMessage('Account data ဖွင့်နေပါသည်…');let ref=fbDb.collection('accounts').doc(user.uid),snap=await ref.get(),profile={displayName:user.displayName||user.phoneNumber||'User',phone:user.phoneNumber||'',photoURL:user.photoURL||'',lastLoginAt:firebase.firestore.FieldValue.serverTimestamp()};if(!snap.exists){await ref.set({...profile,email:user.email||'',role:'user',status:'active',createdAt:firebase.firestore.FieldValue.serverTimestamp()});snap=await ref.get()}else await ref.update(profile);let account=snap.data()||{};if(account.status==='blocked'){alert('ဤ Account ကို Owner က ပိတ်ထားပါသည်');await fbAuth.signOut();return}isOwnerAccount=(await fbDb.collection('owners').doc(user.uid).get()).exists;await loadUserData();accName.innerText=user.displayName||account.displayName||'User';accContact.innerText=user.email||user.phoneNumber||'-';accRole.innerText=isOwnerAccount?'OWNER':'USER';accUid.innerText=user.uid;userChip.innerText=(isOwnerAccount?'OWNER · ':'')+(user.displayName||user.phoneNumber||'Account');userChip.hidden=false;tOwner.hidden=!isOwnerAccount;loginPage.classList.remove('active');app.classList.add('active');tab('dash','tDash');if(isOwnerAccount)loadOwnerUsers()}catch(e){authMessage('Account data ဖွင့်မရပါ: '+(e.message||e),true);app.classList.remove('active');loginPage.classList.add('active')}}
-async function loadUserData(){let uid=currentUser.uid,cloud=await fbDb.collection('userData').doc(uid).collection('state').doc('main').get(),hasLocal=localStorage.getItem(DB+'_'+uid)!==null;if(cloud.exists){let d=cloud.data()||{};records=Array.isArray(d.records)?d.records:[];exportsL=Array.isArray(d.exportsL)?d.exportsL:[];settings=d.settings||{}}else if(hasLocal){records=JSON.parse(localStorage.getItem(DB+'_'+uid)||'[]');exportsL=JSON.parse(localStorage.getItem(EX+'_'+uid)||'[]');settings=JSON.parse(localStorage.getItem(SET+'_'+uid)||'{}');await saveCloudNow()}else{let claimed=localStorage.getItem('RM_v140_legacy_claimed_uid');if(!claimed&&(records.length||exportsL.length)){localStorage.setItem('RM_v140_legacy_claimed_uid',uid);await saveCloudNow()}else{records=[];exportsL=[];settings={};await saveCloudNow()}}localStorage.setItem(DB+'_'+uid,JSON.stringify(records));localStorage.setItem(EX+'_'+uid,JSON.stringify(exportsL));localStorage.setItem(SET+'_'+uid,JSON.stringify(settings));applySettingsUI();renderAll()}
+function stampMs(v){return v&&typeof v.toMillis==='function'?v.toMillis():v instanceof Date?v.getTime():Number(v)||0}
+function expiryState(account){let exp=stampMs(account&&account.accessExpiresAt),blocked=account&&account.status==='blocked',expired=!exp||exp<=Date.now(),days=exp?Math.max(0,Math.ceil((exp-Date.now())/DAY_MS)):0;return{exp,blocked,expired,days,label:blocked?'BLOCKED':expired?'EXPIRED':days<=TRIAL_DAYS?'TRIAL '+days+' Days':'ACTIVE until '+new Date(exp).toLocaleDateString('en-GB')}}
+async function loadAppConfig(){try{let s=await fbDb.collection('appConfig').doc('public').get();appConfig={...DEFAULT_APP_CONFIG,...(s.exists?s.data():{})}}catch(e){appConfig={...DEFAULT_APP_CONFIG}}}
+function showAccessGate(account,reason){let st=expiryState(account);loginPage.classList.remove('active');app.classList.remove('active');accessPage.classList.add('active');accessTitle.innerText=reason==='blocked'?'ဤ Account ကို ပိတ်ထားပါသည်':'အသုံးပြုခွင့် သက်တမ်းကုန်ပါပြီ';accessNotice.innerText=appConfig.noticeText||DEFAULT_APP_CONFIG.noticeText;let phone=appConfig.contactPhone||'Contact Owner';accessPhone.innerText='☎ '+phone;accessPhone.href=appConfig.contactPhone?'tel:'+normalizePhone(appConfig.contactPhone):'#';accTrial.innerText=st.label}
+async function retryAccess(){if(currentUser){accessNotice.innerText='အသုံးပြုခွင့် ပြန်လည်စစ်ဆေးနေပါသည်…';await openUserSession(currentUser)}}
+async function openUserSession(user){try{currentUser=user;authMessage('Account data ဖွင့်နေပါသည်…');let ref=fbDb.collection('accounts').doc(user.uid),snap=await ref.get(),profile={displayName:user.displayName||user.phoneNumber||'User',phone:user.phoneNumber||'',photoURL:user.photoURL||'',lastLoginAt:firebase.firestore.FieldValue.serverTimestamp()};if(!snap.exists){await ref.set({...profile,email:user.email||'',role:'user',status:'active',createdAt:firebase.firestore.FieldValue.serverTimestamp(),accessExpiresAt:firebase.firestore.Timestamp.fromMillis(Date.now()+TRIAL_DAYS*DAY_MS)});snap=await ref.get()}else{let old=snap.data()||{},patch={...profile};if(!old.accessExpiresAt)patch.accessExpiresAt=firebase.firestore.Timestamp.fromMillis(Date.now()+TRIAL_DAYS*DAY_MS);await ref.update(patch);snap=await ref.get()}let account=snap.data()||{};currentAccount=account;isOwnerAccount=(await fbDb.collection('owners').doc(user.uid).get()).exists;await loadAppConfig();let state=expiryState(account);if(!isOwnerAccount&&(state.blocked||state.expired)){showAccessGate(account,state.blocked?'blocked':'expired');return}await loadUserData();accName.innerText=user.displayName||account.displayName||'User';accContact.innerText=user.email||user.phoneNumber||'-';accRole.innerText=isOwnerAccount?'OWNER':'USER';accTrial.innerText=isOwnerAccount?'UNLIMITED':state.label;accUid.innerText=user.uid;userChip.innerText=(isOwnerAccount?'OWNER · ':'')+(user.displayName||user.phoneNumber||'Account');userChip.hidden=false;tOwner.hidden=!isOwnerAccount;loginPage.classList.remove('active');accessPage.classList.remove('active');app.classList.add('active');tab('dash','tDash');if(isOwnerAccount){ownerContactPhone.value=appConfig.contactPhone||'';ownerNoticeText.value=appConfig.noticeText||'';loadOwnerUsers()}}catch(e){authMessage('Account data ဖွင့်မရပါ: '+(e.message||e),true);app.classList.remove('active');accessPage.classList.remove('active');loginPage.classList.add('active')}}
+async function loadUserData(){let uid=currentUser.uid,cloud=await fbDb.collection('userData').doc(uid).collection('state').doc('main').get(),hasLocal=localStorage.getItem(DB+'_'+uid)!==null;if(cloud.exists){let d=cloud.data()||{};records=Array.isArray(d.records)?d.records:[];exportsL=Array.isArray(d.exportsL)?d.exportsL:[];settings=d.settings||{};currentLang=settings.lang==='en'?'en':'my'}else if(hasLocal){records=JSON.parse(localStorage.getItem(DB+'_'+uid)||'[]');exportsL=JSON.parse(localStorage.getItem(EX+'_'+uid)||'[]');settings=JSON.parse(localStorage.getItem(SET+'_'+uid)||'{}');await saveCloudNow()}else{let claimed=localStorage.getItem('RM_v140_legacy_claimed_uid');if(!claimed&&(records.length||exportsL.length)){localStorage.setItem('RM_v140_legacy_claimed_uid',uid);await saveCloudNow()}else{records=[];exportsL=[];settings={};await saveCloudNow()}}localStorage.setItem(DB+'_'+uid,JSON.stringify(records));localStorage.setItem(EX+'_'+uid,JSON.stringify(exportsL));localStorage.setItem(SET+'_'+uid,JSON.stringify(settings));applySettingsUI();renderAll()}
 function queueCloudSave(){if(!currentUser||!fbDb)return;clearTimeout(cloudTimer);cloudTimer=setTimeout(()=>saveCloudNow().catch(e=>console.warn('Cloud save',e)),700)}
 async function saveCloudNow(){if(!currentUser||!fbDb)return;await fbDb.collection('userData').doc(currentUser.uid).collection('state').doc('main').set({records,exportsL,settings,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true})}
 async function logout(){if(confirm('Account မှထွက်မလား?'))await fbAuth.signOut()}
 function copyUid(){navigator.clipboard?.writeText(currentUser?.uid||'');alert('UID Copy ပြီးပါပြီ')}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-async function loadOwnerUsers(){if(!isOwnerAccount)return;ownerUsersBody.innerHTML='<tr><td colspan="4" class="text-center">Loading…</td></tr>';try{let q=await fbDb.collection('accounts').get();ownerUsersBody.innerHTML=q.empty?'<tr><td colspan="4">No Users</td></tr>':q.docs.map(d=>{let a=d.data(),status=a.status||'active',next=status==='active'?'blocked':'active';return`<tr><td>${esc(a.displayName||'User')}</td><td>${esc(a.email||a.phone||'-')}</td><td class="status-${status}">${status}</td><td><button class="btn btn-sm ${status==='active'?'btn-danger':'btn-success'}" onclick="setUserStatus('${d.id}','${next}')">${status==='active'?'BLOCK':'ACTIVE'}</button></td></tr>`}).join('')}catch(e){ownerUsersBody.innerHTML='<tr><td colspan="4" class="text-danger">'+esc(e.message)+'</td></tr>'}}
-async function setUserStatus(uid,status){if(!isOwnerAccount||uid===currentUser.uid)return alert('Owner Account ကိုပိတ်၍မရပါ');if(!confirm(status==='blocked'?'ဒီ User ကိုပိတ်မလား?':'ဒီ User ကိုပြန်ဖွင့်မလား?'))return;await fbDb.collection('accounts').doc(uid).update({status});loadOwnerUsers()}
-function tab(id,b){document.querySelectorAll('#app>section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(b).classList.add('active');renderAll();if(id==='limit')renderLimit(false);if(id==='over')renderOver();if(id==='img'){fillNames();renderImg()}if(id==='settings'){applySettingsUI()}}
+function dateInputValue(ms){if(!ms)return'';let d=new Date(ms),off=d.getTimezoneOffset();return new Date(ms-off*60000).toISOString().slice(0,10)}
+async function saveOwnerConfig(){if(!isOwnerAccount)return;let contactPhone=ownerContactPhone.value.trim(),noticeText=ownerNoticeText.value.trim();if(!contactPhone)return alert('Contact Phone ဖြည့်ပါ');if(!noticeText)return alert('Notice စာသားဖြည့်ပါ');await fbDb.collection('appConfig').doc('public').set({contactPhone,noticeText,updatedAt:firebase.firestore.FieldValue.serverTimestamp()},{merge:true});appConfig={...appConfig,contactPhone,noticeText};alert('Notice Setting သိမ်းပြီးပါပြီ')}
+async function loadOwnerUsers(){if(!isOwnerAccount)return;ownerUsersBody.innerHTML='<tr><td colspan="4" class="text-center">Loading…</td></tr>';try{let q=await fbDb.collection('accounts').get();ownerUsersBody.innerHTML=q.empty?'<tr><td colspan="4">No Users</td></tr>':q.docs.map(d=>{let a=d.data(),st=expiryState(a),owner=d.id===currentUser.uid,cls=st.blocked?'blocked':st.expired?'expired':st.days<=TRIAL_DAYS?'trial':'active',date=dateInputValue(st.exp);return`<tr><td>${esc(a.displayName||'User')}</td><td>${esc(a.email||a.phone||'-')}</td><td class="status-${cls}">${owner?'OWNER':esc(st.label)}</td><td>${owner?'-':`<input id="exp_${d.id}" type="date" class="form-control form-control-sm mb-1" value="${date}"><button class="btn btn-success btn-sm me-1" onclick="activateUser('${d.id}')">ACTIVE</button><button class="btn btn-danger btn-sm" onclick="blockUser('${d.id}')">BLOCK</button>`}</td></tr>`}).join('')}catch(e){ownerUsersBody.innerHTML='<tr><td colspan="4" class="text-danger">'+esc(e.message)+'</td></tr>'}}
+async function activateUser(uid){if(!isOwnerAccount||uid===currentUser.uid)return;let input=document.getElementById('exp_'+uid),value=input&&input.value;if(!value)return alert('Exp Date ရွေးပါ');let expires=new Date(value+'T23:59:59');if(expires.getTime()<=Date.now())return alert('ယနေ့နောက်ပိုင်း Exp Date ရွေးပါ');if(!confirm('ဒီ User ကို '+value+' အထိ ACTIVE လုပ်မလား?'))return;await fbDb.collection('accounts').doc(uid).update({status:'active',accessExpiresAt:firebase.firestore.Timestamp.fromDate(expires),activatedAt:firebase.firestore.FieldValue.serverTimestamp()});loadOwnerUsers()}
+async function blockUser(uid){if(!isOwnerAccount||uid===currentUser.uid)return alert('Owner Account ကိုပိတ်၍မရပါ');if(!confirm('ဒီ User ကိုပိတ်မလား?'))return;await fbDb.collection('accounts').doc(uid).update({status:'blocked'});loadOwnerUsers()}
+
+
+// v1.4.2 language mode: English and Myanmar are shown separately, never mixed.
+let currentLang=settings.lang==='en'?'en':'my';
+const I18N_TEXT_ORIGINAL=new WeakMap(),I18N_PLACEHOLDER_ORIGINAL=new WeakMap();
+const I18N_PAIRS=[
+['Records','မှတ်တမ်း'],['Groups','အုပ်စုများ'],['Record','စာရင်းသွင်း'],['Dashboard','ပင်မ'],['Limit','ကန့်သတ်'],['Over','ကျော်'],['Image','ပုံ'],['Settings','ဆက်တင်'],
+['Name','အမည်'],['Number','နံပါတ်'],['Amount','ငွေပမာဏ'],['Reverse Amount','အပြန်ငွေ'],['Number / Logic','နံပါတ် / Logic'],['P Number','P နံပါတ်'],
+['FORMULA SHORTCUTS','FORMULA အမြန်ခလုတ်များ'],['Power','ပါဝါ'],['Pair','ညီကို'],['Double','အပူး'],['Break','ဘရိတ်'],['Include','အပါ'],['Reverse','အပြန်'],['Khway','ခွေ'],['Front','ထိပ်'],['Back','နောက်'],['Direct','ဒဲ့'],
+['Today','ယနေ့'],['All Dates','ရက်အားလုံး'],['All','အားလုံး'],['Date','ရက်စွဲ'],['Time','အချိန်'],['Session','အချိန်ပိုင်း'],['Code/Numbers','နံပါတ်များ'],['Amt','ငွေ'],['Act','လုပ်ဆောင်ချက်'],
+['No records yet','စာရင်းမရှိသေးပါ'],['Latest RECORD','နောက်ဆုံး RECORD'],['No data yet','စာရင်းမရှိသေးပါ'],['Entry Amount','စာရင်းငွေ'],
+['Check','စစ်မည်'],['Total','စုစုပေါင်း'],['View Over Table','Limit ကျော်စာရင်းကြည့်မည်'],['Save Limit Table','Limit စာရင်းသိမ်းမည်'],
+['Save Image','ပုံသိမ်းမည်'],['Share','မျှဝေမည်'],['Export CSV','CSV ထုတ်မည်'],['Show','ပြမည်'],['Daily Report','နေ့စဉ်အစီရင်ခံစာ'],['AM Report','AM အစီရင်ခံစာ'],['PM Report','PM အစီရင်ခံစာ'],
+['Total Amount','စုစုပေါင်းငွေ'],['P Total','P စုစုပေါင်း'],['Result','ရလဒ်'],['Daily Total','နေ့စဉ်စုစုပေါင်း'],
+['Payout Rate','ပေါက်ကြေး'],['Default Cor %','ကော်မရှင် %'],['App Name','App အမည်'],['Owner / Shop Name','ပိုင်ရှင် / ဆိုင်အမည်'],['Save Settings','ဆက်တင်သိမ်းမည်'],
+['Backup / Restore','Backup / Restore'],['Import Old Version Data','Version အဟောင်း Data ထည့်မည်'],['Danger Zone','သတိပြုရန်'],['Clear Today Records','ယနေ့စာရင်းဖျက်မည်'],['Clear Limit Export Records','Limit Export စာရင်းဖျက်မည်'],['Clear All Records','စာရင်းအားလုံးဖျက်မည်'],
+['Theme','အပြင်အဆင်'],['Login','အကောင့်ဝင်ရန်'],['Username','အသုံးပြုသူအမည်'],['Password','စကားဝှက်'],['SIGN IN','ဝင်မည်'],
+['No Over','Limit ကျော်မရှိပါ'],['Limit Over','Limit ကျော်'],['Bet','ထိုးငွေ'],['Payout','လျော်ငွေ'],['Net','လက်ကျန်']
+];
+const I18N_LOOKUP=new Map();I18N_PAIRS.forEach(([en,my])=>{I18N_LOOKUP.set(en,{en,my});I18N_LOOKUP.set(my,{en,my})});
+function L(en,my){return currentLang==='my'?my:en}
+function i18nParts(text){let t=String(text||'').trim();if(!t)return null;let exact=I18N_LOOKUP.get(t);if(exact)return exact;let firstMy=t.search(/[\u1000-\u109F\uAA60-\uAA7F]/);if(firstMy>=0){let slash=t.lastIndexOf('/',firstMy);if(slash>=0){let en=t.slice(0,slash).trim(),my=t.slice(slash+1).trim();if(en&&my)return{en,my}}}return null}
+function localizedRaw(raw){let lead=(String(raw).match(/^\s*/)||[''])[0],tail=(String(raw).match(/\s*$/)||[''])[0],core=String(raw).trim(),p=i18nParts(core);return p?lead+(currentLang==='my'?p.my:p.en)+tail:raw}
+function applyLanguageToUI(root=document){
+ document.documentElement.lang=currentLang==='my'?'my':'en';document.body.classList.toggle('lang-my',currentLang==='my');document.body.classList.toggle('lang-en',currentLang==='en');
+ let walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let nodes=[];while(walker.nextNode())nodes.push(walker.currentNode);nodes.forEach(n=>{let parent=n.parentElement;if(!parent||['SCRIPT','STYLE'].includes(parent.tagName))return;let raw=I18N_TEXT_ORIGINAL.get(n);if(raw==null){raw=n.nodeValue;I18N_TEXT_ORIGINAL.set(n,raw)}n.nodeValue=localizedRaw(raw)});
+ root.querySelectorAll?.('[placeholder]').forEach(el=>{let raw=I18N_PLACEHOLDER_ORIGINAL.get(el);if(raw==null){raw=el.getAttribute('placeholder')||'';I18N_PLACEHOLDER_ORIGINAL.set(el,raw)}let p=i18nParts(raw),exact=I18N_LOOKUP.get(raw.trim());let pair=p||exact;if(pair)el.setAttribute('placeholder',currentLang==='my'?pair.my:pair.en)});
+ root.querySelectorAll?.('[data-en][data-my]').forEach(el=>{el.textContent=currentLang==='my'?el.getAttribute('data-my'):el.getAttribute('data-en')});
+ let en=document.getElementById('langEnBtn'),my=document.getElementById('langMyBtn');if(en)en.classList.toggle('active',currentLang==='en');if(my)my.classList.toggle('active',currentLang==='my');
+}
+function setLanguage(lang){currentLang=lang==='en'?'en':'my';settings.lang=currentLang;saveSet();applyLanguageToUI(document);renderAll();if(document.getElementById('limit')?.classList.contains('active'))renderLimit(false);if(document.getElementById('over')?.classList.contains('active'))renderOver();applyLanguageToUI(document)}
+const MAP={A:['05','16','27','38','49','50','61','72','83','94'],Z:['07','18','24','35','69','70','81','42','53','96'],B:['12','23','34','45','56','21','32','43','54','65','67','78','89','90','01','76','87','98','09','10'],'//':['00','11','22','33','44','55','66','77','88','99']};
+const E=['0','2','4','6','8'],O=['1','3','5','7','9'];
+function tab(id,b){document.querySelectorAll('#app>section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(b).classList.add('active');renderAll();if(id==='limit')renderLimit(false);if(id==='over')renderOver();if(id==='img'){fillNames();renderImg()}if(id==='settings'){applySettingsUI()}if(id==='owner'&&isOwnerAccount)loadOwnerUsers();applyLanguageToUI(document)}
 function compactCode(){return rCode.value.replace(/\s+/g,'')}
 function formatPairDigits(v){return String(v).replace(/\D/g,'').match(/.{1,2}/g)?.join(' ')||''}
 function pairNumbers(){let c=compactCode();return /^\d{4,}$/.test(c)&&c.length%2===0?(c.match(/.{2}/g)||[]):[]}
@@ -329,27 +414,43 @@ if(/^[0-9]\*$/.test(c))return apa(c[0]).map(n=>({n,amt}));if(/^\d{2}\*$/.test(c)
 if(/^\d{3,}\*$/.test(c))return khway(c.slice(0,-1)).map(n=>({n,amt}));if(/^\d{3,}ခွေ$/.test(c))return khway(c.replace('ခွေ','')).map(n=>({n,amt}));
 if(/^\*[0-9]{1,2}$/.test(c)){let t=+c.slice(1);for(let i=0;i<100;i++){let n=String(i).padStart(2,'0'),s=+n[0]+ +n[1];if(s===t||s===t-10)a.push({n,amt})}return a}
 if(/^\d{2}$/.test(c))return[{n:c,amt}];alert('Invalid Logic');return[]}
-function savePairGroup(mode,directAmt,reverseAmt){let name=rName.value.trim(),nums=pairNumbers();if(!name){rName.focus();return}if(!nums.length){setEntryTarget('code');rCode.focus();return}if(editId)records=records.filter(x=>x.g!==editId);let g=editId||'G'+Date.now(),d=today(),tm=time(),s=sess(),items=[];if(mode==='direct'||mode==='mixed')nums.forEach(n=>items.push({n,amt:directAmt,kind:'ဒဲ့'}));if(mode==='reverse')nums.forEach(n=>items.push({n:n[1]+n[0],amt:directAmt,kind:'R'}));if(mode==='mixed')nums.forEach(n=>items.push({n:n[1]+n[0],amt:reverseAmt,kind:'R'}));let displayAmt=mode==='mixed'?directAmt+' / R '+reverseAmt:String(directAmt),inputTotal=mode==='mixed'?directAmt+reverseAmt:directAmt,c=rCode.value.trim();items.forEach(it=>records.push({id:Date.now()+Math.random(),g,d,tm,s,name,c,n:it.n,amt:it.amt,inputAmt:displayAmt,inputTotal,pairMode:true,pairChoice:mode,directAmt:mode==='reverse'?0:directAmt,reverseAmt:mode==='reverse'?directAmt:reverseAmt,pairKind:it.kind}));editId=null;save();rCode.value='';rAmt.value='';resetPairState();setEntryTarget('code');rCode.focus();renderAll()}
+function savePairGroup(mode,directAmt,reverseAmt){let name=rName.value.trim(),nums=pairNumbers();if(!name){rName.focus();return}if(!nums.length){setEntryTarget('code');rCode.focus();return}if(editId)records=records.filter(x=>x.g!==editId);let g=editId||'G'+Date.now(),d=today(),tm=time(),s=sess(),items=[];if(mode==='direct'||mode==='mixed')nums.forEach(n=>items.push({n,amt:directAmt,kind:'ဒဲ့'}));if(mode==='reverse')nums.forEach(n=>{items.push({n,amt:directAmt,kind:'ဒဲ့'});items.push({n:n[1]+n[0],amt:directAmt,kind:'R'})});if(mode==='mixed')nums.forEach(n=>items.push({n:n[1]+n[0],amt:reverseAmt,kind:'R'}));let displayAmt=mode==='mixed'?directAmt+' / R '+reverseAmt:String(directAmt),inputTotal=mode==='mixed'?directAmt+reverseAmt:directAmt,c=rCode.value.trim();items.forEach(it=>records.push({id:Date.now()+Math.random(),g,d,tm,s,name,c,n:it.n,amt:it.amt,inputAmt:displayAmt,inputTotal,pairMode:true,pairChoice:mode,directAmt:directAmt,reverseAmt:mode==='reverse'?directAmt:reverseAmt,pairKind:it.kind}));editId=null;save();rCode.value='';rAmt.value='';resetPairState();setEntryTarget('code');rCode.focus();renderAll()}
 function saveGroup(){let name=rName.value.trim(),c=rCode.value.trim(),amt=+rAmt.value;if(!name){rName.focus();return}if(!c){setEntryTarget('code');rCode.focus();return}if(!Number.isFinite(amt)||amt<=0){alert('Amount ကို ဖြည့်ပြီးမှ ENTER နှိပ်ပါ');setEntryTarget('amount');rAmt.focus();return}let items=expand(c,amt);if(!items.length)return;if(editId)records=records.filter(x=>x.g!==editId);let g=editId||'G'+Date.now(),d=today(),tm=time(),s=sess();items.forEach(it=>records.push({id:Date.now()+Math.random(),g,d,tm,s,name,c,n:it.n,amt:it.amt,inputAmt:amt,inputTotal:amt}));editId=null;save();rCode.value='';rAmt.value='';resetPairState();setEntryTarget('code');rCode.focus();renderAll()}
 function save(){localStorage.setItem(scopedKey(DB),JSON.stringify(records));queueCloudSave()}function saveEx(){localStorage.setItem(scopedKey(EX),JSON.stringify(exportsL));queueCloudSave()}
 function filterRecords(list=records){let d=gDate.value||'',s=gSession.value||'ALL';return list.filter(r=>(!d||r.d===d)&&(s==='ALL'||r.s===s))}
 function filterExports(){let d=gDate.value||'',s=gSession.value||'ALL';return exportsL.filter(r=>(!d||(r.date||r.d)===d)&&(s==='ALL'||r.s===s))}
-function groups(list=records){let m={};list.forEach(r=>{if(!m[r.g])m[r.g]={g:r.g,s:r.s,name:r.name,c:r.c,amt:r.inputAmt??r.amt,inputTotal:r.inputTotal??r.inputAmt??r.amt,tm:r.tm,d:r.d,nums:[]};m[r.g].nums.push(r.n+'='+r.amt+(r.pairKind?' '+r.pairKind:''))});return Object.values(m)}
-function renderLastEntry(){let gs=groups(filterRecords()),g=gs[gs.length-1];if(!g){lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">နောက်ဆုံး RECORD</div><div class="last-entry-item"><span class="last-entry-label">စာရင်း</span><span class="last-entry-value">မရှိသေးပါ</span></div>';return}lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">နောက်ဆုံး RECORD <small class="float-end">'+(g.d||'')+' · '+(g.s||'')+' '+(g.tm||'')+'</small></div><div class="last-entry-grid"><div class="last-entry-item"><span class="last-entry-label">Name</span><span class="last-entry-value">'+g.name+'</span></div><div class="last-entry-item"><span class="last-entry-label">Number</span><span class="last-entry-value">'+g.c+'</span></div><div class="last-entry-item"><span class="last-entry-label">Amount</span><span class="last-entry-value">'+g.amt+'</span></div></div>'}
+function groups(list=records){let m={};list.forEach(r=>{if(!m[r.g])m[r.g]={g:r.g,s:r.s,name:r.name,c:r.c,amt:r.inputAmt??r.amt,inputTotal:r.inputTotal??r.inputAmt??r.amt,tm:r.tm,d:r.d,numMap:new Map(),nums:[]};let n=String(r.n||'').padStart(2,'0');m[r.g].numMap.set(n,(m[r.g].numMap.get(n)||0)+Number(r.amt||0))});return Object.values(m).map(g=>{g.nums=[...g.numMap.entries()].map(([n,a])=>n+' = '+a);delete g.numMap;return g})}
+function renderLastEntry(){let gs=groups(filterRecords()),g=gs[gs.length-1];if(!g){lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">'+L('Latest RECORD','နောက်ဆုံး RECORD')+'</div><div class="last-entry-item"><span class="last-entry-label">'+L('Records','စာရင်း')+'</span><span class="last-entry-value">'+L('No data yet','မရှိသေးပါ')+'</span></div>';applyLanguageToUI(lastEntry);return}lastEntry.hidden=false;lastEntry.innerHTML='<div class="last-entry-title">'+L('Latest RECORD','နောက်ဆုံး RECORD')+' <small class="float-end">'+(g.d||'')+' · '+(g.s||'')+' '+(g.tm||'')+'</small></div><div class="last-entry-grid"><div class="last-entry-item"><span class="last-entry-label">'+L('Name','အမည်')+'</span><span class="last-entry-value">'+g.name+'</span></div><div class="last-entry-item"><span class="last-entry-label">'+L('Number','နံပါတ်')+'</span><span class="last-entry-value">'+g.c+'</span></div><div class="last-entry-item"><span class="last-entry-label">'+L('Amount','ငွေပမာဏ')+'</span><span class="last-entry-value">'+g.amt+'</span></div></div>';applyLanguageToUI(lastEntry)}
 function setRecordDate(mode){gDate.value=mode==='today'?today():'';applyGlobalFilter()}
-function filteredGroups(){let q=(search.value||'').toLowerCase();return groups(filterRecords()).filter(g=>g.name.toLowerCase().includes(q)||g.c.toLowerCase().includes(q)||g.nums.join(' ').includes(q)).sort((a,b)=>((b.d||'')+' '+(b.tm||'')).localeCompare((a.d||'')+' '+(a.tm||'')))}
-function renderRecords(){let list=filteredGroups();recBody.innerHTML='';recCount.innerText=list.length;recTotal.innerText=list.reduce((sum,g)=>sum+(Number(g.inputTotal)||0),0);if(!list.length){recBody.innerHTML='<tr><td colspan="7" class="text-center text-muted py-3">စာရင်းမရှိပါ</td></tr>';return}list.forEach(g=>{let id='n'+g.g,sc=g.s==='AM'?'session-am':'session-pm';recBody.innerHTML+=`<tr><td>${g.d||'-'}</td><td>${g.tm||'-'}</td><td><span class="session-badge ${sc}">${g.s||'-'}</span></td><td class="name-text">${g.name}</td><td><b>${g.c}</b> <button class="btn btn-sm btn-outline-primary" onclick="tog('${id}')">ON/OFF</button><div id="${id}" class="nums">${g.nums.join(', ')}</div></td><td>${g.amt}</td><td><button class="btn btn-sm btn-warning" onclick="edit('${g.g}')">E</button> <button class="btn btn-sm btn-danger" onclick="delg('${g.g}')">D</button></td></tr>`})}
-function tog(id){let e=document.getElementById(id);e.style.display=e.style.display==='block'?'none':'block'}function edit(g){let r=records.find(x=>x.g===g);editId=g;rName.value=r.name;rCode.value=r.c;if(r.pairMode){pairChoice=r.pairChoice;pairChoiceAt=r.pairChoice==='mixed'?'amount':'number';pairPhase='number';rAmt.value=r.pairChoice==='reverse'?r.reverseAmt:r.directAmt;rRevAmt.value=r.pairChoice==='mixed'?r.reverseAmt:'';updatePairUI()}else{resetPairState();rAmt.value=r.inputAmt??r.amt}tab('entry','tEntry')}function delg(g){if(confirm('Delete?')){records=records.filter(x=>x.g!==g);save();renderAll()}}
-function sale(s=null){return filterRecords().filter(r=>!s||r.s===s).reduce((a,b)=>a+b.amt,0)}function renderDash(){let rs=filterRecords();dRec.innerText=rs.length;dGrp.innerText=new Set(rs.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(typeof Chart==='undefined')return;if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
-function rawTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterRecords().forEach(r=>t[r.n]+=r.amt);return t}function expTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterExports().forEach(r=>t[r.n]+=r.amt);return t}function totals(){let r=rawTotals(),e=expTotals(),t={};Object.keys(r).forEach(n=>t[n]=Math.max(0,r[n]-e[n]));return t}
-function overItems(){let l=+lim.value,t=totals();return Object.keys(t).filter(n=>l>0&&t[n]>l).map(n=>({n,total:t[n],limit:l,over:t[n]-l}))}
-function renderLimit(alertIt){let t=totals(),l=+lim.value,total=Object.values(t).reduce((a,b)=>a+b,0),over=overItems();limTotal.innerText=total;limCount.innerText=over.length;grid.innerHTML='';for(let col=0;col<10;col++)for(let row=0;row<10;row++){let n=String(col*10+row).padStart(2,'0'),d=document.createElement('div');d.className='cell '+(l>0&&t[n]>l?'hit':'');d.innerHTML='<span class="cell-number">'+n+'</span><span class="cell-amount">'+t[n]+'</span>';grid.appendChild(d)}if(alertIt&&over.length)alert('Over Limit')}
-function saveLimit(){let o=overItems();if(!o.length)return alert('No Over');if(!confirm('Limit စာရင်းအတွက်သာ သိမ်းမည်။ မူရင်းစာရင်း မပြောင်းပါ။'))return;o.forEach(x=>exportsL.push({n:x.n,amt:x.over,date:today(),s:sess()}));saveEx();renderLimit(false);renderOver()}
-function renderOver(){let o=overItems();overContent.innerHTML=o.length?'<table class="table table-sm"><tr><th>No</th><th>Total</th><th>Limit</th><th>Over</th></tr>'+o.map(x=>`<tr class="neg"><td>${x.n}</td><td>${x.total}</td><td>${x.limit}</td><td>${x.over}</td></tr>`).join('')+'</table>':'<div class="alert alert-success">No Over</div>'}
-function exportOver(){let o=overItems();if(!o.length)return alert('No Data');download('Number,Total,Limit,Over\n'+o.map(x=>`${x.n},${x.total},${x.limit},${x.over}`).join('\n'),'Limit_Over.csv','text/csv')}function saveOverImage(){drawText('Limit Over',overItems().map(x=>x.n+'='+x.over).join('\n'),'Limit_Over.png')}function shareOver(){share('Limit Over',overItems().map(x=>x.n+'='+x.over).join('\n'))}
+function filteredGroups(){let q=(search.value||'').toLowerCase();return groups(filterRecords()).filter(g=>String(g.name||'').toLowerCase().includes(q)||String(g.c||'').toLowerCase().includes(q)||g.nums.join(' ').toLowerCase().includes(q)).sort((a,b)=>((b.d||'')+' '+(b.tm||'')).localeCompare((a.d||'')+' '+(a.tm||'')))}
+function renderRecords(){let list=filteredGroups();recBody.innerHTML='';recCount.innerText=list.length;recTotal.innerText=list.reduce((sum,g)=>sum+(Number(g.inputTotal)||0),0);if(!list.length){recBody.innerHTML='<tr><td colspan="7" class="text-center text-muted py-3">'+L('No records yet','စာရင်းမရှိသေးပါ')+'</td></tr>';return}list.forEach(g=>{let id='n'+g.g,sc=g.s==='AM'?'session-am':'session-pm';recBody.innerHTML+=`<tr><td>${g.d||'-'}</td><td>${g.tm||'-'}</td><td><span class="session-badge ${sc}">${g.s||'-'}</span></td><td class="name-text">${g.name}</td><td><b>${g.c}</b> <button class="btn btn-sm btn-outline-primary" onclick="tog('${id}')">ON/OFF</button><div id="${id}" class="nums">${g.nums.join('<br>')}</div></td><td>${g.amt}</td><td><button class="btn btn-sm btn-warning" onclick="edit('${g.g}')">E</button> <button class="btn btn-sm btn-danger" onclick="delg('${g.g}')">D</button></td></tr>`});applyLanguageToUI(recBody)}
+function tog(id){let e=document.getElementById(id);if(e)e.style.display=e.style.display==='block'?'none':'block'}
+function edit(g){let r=records.find(x=>x.g===g);if(!r)return;editId=g;rName.value=r.name;rCode.value=r.c;if(r.pairMode){pairChoice=r.pairChoice;pairChoiceAt=r.pairChoice==='mixed'?'amount':'number';pairPhase='number';rAmt.value=r.pairChoice==='reverse'?(r.directAmt||r.reverseAmt):r.directAmt;rRevAmt.value=r.pairChoice==='mixed'?r.reverseAmt:'';updatePairUI()}else{resetPairState();rAmt.value=r.inputAmt??r.amt}tab('entry','tEntry')}
+function delg(g){if(confirm(L('Delete this record?','ဒီစာရင်းကို ဖျက်မလား?'))){records=records.filter(x=>x.g!==g);save();renderAll()}}
+function sale(s=null){return filterRecords().filter(r=>!s||r.s===s).reduce((a,b)=>a+Number(b.amt||0),0)}
+function renderDash(){let rs=filterRecords();dRec.innerText=rs.length;dGrp.innerText=new Set(rs.map(r=>r.g)).size;dAM.innerText=sale('AM');dPM.innerText=sale('PM');if(typeof Chart==='undefined')return;if(chartObj)chartObj.destroy();chartObj=new Chart(chart,{type:'bar',data:{labels:['AM','PM'],datasets:[{data:[sale('AM'),sale('PM')],backgroundColor:['#2563eb','#f59e0b']}]},options:{plugins:{legend:{display:false}}}})}
+function rawTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterRecords().forEach(r=>t[r.n]+=Number(r.amt||0));return t}
+function expTotals(){let t={};for(let i=0;i<100;i++)t[String(i).padStart(2,'0')]=0;filterExports().forEach(r=>t[r.n]+=Number(r.amt||0));return t}
+function totals(){let r=rawTotals(),e=expTotals(),t={};Object.keys(r).forEach(n=>t[n]=Number(r[n]||0)-Number(e[n]||0));return t}
+function overItemsForLimit(limitValue,t=totals()){let l=Number(limitValue||0);return Object.keys(t).filter(n=>l>0&&Number(t[n])>l).map(n=>({n,total:Number(t[n]),limit:l,over:Number(t[n])-l}))}
+function overAmountTotalForLimit(limitValue,t=totals()){return overItemsForLimit(limitValue,t).reduce((sum,x)=>sum+Number(x.over||0),0)}
+function projectedAtLimit(limitValue,b=riskBase()){let l=Math.max(0,Number(limitValue)||0),overTotal=overAmountTotalForLimit(l,b.t),projected=b.total-(l*b.payout)-overTotal;return{limit:l,overTotal,projected}}
+function riskBase(){let t=totals(),total=Object.values(t).reduce((a,b)=>a+Number(b||0),0),highestNumber='00',highestAmount=0;Object.entries(t).forEach(([n,a])=>{if(Number(a)>highestAmount){highestAmount=Number(a);highestNumber=n}});let payout=rate(),balance=total-(highestAmount*payout);return{t,total,highestNumber,highestAmount,payout,balance}}
+function setRiskClass(el,value){if(!el)return;el.classList.remove('balance-positive','balance-negative');el.classList.add(Number(value)<0?'balance-negative':'balance-positive')}
+function limitFromMaxLoss(loss,b){if(!(b.payout>0))return 0;let target=-Math.max(0,Number(loss)||0),guess=Math.max(0,(b.total-target)/b.payout);for(let i=0;i<16;i++){let overTotal=overAmountTotalForLimit(guess,b.t),next=Math.max(0,(b.total-target-overTotal)/b.payout);if(Math.abs(next-guess)<0.5){guess=next;break}guess=next}return Math.max(0,Math.floor(guess))}
+function syncRiskFields(){let b=riskBase();if(riskInputSource==='loss'&&maxLoss.value!==''){let loss=Math.max(0,Number(maxLoss.value)||0);lim.value=limitFromMaxLoss(loss,b)}let calc=lim.value!==''?projectedAtLimit(Number(lim.value)||0,b):{overTotal:0,projected:b.balance};if(riskInputSource==='limit'&&lim.value!=='')maxLoss.value=Math.max(0,Math.round(-calc.projected));riskTotal.innerText=b.total;riskHighest.innerText=b.highestNumber+' = '+b.highestAmount;if(window.riskOverTotal)riskOverTotal.innerText=calc.overTotal;riskRate.innerText=b.payout;riskBalance.innerText=b.balance;riskProjected.innerText=calc.projected;setRiskClass(riskBalanceBox,b.balance);setRiskClass(riskProjectedBox,calc.projected)}
+function riskFromLimit(){riskInputSource='limit';syncRiskFields();renderLimit(false,false)}function riskFromMaxLoss(){riskInputSource='loss';syncRiskFields();renderLimit(false,false)}
+function overItems(){return overItemsForLimit(Number(lim.value)||0,totals())}
+function boardAmountHtml(net,deducted){net=Number(net||0);deducted=Number(deducted||0);let main=net<0?'('+Math.abs(net)+')':String(net),cls=net<0?' cell-negative':'';let sub=deducted>0?'<small class="cell-deduction">(-'+deducted+')</small>':'';return '<span class="cell-amount'+cls+'">'+main+sub+'</span>'}
+function renderLimit(alertIt,sync=true){if(sync)syncRiskFields();let t=totals(),ded=expTotals(),l=+lim.value,total=Object.values(t).reduce((a,b)=>a+Number(b||0),0),over=overItems();limTotal.innerText=total;limCount.innerText=over.length;grid.innerHTML='';for(let col=0;col<10;col++)for(let row=0;row<10;row++){let n=String(col*10+row).padStart(2,'0'),d=document.createElement('div');d.className='cell '+(l>0&&t[n]>l?'hit':'');d.innerHTML='<span class="cell-number">'+n+'</span>'+boardAmountHtml(t[n],ded[n]);grid.appendChild(d)}if(alertIt&&over.length)alert('Over Limit / Limit ကျော်နေပါသည်')}
+function saveLimit(){let o=overItems();if(!o.length)return alert('No Over / Limit ကျော်မရှိပါ');if(!confirm('Save Limit deductions only / Limit နုတ်စာရင်းကိုသာ သိမ်းမည်။ မူရင်းအရောင်းစာရင်း မပြောင်းပါ။'))return;let d=gDate.value||today(),s=gSession.value==='ALL'?sess():gSession.value;o.forEach(x=>exportsL.push({id:'L'+Date.now()+Math.random(),name:'AUTO OVER',n:x.n,amt:x.over,date:d,s,source:'limit-save'}));saveEx();syncRiskFields();renderLimit(false,false);renderOver()}
+function fillOverNames(){if(!overNameList)return;let names=[...new Set(filterRecords().map(r=>r.name).filter(Boolean))].sort();overNameList.innerHTML=names.map(n=>'<option value="'+String(n).replace(/"/g,'&quot;')+'"></option>').join('')}
+function saveBuyBack(){let name=(overName.value||'').trim(),n=(overNumber.value||'').trim(),amt=Number(overAmount.value||0);if(!name){overName.focus();return alert('Enter Name / အမည် ဖြည့်ပါ')}if(!/^\d{2}$/.test(n)){overNumber.focus();return alert('Enter 2-digit Number 00-99 / Number ၂ လုံး ဖြည့်ပါ')}if(!Number.isFinite(amt)||amt<=0){overAmount.focus();return alert('Enter Amount / Amount ဖြည့်ပါ')}let d=gDate.value||today(),s=gSession.value==='ALL'?sess():gSession.value;exportsL.push({id:'B'+Date.now()+Math.random(),name,n,amt,date:d,s,source:'manual-buyback'});saveEx();overNumber.value='';overAmount.value='';riskInputSource=riskInputSource||'limit';syncRiskFields();renderLimit(false,false);renderOver();overNumber.focus()}
+function renderOver(){fillOverNames();let o=overItems();overContent.innerHTML=o.length?'<table class="table table-sm over-simple-table"><tr><th>'+L('Number','နံပါတ်')+'</th><th>'+L('Over Amount','ကျော်ငွေ')+'</th></tr>'+o.map(x=>`<tr class="neg"><td>${x.n}</td><td>${x.over}</td></tr>`).join('')+'</table>':'<div class="alert alert-success">'+L('No Over','Limit ကျော်မရှိပါ')+'</div>';applyLanguageToUI(overContent)}
+function exportOver(){let o=overItems();if(!o.length)return alert('No Data');download('Number / နံပါတ်,Over Amount / ကျော်ငွေ\n'+o.map(x=>`${x.n},${x.over}`).join('\n'),'Limit_Over.csv','text/csv')}function saveOverImage(){drawText('Limit Over / Limit ကျော်',overItems().map(x=>x.n+' = '+x.over).join('\n'),'Limit_Over.png')}function shareOver(){share('Limit Over / Limit ကျော်',overItems().map(x=>x.n+' = '+x.over).join('\n'))}
 function settleData(s,pn){let m={};filterRecords().filter(r=>r.s===s).forEach(r=>{if(!m[r.name])m[r.name]={name:r.name,total:0,pAmt:0,pay:0,net:0};m[r.name].total+=r.amt;if(r.n===pn)m[r.name].pAmt+=r.amt});Object.values(m).forEach(x=>{x.pay=x.pAmt*rate();x.net=x.total-x.pay});return Object.values(m)}
 function settle(s){let pn=s==='AM'?amP.value:pmP.value,out=s==='AM'?amOut:pmOut;if(!/^\d{2}$/.test(pn))return alert('P Number');let d=settleData(s,pn);out.innerHTML=tableReport(d)}
-function tableReport(d){return '<table class="table table-sm"><tr><th>Name</th><th>Bet</th><th>Payout</th><th>Net</th></tr>'+d.map(x=>`<tr class="${x.net<0?'neg':'pos'}"><td>${x.name}</td><td>${x.total}</td><td>${x.pay}</td><td>${x.net}</td></tr>`).join('')+'</table>'}
+function tableReport(d){return '<table class="table table-sm"><tr><th>'+L('Name','အမည်')+'</th><th>'+L('Bet','ထိုးငွေ')+'</th><th>'+L('Payout','လျော်ငွေ')+'</th><th>'+L('Net','လက်ကျန်')+'</th></tr>'+d.map(x=>`<tr class="${x.net<0?'neg':'pos'}"><td>${x.name}</td><td>${x.total}</td><td>${x.pay}</td><td>${x.net}</td></tr>`).join('')+'</table>'}
 function dailyReport(){let a=settleData('AM',dAmP.value),p=settleData('PM',dPmP.value),m={};[...a,...p].forEach(x=>{if(!m[x.name])m[x.name]={name:x.name,total:0,pay:0,net:0};m[x.name].total+=x.total;m[x.name].pay+=x.pay;m[x.name].net=m[x.name].total-m[x.name].pay});dailyOut.innerHTML=tableReport(Object.values(m))}
 function fillNames(){let names=[...new Set(filterRecords().map(r=>r.name))].sort(),cur=imgName.value;imgName.innerHTML=names.map(n=>`<option>${n}</option>`).join('')||'<option>No Name</option>';if(names.includes(cur))imgName.value=cur}
 function cust(name,s,pn,cor){let rs=filterRecords().filter(r=>r.name===name&&r.s===s),total=rs.reduce((a,b)=>a+b.amt,0),pAmt=/^\d{2}$/.test(pn)?rs.filter(r=>r.n===pn).reduce((a,b)=>a+b.amt,0):0,pay=pAmt*rate(),c=Math.round(total*cor/100),res=total-pay-c;return{total,pay,c,res}}
@@ -360,16 +461,16 @@ function drawText(title,text,fn){let lines=text.split('\n'),c=document.createEle
 function download(text,name,type){let b=new Blob([text],{type}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click()}async function share(title,text){if(navigator.share)try{await navigator.share({title,text})}catch(e){}else location.href='viber://forward?text='+encodeURIComponent(text)}
 
 function applySettingsUI(){if(!setRate)return;setRate.value=rate();setCor.value=defCor();setAppName.value=settings.appName||'RecordManager_Pro';setOwner.value=settings.owner||'';setAmEnd.value=settings.amEnd||'12:00';setPmEnd.value=settings.pmEnd||'16:30';if(imgCor&&!imgCor.value)imgCor.value=defCor()}
-function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert('Settings သိမ်းပြီးပါပြီ');renderAll()}
-function backupJSON(){download(JSON.stringify({version:'1.4.0',createdAt:new Date().toISOString(),uid:currentUser?.uid||null,records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
+function saveSettings(){settings.rate=Number(setRate.value||80);settings.cor=Number(setCor.value||13);settings.appName=setAppName.value||'RecordManager_Pro';settings.owner=setOwner.value||'';settings.amEnd=setAmEnd.value||'12:00';settings.pmEnd=setPmEnd.value||'16:30';saveSet();alert(L('Settings saved','ဆက်တင်သိမ်းပြီးပါပြီ'));renderAll();applyLanguageToUI(document)}
+function backupJSON(){download(JSON.stringify({version:'1.4.3',createdAt:new Date().toISOString(),records,exportsL,settings},null,2),'RecordManager_Backup_'+today()+'.json','application/json')}
 function restoreJSON(e){let f=e.target.files[0];if(!f)return;let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);records=d.records||[];exportsL=d.exportsL||d.limitExports||[];settings=d.settings||settings;save();saveEx();saveSet();renderAll();applySettingsUI();alert('Restore ပြီးပါပြီ')}catch(err){alert('Backup file မမှန်ပါ')}};reader.readAsText(f)}
 function importOldData(){let keys=['RM_v123_records','RM_v122_records','RM_Pro_v122_records','RM_Pro_v121_records'];let imported=0;for(let k of keys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){records=old;imported=old.length;break}}let exKeys=['RM_v123_exports','RM_v122_exports','RM_Pro_v122_limit_exports'];for(let k of exKeys){let old=JSON.parse(localStorage.getItem(k)||'[]');if(old.length){exportsL=old;break}}save();saveEx();renderAll();alert(imported?('Old data imported: '+imported):'Old data မတွေ့ပါ')}
 function clearTodayRecords(){if(!confirm('ဒီနေ့စာရင်းများကို ဖျက်မလား?'))return;let d=today();records=records.filter(r=>r.d!==d);save();renderAll()}
 function clearLimitExports(){if(!confirm('Limit Export Records ဖျက်မလား?'))return;exportsL=[];saveEx();renderAll();renderLimit(false);renderOver()}
 function clearAllRecords(){if(!confirm('စာရင်းအားလုံး ဖျက်မလား?'))return;records=[];exportsL=[];save();saveEx();renderAll()}
-function renderAll(){renderDash();renderRecords();renderLastEntry();fillNames()}
+function renderAll(){renderDash();renderRecords();renderLastEntry();fillNames();applyLanguageToUI(document)}
 function applyGlobalFilter(){renderAll();renderLimit(false);renderOver();renderImg();if(/^\d{2}$/.test(amP.value))settle('AM');if(/^\d{2}$/.test(pmP.value))settle('PM');if(/^\d{2}$/.test(dAmP.value)&&/^\d{2}$/.test(dPmP.value))dailyReport()}
-document.addEventListener('DOMContentLoaded',()=>{applySettingsUI();setEntryTarget('code');gDate.value=today();gSession.value='ALL';let fd=document.getElementById('formulaDetails');if(fd&&matchMedia('(max-width:600px)').matches)fd.removeAttribute('open');rName.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();setEntryTarget('code');rCode.focus()}});rCode.addEventListener('input',onCodeChanged);rCode.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});rAmt.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});rRevAmt.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});initFirebase();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{})});
+document.addEventListener('DOMContentLoaded',()=>{applySettingsUI();applyLanguageToUI(document);setEntryTarget('code');gDate.value=today();gSession.value='ALL';let fd=document.getElementById('formulaDetails');if(fd&&matchMedia('(max-width:600px)').matches)fd.removeAttribute('open');renderAll();rName.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();setEntryTarget('code');rCode.focus()}});rCode.addEventListener('input',onCodeChanged);rCode.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});rAmt.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});rRevAmt.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();entryEnter()}});applyLanguageToUI(document);initFirebase();if('serviceWorker'in navigator)navigator.serviceWorker.register('./sw.js').catch(()=>{})});
 </script>
 </body>
 </html>
