@@ -61,6 +61,11 @@ service cloud.firestore {
       allow create, update, delete: if isOwner();
     }
 
+    match /marketResults/{date} {
+      allow read: if signedIn();
+      allow create, update, delete: if isOwner();
+    }
+
     match /userData/{uid} {
       allow read, write: if isOwner()
         || (isSelf(uid) && accountActive(uid));

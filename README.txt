@@ -1,9 +1,9 @@
-RM 2D Logic Pro v1.4.6A — Auto Date/Session + Weekly P Dashboard
+RM 2D Logic Pro v1.4.6B-1 — Manual SET Market Page + Firestore Fallback
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
 
-Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. Publish the included firestore.rules before testing, then refresh once so the v1.4.6A service worker replaces older cached versions.
+Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. Publish the included firestore.rules before testing, then refresh once so the v1.4.6B-1 service worker replaces older cached versions.
 
 Firebase Authentication: Google + Phone. Firestore stores each user's data separately. Owner access is granted by manually creating owners/{UID} in Firestore after the first successful owner login.
 
@@ -18,5 +18,7 @@ New in v1.4.5C: Select one Name on Full History and share the filtered Date/Sess
 v1.4.5 Final consolidates the user-confirmed v1.4.5A, v1.4.5B, and v1.4.5C checkpoints without changing their accepted behavior. This is the stable baseline for the next version.
 
 New in v1.4.6A: Entry Date, Time, and Session are locked automatically using Asia/Yangon time. AM is 00:00 through 12:00; PM starts at 12:01. The login timestamp calibrates the device clock against Firebase server time when available. Dashboard Graph is replaced by the current Monday-Friday P Number table. Owner Control can save or correct AM/PM P Numbers by date in Firestore; users can read them, and AM, PM, Daily, and Image report P fields auto-fill with manual fallback when a result is missing.
+
+New in v1.4.6B-1: Added an API-ready SET Live page with SET, VALUE, 12:01 PM AM result, 4:30 PM PM result, date view, recent history, offline last-known cache, and visible data status. Owner Control can manually save an AM or PM market snapshot. The saved P Number is also synchronized to pResults so Dashboard and report P fields update automatically. This checkpoint does not call or copy any third-party private API; an authorized official API adapter can replace the manual source later without redesigning the UI or Firestore data model.
 
 Integrated from v1.4.3: separate English/Myanmar presentation mode, repaired Limit Board and page buttons, restored Records/Edit/Delete flow, risk and auto-limit calculations, manual Buy Back deductions, and the latest Pair Entry behavior.
