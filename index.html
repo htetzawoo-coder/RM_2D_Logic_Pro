@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RM_2D_Logic_Pro v1.4.6B-1</title>
+<title>RM_2D_Logic_Pro v1.4.6B-1.1</title>
 <meta name="theme-color" content="#5b21b6">
 <link rel="manifest" href="./manifest.json">
 <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
@@ -84,7 +84,7 @@ body{background:linear-gradient(145deg,#f8f5ff,#fff8e6);color:var(--ink);font-fa
 .dark .alert-primary{background:#3c2168;color:#fff8dc;border-color:#7c3aed}
 .table{--bs-table-bg:transparent;--bs-table-color:inherit;--bs-table-border-color:#d9c7f5}
 .record-filter{padding:10px;border:1px solid #d9c7f5;border-radius:12px;background:#faf7ff}.dark .record-filter{background:#24123e;border-color:#6d28d9}
-.global-filter{display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,.55fr);gap:7px;align-items:end;margin:7px 0 9px;padding:7px 9px;border:2px solid var(--gold-400);border-radius:12px;background:linear-gradient(135deg,#fffdf5,#f1eaff);box-shadow:0 4px 12px #4c1d9514}.global-filter[hidden]{display:none!important}.dark .global-filter{background:linear-gradient(135deg,#24123e,#3a205d)}.global-filter label{display:block;margin-bottom:2px;color:var(--purple-800);font-size:11px;font-weight:900}.dark .global-filter label{color:var(--gold-400)}
+.global-filter{display:grid;grid-template-columns:minmax(0,1fr) minmax(105px,.55fr);gap:7px;align-items:end;margin:7px 0 9px;padding:7px 9px;border:2px solid var(--gold-400);border-radius:12px;background:linear-gradient(135deg,#fffdf5,#f1eaff);box-shadow:0 4px 12px #4c1d9514}.global-filter[hidden],.global-filter>[hidden]{display:none!important}.dark .global-filter{background:linear-gradient(135deg,#24123e,#3a205d)}.global-filter label{display:block;margin-bottom:2px;color:var(--purple-800);font-size:11px;font-weight:900}.dark .global-filter label{color:var(--gold-400)}
 .record-summary{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:9px 0}
 .record-summary-item{padding:9px;border-radius:10px;background:#eee7ff;color:var(--purple-950);text-align:center;font-weight:900;border:1px solid #d1bbff}.dark .record-summary-item{background:#3c2168;color:#fff8dc;border-color:#7c3aed}
 .limit-risk-panel{padding:11px;border:2px solid var(--gold-400);border-radius:14px;background:linear-gradient(135deg,#fffdf5,#f1eaff);margin-bottom:10px}.dark .limit-risk-panel{background:linear-gradient(135deg,#24123e,#3a205d)}
@@ -133,7 +133,7 @@ body.lang-en{font-family:Arial,'Noto Sans',sans-serif}
 </head>
 <body>
 <nav class="navbar navbar-dark bg-primary appbar"><div class="container-fluid">
-<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.6B-1</span></span>
+<span class="navbar-brand fw-bold">RecordManager_Pro <span class="badge bg-light text-primary">v1.4.6B-1.1</span></span>
 <div class="app-controls d-flex align-items-center gap-1"><button id="userChip" class="btn btn-warning btn-sm" hidden onclick="tab('account','tAccount')">Account</button>
 <div class="lang-switch" role="group" aria-label="Language mode">
 <button id="langEnBtn" type="button" class="lang-switch-btn" onclick="setLanguage('en')">English</button>
@@ -178,7 +178,7 @@ body.lang-en{font-family:Arial,'Noto Sans',sans-serif}
 
 <div id="globalFilter" class="global-filter">
 <div><label for="gDate">Date / ရက်စွဲ</label><input id="gDate" type="date" class="form-control" onchange="applyGlobalFilter()"></div>
-<div><label for="gSession">Session / အချိန်ပိုင်း</label><select id="gSession" class="form-select" onchange="applyGlobalFilter()"><option value="ALL">All / အားလုံး</option><option value="AM">AM</option><option value="PM">PM</option></select></div>
+<div id="globalSessionFilter"><label for="gSession">Session / အချိန်ပိုင်း</label><select id="gSession" class="form-select" onchange="applyGlobalFilter()"><option value="ALL">All / အားလုံး</option><option value="AM">AM</option><option value="PM">PM</option></select></div>
 </div>
 
 <section id="dash" class="page active">
@@ -297,9 +297,9 @@ body.lang-en{font-family:Arial,'Noto Sans',sans-serif}
 <button class="btn btn-warning w-100 mt-2" onclick="exportOver()">Export CSV / CSV ထုတ်မည်</button>
 </div></section>
 
-<section id="am" class="page"><div class="card p-3"><h5>AM Report / AM အစီရင်ခံစာ</h5><input id="amP" class="form-control mb-2" inputmode="numeric" placeholder="P Number / P နံပါတ်"><button class="btn btn-primary" onclick="settle('AM')">Show / ပြမည်</button><div id="amOut"></div></div></section>
-<section id="pm" class="page"><div class="card p-3"><h5>PM Report / PM အစီရင်ခံစာ</h5><input id="pmP" class="form-control mb-2" inputmode="numeric" placeholder="P Number / P နံပါတ်"><button class="btn btn-primary" onclick="settle('PM')">Show / ပြမည်</button><div id="pmOut"></div></div></section>
-<section id="daily" class="page"><div class="card p-3"><h5>Daily Report / နေ့စဉ်အစီရင်ခံစာ</h5><input id="dAmP" class="form-control mb-2" inputmode="numeric" placeholder="AM P"><input id="dPmP" class="form-control mb-2" inputmode="numeric" placeholder="PM P"><button class="btn btn-primary" onclick="dailyReport()">Show / ပြမည်</button><div id="dailyOut"></div></div></section>
+<section id="am" class="page"><div class="card p-3"><h5>AM Report / AM အစီရင်ခံစာ <span class="badge bg-warning text-dark">AM ONLY</span></h5><input id="amP" class="form-control mb-2" inputmode="numeric" placeholder="P Number / P နံပါတ်"><button class="btn btn-primary" onclick="settle('AM')">Show / ပြမည်</button><div id="amOut"></div></div></section>
+<section id="pm" class="page"><div class="card p-3"><h5>PM Report / PM အစီရင်ခံစာ <span class="badge bg-primary">PM ONLY</span></h5><input id="pmP" class="form-control mb-2" inputmode="numeric" placeholder="P Number / P နံပါတ်"><button class="btn btn-primary" onclick="settle('PM')">Show / ပြမည်</button><div id="pmOut"></div></div></section>
+<section id="daily" class="page"><div class="card p-3"><h5>Daily Report / နေ့စဉ်အစီရင်ခံစာ <span class="badge bg-success">AM + PM</span></h5><input id="dAmP" class="form-control mb-2" inputmode="numeric" placeholder="AM P"><input id="dPmP" class="form-control mb-2" inputmode="numeric" placeholder="PM P"><button class="btn btn-primary" onclick="dailyReport()">Show / ပြမည်</button><div id="dailyOut"></div></div></section>
 
 <section id="img" class="page"><div class="card p-3">
 <h5>Customer Daily Image Report / ဖောက်သည်နေ့စဉ်ပုံအစီရင်ခံစာ</h5>
@@ -428,7 +428,7 @@ function applyLanguageToUI(root=document){
 function setLanguage(lang){currentLang=lang==='en'?'en':'my';settings.lang=currentLang;saveSet();applyLanguageToUI(document);renderAll();if(document.getElementById('limit')?.classList.contains('active'))renderLimit(false);if(document.getElementById('over')?.classList.contains('active'))renderOver();applyLanguageToUI(document)}
 const MAP={A:['05','16','27','38','49','50','61','72','83','94'],Z:['07','18','24','35','69','70','81','42','53','96'],B:['12','23','34','45','56','21','32','43','54','65','67','78','89','90','01','76','87','98','09','10'],'//':['00','11','22','33','44','55','66','77','88','99']};
 const E=['0','2','4','6','8'],O=['1','3','5','7','9'];
-function tab(id,b){document.querySelectorAll('#app>section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(b).classList.add('active');globalFilter.hidden=id==='entry'||id==='market';renderAll();if(id==='market'){if(!marketDate.value)marketDate.value=today();renderMarketPage()}if(id==='history')initHistoryPage();if(id==='copyEntry')initCopyPage();if(id==='limit')renderLimit(false);if(id==='over')renderOver();if(id==='img'){fillNames();renderImg()}if(id==='settings'){applySettingsUI()}if(id==='owner'&&isOwnerAccount){if(!ownerPDate.value)ownerPDate.value=today();loadOwnerPInputs();if(!ownerMarketDate.value)ownerMarketDate.value=today();loadOwnerMarketInputs();loadOwnerUsers()}applyLanguageToUI(document)}
+function tab(id,b){document.querySelectorAll('#app>section').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('active'));document.getElementById(b).classList.add('active');globalFilter.hidden=id==='entry'||id==='market';globalSessionFilter.hidden=['am','pm','daily'].includes(id);renderAll();if(id==='market'){if(!marketDate.value)marketDate.value=today();renderMarketPage()}if(id==='history')initHistoryPage();if(id==='copyEntry')initCopyPage();if(id==='limit')renderLimit(false);if(id==='over')renderOver();if(id==='img'){fillNames();renderImg()}if(id==='settings'){applySettingsUI()}if(id==='owner'&&isOwnerAccount){if(!ownerPDate.value)ownerPDate.value=today();loadOwnerPInputs();if(!ownerMarketDate.value)ownerMarketDate.value=today();loadOwnerMarketInputs();loadOwnerUsers()}applyLanguageToUI(document)}
 function compactCode(){return rCode.value.replace(/\s+/g,'')}
 function formatPairDigits(v){return String(v).replace(/\D/g,'').match(/.{1,2}/g)?.join(' ')||''}
 function pairNumbers(){let c=compactCode();return /^\d{4,}$/.test(c)&&c.length%2===0?(c.match(/.{2}/g)||[]):[]}
@@ -551,7 +551,7 @@ function fillOverNames(){if(!overNameList)return;let names=[...new Set(filterRec
 function saveBuyBack(){let name=(overName.value||'').trim(),n=(overNumber.value||'').trim(),amt=Number(overAmount.value||0);if(!name){overName.focus();return alert('Enter Name / အမည် ဖြည့်ပါ')}if(!/^\d{2}$/.test(n)){overNumber.focus();return alert('Enter 2-digit Number 00-99 / Number ၂ လုံး ဖြည့်ပါ')}if(!Number.isFinite(amt)||amt<=0){overAmount.focus();return alert('Enter Amount / Amount ဖြည့်ပါ')}let d=gDate.value||today(),s=gSession.value==='ALL'?sess():gSession.value;exportsL.push({id:'B'+Date.now()+Math.random(),name,n,amt,date:d,s,source:'manual-buyback'});saveEx();overNumber.value='';overAmount.value='';riskInputSource=riskInputSource||'limit';syncRiskFields();renderLimit(false,false);renderOver();overNumber.focus()}
 function renderOver(){fillOverNames();let o=overItems();overContent.innerHTML=o.length?'<table class="table table-sm over-simple-table"><tr><th>'+L('Number','နံပါတ်')+'</th><th>'+L('Over Amount','ကျော်ငွေ')+'</th></tr>'+o.map(x=>`<tr class="neg"><td>${x.n}</td><td>${x.over}</td></tr>`).join('')+'</table>':'<div class="alert alert-success">'+L('No Over','Limit ကျော်မရှိပါ')+'</div>';applyLanguageToUI(overContent)}
 function exportOver(){let o=overItems();if(!o.length)return alert('No Data');download('Number / နံပါတ်,Over Amount / ကျော်ငွေ\n'+o.map(x=>`${x.n},${x.over}`).join('\n'),'Limit_Over.csv','text/csv')}function saveOverImage(){drawText('Limit Over / Limit ကျော်',overItems().map(x=>x.n+' = '+x.over).join('\n'),'Limit_Over.png')}function shareOver(){share('Limit Over / Limit ကျော်',overItems().map(x=>x.n+' = '+x.over).join('\n'))}
-function settleData(s,pn){let m={};filterRecords().filter(r=>r.s===s).forEach(r=>{if(!m[r.name])m[r.name]={name:r.name,total:0,pAmt:0,pay:0,net:0};m[r.name].total+=r.amt;if(r.n===pn)m[r.name].pAmt+=r.amt});Object.values(m).forEach(x=>{x.pay=x.pAmt*rate();x.net=x.total-x.pay});return Object.values(m)}
+function settleData(s,pn){let m={},d=gDate.value||'';records.filter(r=>(!d||r.d===d)&&r.s===s).forEach(r=>{if(!m[r.name])m[r.name]={name:r.name,total:0,pAmt:0,pay:0,net:0};m[r.name].total+=r.amt;if(r.n===pn)m[r.name].pAmt+=r.amt});Object.values(m).forEach(x=>{x.pay=x.pAmt*rate();x.net=x.total-x.pay});return Object.values(m)}
 function settle(s){let pn=s==='AM'?amP.value:pmP.value,out=s==='AM'?amOut:pmOut;if(!/^\d{2}$/.test(pn))return alert('P Number');let d=settleData(s,pn);out.innerHTML=tableReport(d)}
 function tableReport(d){return '<table class="table table-sm"><tr><th>'+L('Name','အမည်')+'</th><th>'+L('Bet','ထိုးငွေ')+'</th><th>'+L('Payout','လျော်ငွေ')+'</th><th>'+L('Net','လက်ကျန်')+'</th></tr>'+d.map(x=>`<tr class="${x.net<0?'neg':'pos'}"><td>${x.name}</td><td>${x.total}</td><td>${x.pay}</td><td>${x.net}</td></tr>`).join('')+'</table>'}
 function dailyReport(){let a=settleData('AM',dAmP.value),p=settleData('PM',dPmP.value),m={};[...a,...p].forEach(x=>{if(!m[x.name])m[x.name]={name:x.name,total:0,pay:0,net:0};m[x.name].total+=x.total;m[x.name].pay+=x.pay;m[x.name].net=m[x.name].total-m[x.name].pay});dailyOut.innerHTML=tableReport(Object.values(m))}
