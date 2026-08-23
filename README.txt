@@ -1,4 +1,4 @@
-RM 2D Logic Pro v1.4.6B-1.1 — Fixed AM/PM/Daily Report Session Scope
+RM 2D Logic Pro v1.4.7 — Live Public Role Integration
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
@@ -24,3 +24,7 @@ New in v1.4.6B-1: Added an API-ready SET Live page with SET, VALUE, 12:01 PM AM 
 Fixed in v1.4.6B-1.1: AM Report is permanently scoped to AM records for the selected date, PM Report is permanently scoped to PM records, and Daily Report always combines AM + PM. The shared Session selector is hidden only on these three report pages, so changing the global Session on Records, Limit, Over, or Image can no longer empty or alter AM/PM/Daily report calculations.
 
 Integrated from v1.4.3: separate English/Myanmar presentation mode, repaired Limit Board and page buttons, restored Records/Edit/Delete flow, risk and auto-limit calculations, manual Buy Back deductions, and the latest Pair Entry behavior.
+
+New in v1.4.7: Confirmed Community Live API is connected as a read-only public data source. Normal User accounts open on the SET Live page and only see the public Live page plus their Account page. Owner accounts retain the complete app. The public Live UI shows current/last P, SET, VALUE, API update/status, 12:01 AM final, 4:30 PM final, and Owner-managed Modern/Internet/TV values. Owner Control adds API refresh, explicit final-result sync to Firestore Weekly P/Reports, and Modern/Internet/TV inputs. Existing manual SET/VALUE/P saving remains available as an offline fallback. No API response is written to Firestore unless the Owner presses SYNC FINAL RESULTS.
+
+After uploading all files, refresh the installed PWA once so the v1.4.7 service worker replaces the old cache. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
