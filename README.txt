@@ -1,4 +1,4 @@
-RM 2D Logic Pro v1.4.7 — Live Public Role Integration
+RM 2D Logic Pro v1.4.8A — One Date / One Session / One Name Share
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
@@ -27,4 +27,6 @@ Integrated from v1.4.3: separate English/Myanmar presentation mode, repaired Lim
 
 New in v1.4.7: Confirmed Community Live API is connected as a read-only public data source. Normal User accounts open on the SET Live page and only see the public Live page plus their Account page. Owner accounts retain the complete app. The public Live UI shows current/last P, SET, VALUE, API update/status, 12:01 AM final, 4:30 PM final, and Owner-managed Modern/Internet/TV values. Owner Control adds API refresh, explicit final-result sync to Firestore Weekly P/Reports, and Modern/Internet/TV inputs. Existing manual SET/VALUE/P saving remains available as an offline fallback. No API response is written to Firestore unless the Owner presses SYNC FINAL RESULTS.
 
-After uploading all files, refresh the installed PWA once so the v1.4.7 service worker replaces the old cache. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
+New in v1.4.8A: Name-specific sharing now requires exactly one Date, AM or PM, and one Name. Preview, Text, PNG, and CSV exports aggregate duplicate Numbers and display Number and Amount in separate, clear fields. Records, Full History, and Latest Record now display the full expanded Group Amount: for example, 80* at 500 shows 1,000 and -9 at 500 shows 2,500. The underlying saved records, entry parser, role access, Firebase rules, and Live API integration are unchanged.
+
+After uploading all files, refresh the installed PWA once so the v1.4.8A service worker replaces the old cache. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
