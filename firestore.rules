@@ -1,0 +1,83 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner() {
+      return signedIn()
+        && exists(/databases/$(database)/documents/owners/$(request.auth.uid));
+    }
+
+    function isSelf(uid) {
+      return signedIn() && request.auth.uid == uid;
+    }
+
+    function accountActive(uid) {
+      return exists(/databases/$(database)/documents/accounts/$(uid))
+        && get(/databases/$(database)/documents/accounts/$(uid)).data.status == "active"
+        && get(/databases/$(database)/documents/accounts/$(uid)).data
+          .get("accessExpiresAt", request.time - duration.value(1, "s")) > request.time;
+    }
+
+    match /owners/{uid} {
+      allow read: if isSelf(uid) || isOwner();
+      allow write: if false;
+    }
+
+    match /accounts/{uid} {
+      allow create: if isSelf(uid)
+        && request.resource.data.role == "user"
+        && request.resource.data.status == "active"
+        && request.resource.data.accessExpiresAt > request.time
+        && request.resource.data.accessExpiresAt <= request.time + duration.value(15, "d");
+
+      allow read: if isSelf(uid) || isOwner();
+
+      allow update: if isOwner()
+        || (isSelf(uid)
+          && (
+            request.resource.data.diff(resource.data).affectedKeys()
+              .hasOnly(["displayName", "phone", "photoURL", "lastLoginAt"])
+            || (!("accessExpiresAt" in resource.data)
+              && request.resource.data.diff(resource.data).affectedKeys()
+                .hasOnly(["displayName", "phone", "photoURL", "lastLoginAt", "accessExpiresAt"])
+              && request.resource.data.accessExpiresAt > request.time
+              && request.resource.data.accessExpiresAt <= request.time + duration.value(15, "d"))
+          ));
+
+      allow delete: if isOwner();
+    }
+
+    match /appConfig/public {
+      allow read: if signedIn();
+      allow write: if isOwner();
+    }
+
+    match /pResults/{date} {
+      allow read: if signedIn();
+      allow create, update, delete: if isOwner();
+    }
+
+    match /marketResults/{date} {
+      allow read: if signedIn();
+      allow create, update, delete: if isOwner();
+    }
+
+    match /userData/{uid} {
+      allow read, write: if isOwner()
+        || (isSelf(uid) && accountActive(uid));
+
+      match /{document=**} {
+        allow read, write: if isOwner()
+          || (isSelf(uid) && accountActive(uid));
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

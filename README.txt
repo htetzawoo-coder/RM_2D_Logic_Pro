@@ -1,4 +1,4 @@
-RM 2D Logic Pro v1.4.8B — Compact Text Share
+RM 2D Logic Pro v1.4.8B.1 — Firebase Auth Hotfix
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
@@ -31,4 +31,6 @@ New in v1.4.8A: Name-specific sharing now requires exactly one Date, AM or PM, a
 
 New in v1.4.8B: Text Share uses the confirmed compact customer format only: Burmese Name/Date/Session headers, one Number=Amount line per aggregated Number, then Total Amount and Number Count. Share dates display as DD/MM/YYYY. Image Share, CSV, calculations, parser, roles, Firebase, and Live API remain unchanged.
 
-After uploading all files, refresh the installed PWA once so the v1.4.8B service worker replaces the old cache. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
+Fixed in v1.4.8B.1: Firebase JavaScript compat SDK is upgraded from 12.17.1 to 12.18.0. Firebase 12.18.0 officially fixes the signInWithPopup/background-tab failure that displayed "Database is closing/hidden" on affected mobile browsers. Authentication configuration, Firestore rules, user data, parser, reports, and sharing calculations are unchanged.
+
+After uploading all files, refresh the web app twice so the v1.4.8B.1 service worker fully replaces the old cached index, then retry Google Login. If using an installed PWA and the old screen remains, close it fully and reopen once after the two browser refreshes. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
