@@ -1,4 +1,4 @@
-RM 2D Logic Pro v1.4.8C — Install, Update & User Guide
+RM 2D Logic Pro v1.4.8C.1 — User Role Cache Hotfix
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
@@ -35,4 +35,10 @@ Fixed in v1.4.8B.1: Firebase JavaScript compat SDK is upgraded from 12.17.1 to 1
 
 After uploading all files, refresh the web app twice so the v1.4.8C service worker fully replaces the old cached index, then retry Google Login. If using an installed PWA and the old screen remains, close it fully and reopen once after the two browser refreshes. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
 
-New in v1.4.8C: Added a dynamic header PWA action. Before installation it shows INSTALL and uses the browser install prompt; inside the installed PWA it shows UPDATE and explicitly checks the service worker for a newer release. A successful update activates the new worker and reloads the app once. Added a shared User Guide available from the Login screen and the navigation row. Normal Users see Install/Update, Login, SET Live, and Account instructions. Owners additionally see Entry, Pair Mode, Reports, Share, Backup, and Owner Control instructions. Role permissions, Firebase rules, saved records, parser logic, Live API, report calculations, and the compact Text Share format are unchanged.
+New in v1.4.8C: Added a dynamic header PWA action. Before installation it shows INSTALL and uses the browser install prompt; inside the installed PWA it shows UPDATE and explicitly checks the service worker for a newer release. A successful update activates the new worker and reloads the app once.
+
+Registered Users can now use Dashboard, SET Live, Record, Records, Full History, AM→PM Copy, Limit, Over, AM, PM, Daily, Image, Settings, and Account with their own account data. Owner Control remains Owner-only and is still enforced by the existing Firestore rules. This access model supersedes the limited User navigation introduced in v1.4.7.
+
+The User Guide is available before Login and from the User navigation row. It begins with a short product introduction, then provides a separate detailed guide on every operational page except SET Live. Owner accounts do not show the Guide navigation or contextual guide buttons, and Owner Control intentionally has no guide. Firebase rules, saved records, parser logic, Live API, report calculations, and the compact Text Share format are unchanged.
+
+Fixed in v1.4.8C.1: Some installed PWAs continued to display the earlier v1.4.8C User navigation with only SET Live, Guide, and Account because the previous cached index was still active. This hotfix uses a new visible version badge and a new service-worker cache identity. After deployment, a normal User must see Dashboard, SET Live, Record, Records, Full History, AM→PM Copy, Limit, Over, AM, PM, Daily, Image, Settings, Guide, and Account. Owner Control remains Owner-only. No data, formula, parser, Firebase rule, report, or share-format change is included.
