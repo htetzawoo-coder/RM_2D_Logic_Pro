@@ -1,4 +1,4 @@
-RM 2D Logic Pro v1.4.8C.1 — User Role Cache Hotfix
+RM 2D Logic Pro v1.4.8C.1R2 — User Role + 3D Guide Button Hotfix
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
@@ -42,3 +42,5 @@ Registered Users can now use Dashboard, SET Live, Record, Records, Full History,
 The User Guide is available before Login and from the User navigation row. It begins with a short product introduction, then provides a separate detailed guide on every operational page except SET Live. Owner accounts do not show the Guide navigation or contextual guide buttons, and Owner Control intentionally has no guide. Firebase rules, saved records, parser logic, Live API, report calculations, and the compact Text Share format are unchanged.
 
 Fixed in v1.4.8C.1: Some installed PWAs continued to display the earlier v1.4.8C User navigation with only SET Live, Guide, and Account because the previous cached index was still active. This hotfix uses a new visible version badge and a new service-worker cache identity. After deployment, a normal User must see Dashboard, SET Live, Record, Records, Full History, AM→PM Copy, Limit, Over, AM, PM, Daily, Image, Settings, Guide, and Account. Owner Control remains Owner-only. No data, formula, parser, Firebase rule, report, or share-format change is included.
+
+UI revision v1.4.8C.1R2: Contextual “❓ အသုံးပြုနည်း” buttons now use a high-contrast gold gradient, dark-purple border, bold text, raised 3D shadow, keyboard focus ring, and a pressed-down touch state. The buttons remain User-only and are still absent from SET Live and Owner Control. A new service-worker cache identity forces this visual revision to replace the earlier cached stylesheet.
