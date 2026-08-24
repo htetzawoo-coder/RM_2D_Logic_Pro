@@ -1,9 +1,9 @@
-RM 2D Logic Pro v1.4.8B.1 — Firebase Auth Hotfix
+RM 2D Logic Pro v1.4.8C — Install, Update & User Guide
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
 
-Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. Publish the included firestore.rules before testing, then refresh once so the v1.4.6B-1.1 service worker replaces older cached versions.
+Upload every file and the vendor folder together to the GitHub Pages repository root. Do not rename files. If the existing v1.4.4-or-later firestore.rules are already published, no rules republish is required. Refresh the website twice after deployment so the new service worker replaces older cached versions.
 
 Firebase Authentication: Google + Phone. Firestore stores each user's data separately. Owner access is granted by manually creating owners/{UID} in Firestore after the first successful owner login.
 
@@ -33,4 +33,6 @@ New in v1.4.8B: Text Share uses the confirmed compact customer format only: Burm
 
 Fixed in v1.4.8B.1: Firebase JavaScript compat SDK is upgraded from 12.17.1 to 12.18.0. Firebase 12.18.0 officially fixes the signInWithPopup/background-tab failure that displayed "Database is closing/hidden" on affected mobile browsers. Authentication configuration, Firestore rules, user data, parser, reports, and sharing calculations are unchanged.
 
-After uploading all files, refresh the web app twice so the v1.4.8B.1 service worker fully replaces the old cached index, then retry Google Login. If using an installed PWA and the old screen remains, close it fully and reopen once after the two browser refreshes. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
+After uploading all files, refresh the web app twice so the v1.4.8C service worker fully replaces the old cached index, then retry Google Login. If using an installed PWA and the old screen remains, close it fully and reopen once after the two browser refreshes. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
+
+New in v1.4.8C: Added a dynamic header PWA action. Before installation it shows INSTALL and uses the browser install prompt; inside the installed PWA it shows UPDATE and explicitly checks the service worker for a newer release. A successful update activates the new worker and reloads the app once. Added a shared User Guide available from the Login screen and the navigation row. Normal Users see Install/Update, Login, SET Live, and Account instructions. Owners additionally see Entry, Pair Mode, Reports, Share, Backup, and Owner Control instructions. Role permissions, Firebase rules, saved records, parser logic, Live API, report calculations, and the compact Text Share format are unchanged.
