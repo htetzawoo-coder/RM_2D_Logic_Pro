@@ -1,4 +1,4 @@
-RM 2D Logic Pro v1.4.8A — One Date / One Session / One Name Share
+RM 2D Logic Pro v1.4.8B — Compact Text Share
 
 Includes PNG icons at 16, 32, 48, 72, 96, 128, 144, 152, 180, 192, 256, 384, and 512 pixels.
 Also includes Apple Touch, favicon, and maskable icon filenames plus a manifest-icons.json snippet.
@@ -29,4 +29,6 @@ New in v1.4.7: Confirmed Community Live API is connected as a read-only public d
 
 New in v1.4.8A: Name-specific sharing now requires exactly one Date, AM or PM, and one Name. Preview, Text, PNG, and CSV exports aggregate duplicate Numbers and display Number and Amount in separate, clear fields. Records, Full History, and Latest Record now display the full expanded Group Amount: for example, 80* at 500 shows 1,000 and -9 at 500 shows 2,500. The underlying saved records, entry parser, role access, Firebase rules, and Live API integration are unchanged.
 
-After uploading all files, refresh the installed PWA once so the v1.4.8A service worker replaces the old cache. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
+New in v1.4.8B: Text Share uses the confirmed compact customer format only: Burmese Name/Date/Session headers, one Number=Amount line per aggregated Number, then Total Amount and Number Count. Share dates display as DD/MM/YYYY. Image Share, CSV, calculations, parser, roles, Firebase, and Live API remain unchanged.
+
+After uploading all files, refresh the installed PWA once so the v1.4.8B service worker replaces the old cache. The existing firestore.rules already allow signed-in users to read marketResults and restrict writes to Owner accounts.
